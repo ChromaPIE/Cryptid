@@ -31,13 +31,6 @@ return {
 					"Cards cannot change enhancements",
 				},
 			},
-			["b_cry_antimatter"] = {
-				["name"] = "Antimatter Deck",
-				["text"] = {
-					"Applies the {C:legendary,E:1}upsides{}",
-					"of {C:attention}every{} deck",
-				},
-			},
 			["b_cry_hierophant_deck"] = {
 				["name"] = "The Hierophant's Deck",
 				["text"] = {
@@ -69,12 +62,12 @@ return {
 					"of {C:attention}Eternal Cards{}",
 				},
 			},
-			["b_cry_misprint"] = {
-				["name"] = "Misprint Deck",
+			["b_cry_moon_deck"] = {
+				["name"] = "Deck of The Moon",
 				["text"] = {
-					"Values of cards",
-					"and poker hands",
-					"are {C:attention}randomized",
+					"All cards in deck are {C:club}Clubs{}",
+					"and cannot change suits",
+					"{C:attention}The Club{} cannot appear",
 				},
 			},
 			["b_cry_medium_deck"] = {
@@ -93,14 +86,6 @@ return {
 					"Cards cannot change enhancements",
 				},
 			},
-			["b_cry_moon_deck"] = {
-				["name"] = "Deck of The Moon",
-				["text"] = {
-					"All cards in deck are {C:club}Clubs{}",
-					"and cannot change suits",
-					"{C:attention}The Club{} cannot appear",
-				},
-			},
 			["b_cry_very_fair"] = {
 				["name"] = "Very Fair Deck",
 				["text"] = {
@@ -110,12 +95,11 @@ return {
 					"appear in the shop",
 				},
 			},
-			["b_cry_devil_deck"] = {
-				["name"] = "The Devil's Deck",
+			["b_cry_antimatter"] = {
+				["name"] = "Antimatter Deck",
 				["text"] = {
-					"Start with a deck",
-					"of {C:attention}Gold Cards{}",
-					"Cards cannot change enhancements",
+					"Applies the {C:legendary,E:1}upsides{}",
+					"of {C:attention}every{} deck",
 				},
 			},
 			["b_cry_holo_deck"] = {
@@ -126,28 +110,12 @@ return {
 					"Cards cannot change editions",
 				},
 			},
-			["b_cry_equilibrium"] = {
-				["name"] = "Deck of Equilibrium",
-				["text"] = {
-					"All cards have the",
-					"{C:attention}same chance{} of",
-					"appearing in shops,",
-					"start run with",
-					"{C:attention,T:v_overstock_plus}Overstock Plus",
-				},
-			},
 			["b_cry_lovers_deck"] = {
 				["name"] = "The Lovers' Deck",
 				["text"] = {
 					"Start with a deck",
 					"of {C:attention}Wild Cards{}",
 					"Cards cannot change enhancements",
-				},
-			},
-			["b_cry_blank"] = {
-				["name"] = "Blank Deck",
-				["text"] = {
-					"{C:inactive,E:1}Does nothing?",
 				},
 			},
 			["b_cry_star_deck"] = {
@@ -166,12 +134,20 @@ return {
 					"Cards cannot change enhancements",
 				},
 			},
-			["b_cry_trance_deck"] = {
-				["name"] = "Trance Deck",
+			["b_cry_devil_deck"] = {
+				["name"] = "The Devil's Deck",
 				["text"] = {
 					"Start with a deck",
-					"of {C:attention}Blue Seal Cards{}",
-					"Cards cannot change seals",
+					"of {C:attention}Gold Cards{}",
+					"Cards cannot change enhancements",
+				},
+			},
+			["b_cry_sun_deck"] = {
+				["name"] = "Deck of The Sun",
+				["text"] = {
+					"All cards in deck are {C:heart}Hearts{}",
+					"and cannot change suits",
+					"{C:attention}The Head{} cannot appear",
 				},
 			},
 			["b_cry_deja_vu_deck"] = {
@@ -220,12 +196,36 @@ return {
 					"number of cards",
 				},
 			},
-			["b_cry_sun_deck"] = {
-				["name"] = "Deck of The Sun",
+			["b_cry_misprint"] = {
+				["name"] = "Misprint Deck",
 				["text"] = {
-					"All cards in deck are {C:heart}Hearts{}",
-					"and cannot change suits",
-					"{C:attention}The Head{} cannot appear",
+					"Values of cards",
+					"and poker hands",
+					"are {C:attention}randomized",
+				},
+			},
+			["b_cry_equilibrium"] = {
+				["name"] = "Deck of Equilibrium",
+				["text"] = {
+					"All cards have the",
+					"{C:attention}same chance{} of",
+					"appearing in shops,",
+					"start run with",
+					"{C:attention,T:v_overstock_plus}Overstock Plus",
+				},
+			},
+			["b_cry_blank"] = {
+				["name"] = "Blank Deck",
+				["text"] = {
+					"{C:inactive,E:1}Does nothing?",
+				},
+			},
+			["b_cry_trance_deck"] = {
+				["name"] = "Trance Deck",
+				["text"] = {
+					"Start with a deck",
+					"of {C:attention}Blue Seal Cards{}",
+					"Cards cannot change seals",
 				},
 			},
 			["b_cry_magician_deck"] = {
@@ -246,11 +246,11 @@ return {
 			},
 		},
 		["Blind"] = {
-			["bl_cry_tax"] = {
-				["name"] = "The Tax",
+			["bl_cry_vermillion_virus"] = {
+				["name"] = "Vermillion Virus",
 				["text"] = {
-					"Score per hand capped at",
-					"0.4X blind requirements",
+					"One random Joker",
+					"replaced every hand",
 				},
 			},
 			["bl_cry_lavender_loop"] = {
@@ -260,13 +260,6 @@ return {
 					"1.5 seconds spent this round",
 				},
 			},
-			["bl_cry_clock"] = {
-				["name"] = "The Clock",
-				["text"] = {
-					"+0.1X blind requirements every",
-					"3 seconds spent this ante",
-				},
-			},
 			["bl_cry_trick"] = {
 				["name"] = "The Trick",
 				["text"] = {
@@ -274,11 +267,18 @@ return {
 					"face-up cards held in hand",
 				},
 			},
-			["bl_cry_vermillion_virus"] = {
-				["name"] = "Vermillion Virus",
+			["bl_cry_clock"] = {
+				["name"] = "The Clock",
 				["text"] = {
-					"One random Joker",
-					"replaced every hand",
+					"+0.1X blind requirements every",
+					"3 seconds spent this ante",
+				},
+			},
+			["bl_cry_tax"] = {
+				["name"] = "The Tax",
+				["text"] = {
+					"Score per hand capped at",
+					"0.4X blind requirements",
 				},
 			},
 			["bl_cry_joke"] = {
@@ -328,6 +328,22 @@ return {
 					"{s:0.8}Applies Twilight Stake",
 				},
 			},
+			["stake_cry_horizon"] = {
+				["name"] = "Horizon Stake",
+				["text"] = {
+					"When blind selected, add a",
+					"{C:attention}random card{} to deck",
+					"{s:0.8,C:inactive}(Not yet implemented){}",
+					"{s:0.8}Applies Dawn Stake",
+				},
+			},
+			["stake_cry_crimson"] = {
+				["name"] = "Crimson Stake",
+				["text"] = {
+					"Vouchers restock on {C:attention}even{} Antes",
+					"{s:0.8}Applies Gray Stake",
+				},
+			},
 			["stake_cry_blossom"] = {
 				["name"] = "Blossom Stake",
 				["text"] = {
@@ -353,27 +369,12 @@ return {
 					"{s:0.8}Applies Pink Stake",
 				},
 			},
-			["stake_cry_amber"] = {
-				["name"] = "Amber Stake",
+			["stake_cry_ember"] = {
+				["name"] = "Ember Stake",
 				["text"] = {
-					"{C:attention}-1{} Booster Pack slot",
-					"{s:0.8}Applies Diamond Stake",
-				},
-			},
-			["stake_cry_jade"] = {
-				["name"] = "Jade Stake",
-				["text"] = {
-					"Cards can be drawn {C:attention}face down{}",
-					"{s:0.8}Applies Yellow Stake",
-				},
-			},
-			["stake_cry_horizon"] = {
-				["name"] = "Horizon Stake",
-				["text"] = {
-					"When blind selected, add a",
-					"{C:attention}random card{} to deck",
+					"All items have no sell value",
 					"{s:0.8,C:inactive}(Not yet implemented){}",
-					"{s:0.8}Applies Dawn Stake",
+					"{s:0.8}Applies Verdant Stake",
 				},
 			},
 			["stake_cry_pink"] = {
@@ -384,12 +385,14 @@ return {
 					"{s:0.8}Applies 金注",
 				},
 			},
-			["stake_cry_ascendant"] = {
-				["name"] = "Ascendant Stake",
+			["stake_cry_dawn"] = {
+				["name"] = "Dawn Stake",
 				["text"] = {
-					"{C:attention}-1{} Joker slot",
+					"Tarots and Spectrals target {C:attention}1",
+					"fewer card",
+					"{s:0.8,C:inactive}(Minimum of 1){}",
 					"{s:0.8,C:inactive}(Not yet implemented){}",
-					"{s:0.8}Applies Azure Stake",
+					"{s:0.8}Applies Ember Stake",
 				},
 			},
 			["stake_cry_ruby"] = {
@@ -408,13 +411,12 @@ return {
 					"{s:0.8}Applies Jade Stake",
 				},
 			},
-			["stake_cry_emerald"] = {
-				["name"] = "Emerald Stake",
+			["stake_cry_ascendant"] = {
+				["name"] = "Ascendant Stake",
 				["text"] = {
-					"Cards, packs, and vouchers",
-					"can be {C:attention}face down{}",
-					"{s:0.8,C:inactive}(Unable to be viewed until purchased){}",
-					"{s:0.8}Applies Sapphire Stake",
+					"{C:attention}-1{} Joker slot",
+					"{s:0.8,C:inactive}(Not yet implemented){}",
+					"{s:0.8}Applies Azure Stake",
 				},
 			},
 			["stake_cry_sapphire"] = {
@@ -433,19 +435,18 @@ return {
 					"{s:0.8}Applies Emerald Stake",
 				},
 			},
-			["stake_cry_bronze"] = {
-				["name"] = "Bronze Stake",
+			["stake_cry_jade"] = {
+				["name"] = "Jade Stake",
 				["text"] = {
-					"Vouchers are {C:attention}50%{} more expensive",
-					"{s:0.8}Applies Amber Stake",
+					"Cards can be drawn {C:attention}face down{}",
+					"{s:0.8}Applies Yellow Stake",
 				},
 			},
-			["stake_cry_ember"] = {
-				["name"] = "Ember Stake",
+			["stake_cry_amber"] = {
+				["name"] = "Amber Stake",
 				["text"] = {
-					"All items have no sell value",
-					"{s:0.8,C:inactive}(Not yet implemented){}",
-					"{s:0.8}Applies Verdant Stake",
+					"{C:attention}-1{} Booster Pack slot",
+					"{s:0.8}Applies Diamond Stake",
 				},
 			},
 			["stake_cry_azure"] = {
@@ -466,21 +467,20 @@ return {
 					"{s:0.8}Applies Platinum Stake",
 				},
 			},
-			["stake_cry_dawn"] = {
-				["name"] = "Dawn Stake",
+			["stake_cry_emerald"] = {
+				["name"] = "Emerald Stake",
 				["text"] = {
-					"Tarots and Spectrals target {C:attention}1",
-					"fewer card",
-					"{s:0.8,C:inactive}(Minimum of 1){}",
-					"{s:0.8,C:inactive}(Not yet implemented){}",
-					"{s:0.8}Applies Ember Stake",
+					"Cards, packs, and vouchers",
+					"can be {C:attention}face down{}",
+					"{s:0.8,C:inactive}(Unable to be viewed until purchased){}",
+					"{s:0.8}Applies Sapphire Stake",
 				},
 			},
-			["stake_cry_crimson"] = {
-				["name"] = "Crimson Stake",
+			["stake_cry_bronze"] = {
+				["name"] = "Bronze Stake",
 				["text"] = {
-					"Vouchers restock on {C:attention}even{} Antes",
-					"{s:0.8}Applies Gray Stake",
+					"Vouchers are {C:attention}50%{} more expensive",
+					"{s:0.8}Applies Amber Stake",
 				},
 			},
 		},
@@ -515,11 +515,11 @@ return {
 			},
 		},
 		["Other"] = {
-			["cry_dawn_sticker"] = {
-				["name"] = "Dawn Sticker",
+			["cry_ascendant_sticker"] = {
+				["name"] = "Ascendant Sticker",
 				["text"] = {
 					"Used this Joker",
-					"to win on {C:attention}Dawn",
+					"to win on {C:attention}Ascendant",
 					"{C:attention}Stake{} difficulty",
 				},
 			},
@@ -603,6 +603,14 @@ return {
 					"{C:attention}Stake{} difficulty",
 				},
 			},
+			["cry_brown_sticker"] = {
+				["name"] = "Brown Sticker",
+				["text"] = {
+					"Used this Joker",
+					"to win on {C:attention}Brown",
+					"{C:attention}Stake{} difficulty",
+				},
+			},
 			["cry_cyan_sticker"] = {
 				["name"] = "Cyan Sticker",
 				["text"] = {
@@ -616,14 +624,6 @@ return {
 				["text"] = {
 					"Used this Joker",
 					"to win on {C:attention}Blossom",
-					"{C:attention}Stake{} difficulty",
-				},
-			},
-			["cry_ascendant_sticker"] = {
-				["name"] = "Ascendant Sticker",
-				["text"] = {
-					"Used this Joker",
-					"to win on {C:attention}Ascendant",
 					"{C:attention}Stake{} difficulty",
 				},
 			},
@@ -651,14 +651,6 @@ return {
 					"{C:attention}Stake{} difficulty",
 				},
 			},
-			["cry_ember_sticker"] = {
-				["name"] = "Ember Sticker",
-				["text"] = {
-					"Used this Joker",
-					"to win on {C:attention}Ember",
-					"{C:attention}Stake{} difficulty",
-				},
-			},
 			["cry_amber_sticker"] = {
 				["name"] = "Amber Sticker",
 				["text"] = {
@@ -667,11 +659,11 @@ return {
 					"{C:attention}Stake{} difficulty",
 				},
 			},
-			["cry_brown_sticker"] = {
-				["name"] = "Brown Sticker",
+			["cry_ember_sticker"] = {
+				["name"] = "Ember Sticker",
 				["text"] = {
 					"Used this Joker",
-					"to win on {C:attention}Brown",
+					"to win on {C:attention}Ember",
 					"{C:attention}Stake{} difficulty",
 				},
 			},
@@ -704,6 +696,14 @@ return {
 				["text"] = {
 					"Used this Joker",
 					"to win on {C:attention}Sapphire",
+					"{C:attention}Stake{} difficulty",
+				},
+			},
+			["cry_dawn_sticker"] = {
+				["name"] = "Dawn Sticker",
+				["text"] = {
+					"Used this Joker",
+					"to win on {C:attention}Dawn",
 					"{C:attention}Stake{} difficulty",
 				},
 			},
@@ -744,28 +744,27 @@ return {
 					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
 				},
 			},
-			["j_cry_waluigi"] = {
-				["name"] = "Waluigi",
-				["text"] = {
-					"All Jokers give",
-					"{X:mult,C:white} X#1# {} Mult",
-				},
-			},
-			["j_cry_jimball"] = {
-				["name"] = "Jimball",
+			["j_cry_m"] = {
+				["name"] = "m",
 				["text"] = {
 					"This Joker gains {X:mult,C:white} X#1# {} Mult",
-					"per {C:attention}consecutive{} hand played",
-					"while playing your",
-					"most played {C:attention}poker hand",
+					"when {C:attention}Jolly Joker{} is sold",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
 				},
 			},
-			["j_cry_blurred"] = {
-				["name"] = "Blurred Joker",
+			["j_cry_chili_pepper"] = {
+				["name"] = "Chili Pepper",
 				["text"] = {
-					"{C:blue}+1{} hand when",
-					"blind is selected",
+					"{X:mult,C:white} X#1# {} Mult, increases by",
+					"{X:mult,C:white} X#2# {} Mult at end of round,",
+					"destroyed after {C:attention}#3#{} rounds",
+				},
+			},
+			["j_cry_nice"] = {
+				["name"] = "Nice",
+				["text"] = {
+					"{C:chips}+#1#{} Chips if played hand",
+					"contains a {C:attention}6{} and a {C:attention}9",
 				},
 			},
 			["j_cry_whip"] = {
@@ -775,6 +774,12 @@ return {
 					"if {C:attention}hand played{} contains a",
 					"2 and 7 of different suits",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+				},
+			},
+			["j_cry_big_cube"] = {
+				["name"] = "Big Cube",
+				["text"] = {
+					"{X:chips,C:white} X#1# {} Chips",
 				},
 			},
 			["j_cry_compound_interest"] = {
@@ -809,21 +814,21 @@ return {
 					"{C:money,s:0.8}$#4#{C:inactive,s:0.8} after each use",
 				},
 			},
-			["j_cry_fspinner"] = {
-				["name"] = "Fidget Spinner",
-				["text"] = {
-					"This Joker gains {C:chips}+#2#{} Chips",
-					"if hand played is {C:attention}not{}",
-					"most played poker hand",
-					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
-				},
-			},
 			["j_cry_effarcire"] = {
 				["name"] = "Effarcire",
 				["text"] = {
 					"Always draw your",
 					"{C:green}entire deck{} to hand",
 					"at start of round",
+				},
+			},
+			["j_cry_maximized"] = {
+				["name"] = "Maximized",
+				["text"] = {
+					"All {C:attention}face{} cards",
+					"are considered {C:attention}Kings{},",
+					"all {C:attention}numbered{} cards",
+					"are considered {C:attention}10s{}",
 				},
 			},
 			["j_cry_krustytheclown"] = {
@@ -851,27 +856,11 @@ return {
 					"{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
 				},
 			},
-			["j_cry_m"] = {
-				["name"] = "m",
+			["j_cry_triplet_rhythm"] = {
+				["name"] = "Triplet Rhythm",
 				["text"] = {
-					"This Joker gains {X:mult,C:white} X#1# {} Mult",
-					"when {C:attention}Jolly Joker{} is sold",
-					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
-				},
-			},
-			["j_cry_nice"] = {
-				["name"] = "Nice",
-				["text"] = {
-					"{C:chips}+#1#{} Chips if played hand",
-					"contains a {C:attention}6{} and a {C:attention}9",
-				},
-			},
-			["j_cry_chili_pepper"] = {
-				["name"] = "Chili Pepper",
-				["text"] = {
-					"{X:mult,C:white} X#1# {} Mult, increases by",
-					"{X:mult,C:white} X#2# {} Mult at end of round,",
-					"destroyed after {C:attention}#3#{} rounds",
+					"{X:mult,C:white} X#1# {} Mult if scoring hand",
+					"contains {C:attention}exactly{} three {C:attention}3s",
 				},
 			},
 			["j_cry_eternalflame"] = {
@@ -880,19 +869,6 @@ return {
 					"This Joker gains {X:mult,C:white} X#1# {} Mult",
 					"per {C:attention}card{} sold",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
-				},
-			},
-			["j_cry_booster"] = {
-				["name"] = "Booster Joker",
-				["text"] = {
-					"{C:attention}+#1#{} Booster Pack slot",
-				},
-			},
-			["j_cry_triplet_rhythm"] = {
-				["name"] = "Triplet Rhythm",
-				["text"] = {
-					"{X:mult,C:white} X#1# {} Mult if scoring hand",
-					"contains {C:attention}exactly{} three {C:attention}3s",
 				},
 			},
 			["j_cry_canvas"] = {
@@ -957,13 +933,13 @@ return {
 					"destroy all others",
 				},
 			},
-			["j_cry_maximized"] = {
-				["name"] = "Maximized",
+			["j_cry_number_blocks"] = {
+				["name"] = "Number Blocks",
 				["text"] = {
-					"All {C:attention}face{} cards",
-					"are considered {C:attention}Kings{},",
-					"all {C:attention}numbered{} cards",
-					"are considered {C:attention}10s{}",
+					"Earn {C:money}$#1#{} at end of round,",
+					"permanently increase payout by",
+					"{C:money}$#2#{} for each {C:attention}#3#{} held in hand,",
+					"rank changes every round",
 				},
 			},
 			["j_cry_pickle"] = {
@@ -990,12 +966,6 @@ return {
 					"{C:blue}#2#{} every round",
 				},
 			},
-			["j_cry_big_cube"] = {
-				["name"] = "Big Cube",
-				["text"] = {
-					"{X:chips,C:white} X#1# {} Chips",
-				},
-			},
 			["j_cry_sync_catalyst"] = {
 				["name"] = "Sync Catalyst",
 				["text"] = {
@@ -1012,20 +982,43 @@ return {
 					"when sold",
 				},
 			},
-			["j_cry_tenebris"] = {
-				["name"] = "Tenebris",
+			["j_cry_waluigi"] = {
+				["name"] = "Waluigi",
 				["text"] = {
-					"{C:dark_edition}+#1#{C:attention} Joker{} slots,",
-					"gives {C:money}$#2#{} at end of round",
+					"All Jokers give",
+					"{X:mult,C:white} X#1# {} Mult",
 				},
 			},
-			["j_cry_number_blocks"] = {
-				["name"] = "Number Blocks",
+			["j_cry_blurred"] = {
+				["name"] = "Blurred Joker",
 				["text"] = {
-					"Earn {C:money}$#1#{} at end of round,",
-					"permanently increase payout by",
-					"{C:money}$#2#{} for each {C:attention}#3#{} held in hand,",
-					"rank changes every round",
+					"{C:blue}+1{} hand when",
+					"blind is selected",
+				},
+			},
+			["j_cry_booster"] = {
+				["name"] = "Booster Joker",
+				["text"] = {
+					"{C:attention}+#1#{} Booster Pack slot",
+				},
+			},
+			["j_cry_jimball"] = {
+				["name"] = "Jimball",
+				["text"] = {
+					"This Joker gains {X:mult,C:white} X#1# {} Mult",
+					"per {C:attention}consecutive{} hand played",
+					"while playing your",
+					"most played {C:attention}poker hand",
+					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+				},
+			},
+			["j_cry_fspinner"] = {
+				["name"] = "Fidget Spinner",
+				["text"] = {
+					"This Joker gains {C:chips}+#2#{} Chips",
+					"if hand played is {C:attention}not{}",
+					"most played poker hand",
+					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
 				},
 			},
 			["j_cry_googol_play"] = {
@@ -1048,6 +1041,13 @@ return {
 					"Retrigger all cards played {C:attention}#2#{} time(s),",
 					"each played card gives",
 					"{X:mult,C:white} X#1# {} Mult when scored",
+				},
+			},
+			["j_cry_tenebris"] = {
+				["name"] = "Tenebris",
+				["text"] = {
+					"{C:dark_edition}+#1#{C:attention} Joker{} slots,",
+					"gives {C:money}$#2#{} at end of round",
 				},
 			},
 		},
