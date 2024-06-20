@@ -653,7 +653,7 @@ local obsidian_orb = {
             s = G.P_BLINDS[k]
             if s.cry_after_play then s:cry_after_play(blind) end
         end
-        end,
+    end,
     get_loc_debuff_text = function(self, blind)
         if not blind.debuff_boss then return "Applies abilities of all defeated bosses" end
         local loc_vars = nil
