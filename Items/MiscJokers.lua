@@ -1102,12 +1102,14 @@ local waluigi = {
 	blueprint_compat = true,
 	calculate = function(self, card, context)
         if context.other_joker and context.other_joker.ability.set == "Joker" then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    context.other_joker:juice_up(0.5, 0.5)
-                    return true
-                end
-            })) 
+            if not Talisman.config_file.disable_anims then 
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        context.other_joker:juice_up(0.5, 0.5)
+                        return true
+                    end
+                })) 
+            end
             return {
                 message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
                 Xmult_mod = card.ability.extra.Xmult
@@ -1130,7 +1132,7 @@ local krustytheclown = {
 	pos = {x = 0, y = 0},
 	config = {extra = {extra = 0.02, x_mult = 1}},
 	loc_txt = {
-        name = 'Krusty The Clown',
+        name = 'Krusty the Clown',
         text = {
 			"This Joker gains {X:mult,C:white} X#1# {} Mult",
 			"per {C:attention}card{} scored",
@@ -1341,7 +1343,7 @@ local antennastoheaven = {
     pos = {x = 0, y = 0},
     config = {extra = {bonus = 0.1, Xchips = 1}},
     loc_txt = {
-        name = '...Like Antennas To Heaven',
+        name = '...Like Antennas to Heaven',
         text = {
             "This Joker gains {X:chips,C:white} X#1# {} Chips",
             "per {C:attention}7{} or {C:attention}4{} scored",
