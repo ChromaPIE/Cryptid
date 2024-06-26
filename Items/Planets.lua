@@ -1,7 +1,7 @@
 function HandLoc(table)
     local o = {}
     for _, v in ipairs(table) do 
-        table.insert(t, G.localization.misc[v])
+        table.insert(o, G.localization.misc[v])
     end
     return o
 end
