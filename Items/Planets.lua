@@ -1,3 +1,11 @@
+function HandLoc(table)
+    local o = {}
+    for _, v in ipairs(table) do 
+        table.insert(t, G.localization.misc[v])
+    end
+    return o
+end
+
 local timantti = {
     object_type = "Consumable",
     set = "Planet",
@@ -6,10 +14,9 @@ local timantti = {
     pos = {x=0,y=0},
     config = {hand_types = {'High Card', 'Pair', 'Two Pair'}},
     loc_txt = {
-        name = 'Timantti',
+        name = '方片·提曼蒂',
         text = {
-            "Level up {C:attention}#1#{},",
-            "{C:attention}#2#{}, and {C:attention}#3#"
+            "升级{C:attention}#1#{}、{C:attention}#2#{}、{C:attention}#3#"
         }
     },
     cost = 4,
@@ -19,7 +26,7 @@ local timantti = {
         return true
     end,
     loc_vars = function(self, info_queue, center)
-        return {vars = self.config.hand_types}
+        return {vars = HandLoc(self.config.hand_types)}
     end,
     use = function(self, card, area, copier)
         suit_level_up(self, card, area, copier)
@@ -36,10 +43,9 @@ local klubi = {
     pos = {x=1,y=0},
     config = {hand_types = {'Three of a Kind', 'Straight', 'Flush'}},
     loc_txt = {
-        name = 'Klubi',
+        name = '梅花·克鲁比',
         text = {
-            "Level up {C:attention}#1#{},",
-            "{C:attention}#2#{}, and {C:attention}#3#"
+            "升级{C:attention}#1#{}、{C:attention}#2#{}、{C:attention}#3#"
         }
     },
     cost = 4,
@@ -49,7 +55,7 @@ local klubi = {
         return true
     end,
     loc_vars = function(self, info_queue, center)
-        return {vars = self.config.hand_types}
+        return {vars = HandLoc(self.config.hand_types)}
     end,
     use = function(self, card, area, copier)
         suit_level_up(self, card, area, copier)
@@ -66,10 +72,9 @@ local sydan = {
     pos = {x=2,y=0},
     config = {hand_types = {'Four of a Kind', 'Straight Flush', 'Full House'}},
     loc_txt = {
-        name = 'Sydan',
+        name = '红桃·苏旦',
         text = {
-            "Level up {C:attention}#1#{},",
-            "{C:attention}#2#{}, and {C:attention}#3#"
+            "升级{C:attention}#1#{}、{C:attention}#2#{}、{C:attention}#3#"
         }
     },
     cost = 4,
@@ -79,7 +84,7 @@ local sydan = {
         return true
     end,
     loc_vars = function(self, info_queue, center)
-        return {vars = self.config.hand_types}
+        return {vars = HandLoc(self.config.hand_types)}
     end,
     use = function(self, card, area, copier)
         suit_level_up(self, card, area, copier)
@@ -96,10 +101,9 @@ local lapio = {
     pos = {x=3,y=0},
     config = {hand_types = {'Five of a Kind', 'Flush House', 'Flush Five'}, softlock = true},
     loc_txt = {
-        name = 'Lapio',
+        name = '黑桃·拉匹奥',
         text = {
-            "Level up {C:attention}#1#{},",
-            "{C:attention}#2#{}, and {C:attention}#3#"
+            "升级{C:attention}#1#{}、{C:attention}#2#{}、{C:attention}#3#"
         }
     },
     cost = 4,
@@ -109,7 +113,7 @@ local lapio = {
         return true
     end,
     loc_vars = function(self, info_queue, center)
-        return {vars = self.config.hand_types}
+        return {vars = HandLoc(self.config.hand_types)}
     end,
     use = function(self, card, area, copier)
         suit_level_up(self, card, area, copier)

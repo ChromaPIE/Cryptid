@@ -5,10 +5,10 @@ local white_hole = {
     key = "white_hole",
     pos = {x=0,y=0},
     loc_txt = {
-        name = 'White Hole',
-        text = { "{C:attention}Remove{} all hand levels,",
-        "upgrade {C:legendary,E:1}most played{} poker hand",
-        "by {C:attention}3{} for each removed level"
+        name = '白洞',
+        text = { "{C:attention}清除{}所有牌型等级",
+        "每清除1级，使{C:legendary,E:1}最常出{}牌型",
+        "的等级提升{C:attention}3",
         }
     },
     cost = 4,
@@ -96,12 +96,11 @@ local vacuum = {
     pos = {x=0,y=0},
 	config = {extra = 4},
     loc_txt = {
-        name = 'Vacuum',
+        name = '真空',
         text = {
-			"Removes {C:red}all {C:green}modifications{}",
-			"from {C:red}all{} cards in your hand,",
-			"Earn {C:money}$#1#{} per {C:green}modification{} removed",
-			"{C:inactive,s:0.7}(ex. Enhancements, Seals, Editions)"
+			"清除{C:red}所有{}手牌的全部{C:green}修改",
+            "{C:inactive,s:0.8}（增强、蜡封、版本等）",
+			"每清除一项，获得{C:money}$#1#"
         }
     },
     cost = 15,
@@ -158,12 +157,12 @@ local hammerspace = {
     pos = {x=0,y=0},
 	config = {},
     loc_txt = {
-        name = 'Hammerspace',
+        name = '百宝袋',
         text = {
-			"Apply random {C:attention}consumables{}",
-			"as if they were {C:dark_edition}Enhancements{}",
-			"to your {C:attention}entire hand{}",
-			"{C:red}-1{} hand size"
+			"以{C:dark_edition}增强{}的形式",
+			"为{C:attention}每张手牌{}附加一个{C:attention}消耗牌{}效果",
+			"{C:inactive,s:0.8}（既可照常打出，也可作为消耗牌使用）",
+			"手牌上限{C:red}-1"
         }
     },
     cost = 4,
@@ -206,10 +205,10 @@ local lock = {
     pos = {x=0,y=0},
 	config = {},
     loc_txt = {
-        name = 'Lock',
+        name = '锁',
         text = {
-			"Remove {C:red}all{} stickers from {C:red}all {C:attention}Jokers{},",
-			"then apply {C:purple,E:1}Eternal{} to a random {C:attention}Joker{}"
+			"移除{C:red}每张{C:attention}小丑牌{}上的{C:red}所有{}标贴",
+			"并为随机一张{C:attention}小丑牌{}添加{C:purple,E:1}永恒"
         }
     },
     cost = 4,

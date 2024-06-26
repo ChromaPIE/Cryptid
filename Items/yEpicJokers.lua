@@ -120,11 +120,11 @@ local canvas = {
 	pos = {x = 0, y = 0},
 	config = {num_retriggers = 0},
 	loc_txt = {
-        name = 'Canvas',
+        name = '画布',
         text = {
-			"{C:attention}Retrigger{} all {C:attention}Jokers{} to the left",
-			"once for {C:attention}every{} non-{C:blue}Common{C:attention} Joker{}",
-			"to the right of this Joker"
+			"本牌右侧的每张非{C:blue}普通{}小丑牌",
+			"均会使本牌左侧的",
+			"{C:attention}每张小丑牌重新触发{}一次"
 		}
     },
 	rarity = "cry_epic",
@@ -310,12 +310,11 @@ local boredom = {
 	pos = {x = 0, y = 0},
 	config = {extra = {odds = 2}},
 	loc_txt = {
-        name = 'Boredom',
+        name = '无聊乱画',
         text = {
-			"{C:green}#1# in #2#{} chance to",
-			"{C:attention}retrigger{} each {C:attention}Joker{}",
-			"{C:attention}or played card{}",
-			"{C:inactive,s:0.8}(Excludes itself){}"
+			"每张{C:attention}小丑牌{}和{C:attention}扑克牌",
+			"均有{C:green}#1#/#2#{}的几率{C:attention}重新触发",
+			"{C:inactive,s:0.8}（不包括自身）"
 		}
     },
 	rarity = "cry_epic",

@@ -53,10 +53,10 @@ local tax = {
         max = 10
     },
 	loc_txt = {
-        name = 'The Tax',
+        name = '赋税',
         text = {
-            "Score per hand capped at",
-            "0.4X blind requirements"
+            "每次出牌的得分",
+            "至多为盲注最低要求的40%"
         }
     },
     atlas = "blinds",
@@ -78,10 +78,10 @@ local clock = {
         max = 10
     },
 	loc_txt = {
-        name = 'The Clock',
+        name = '时钟',
         text = {
-            "+0.1X blind requirements every",
-            "3 seconds spent this ante"
+            "在当前底注内每耗时3秒",
+            "本盲注最低要求+0.1X"
         }
     },
     atlas = "blinds",
@@ -108,10 +108,10 @@ local trick = {
         max = 10
     },
 	loc_txt = {
-        name = 'The Trick',
+        name = '诡计',
         text = {
-            "After each hand, flip all",
-            "face-up cards held in hand"
+            "每次出牌后",
+            "翻转所有正面朝上的手牌"
         }
     },
     atlas = "blinds",
@@ -147,10 +147,10 @@ local joke = {
         max = 10
     },
 	loc_txt = {
-        name = 'The Joke',
+        name = '丑戏',
         text = {
-            "If score is >2X requirements,",
-            "set ante to multiple of 8"
+            "若得分超过最低要求的两倍",
+            "将底注数设为8的倍数"
         }
     },
     atlas = "blinds",
@@ -170,10 +170,10 @@ local lavender_loop = {
         showdown = true
     },
 	loc_txt = {
-        name = 'Lavender Loop',
+        name = '淡紫时环',
         text = {
-            "1.25X blind requirements every",
-            "1.5 seconds spent this round"
+            "本回合内每耗时1.5秒",
+            "本盲注最低要求X1.25"
         }
     },
     atlas = "blinds",
@@ -199,10 +199,10 @@ local vermillion_virus = {
         showdown = true
     },
 	loc_txt = {
-        name = 'Vermillion Virus',
+        name = '银朱病毒',
         text = {
-            "One random Joker",
-            "replaced every hand"
+            "每次出牌",
+            "随机替换一张小丑牌"
         }
     },
     atlas = "blinds",
@@ -237,10 +237,10 @@ local sapphire_stamp = {
         showdown = true
     },
 	loc_txt = {
-        name = 'Sapphire Stamp',
+        name = '宝蓝邮戳',
         text = {
-            "Select an extra card, deselect",
-            "random card before scoring"
+            "可额外选定并打出一张牌",
+            "但计分前随机退回一张牌"
         }
     },
     atlas = "blinds",
@@ -277,10 +277,10 @@ local obsidian_orb = {
         showdown = true
     },
 	loc_txt = {
-        name = 'Obsidian Orb',
+        name = '黑曜球体',
         text = {
-            "Applies abilities of",
-            "all defeated bosses"
+            "拥有所有被击败的",
+            "Boss盲注的限制能力"
         }
     },
     atlas = "blinds",
