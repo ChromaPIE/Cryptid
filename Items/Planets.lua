@@ -1,6 +1,6 @@
-function HandLoc(table)
+function HandLoc(t)
     local o = {}
-    for _, v in ipairs(table) do
+    for _, v in ipairs(t) do
         table.insert(o, G.localization.misc['poker_hands'][v])
     end
     return o
