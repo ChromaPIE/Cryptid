@@ -6,10 +6,10 @@ local googol_play = {
 	config = {extra = {Xmult = 1e100, odds = 10}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Googol Play Card',
+        name = '谷哥商店礼品卡',
         text = {
-			"{C:green}#1# in #2#{} chance for",
-			"{X:red,C:white} X1e100 {} Mult"
+			"有{C:green}#1#/#2#{}的几率",
+			"给予{X:red,C:white} X1e100 {}倍率"
 		}
     },
 	rarity = "cry_epic",
@@ -46,11 +46,10 @@ local sync_catalyst = {
 	key = "sync_catalyst",
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Sync Catalyst',
+        name = '同步催化',
         text = {
-			"Balance {C:blue}Chips{} and",
-			"{C:red}Mult{} when this Joker",
-			"is triggered"
+			"本牌触发时",
+			"平衡{C:blue}筹码{}和{C:red}倍率",
 		}
     },
 	rarity = "cry_epic",
@@ -86,9 +85,9 @@ local negative = {
 	pos = {x = 0, y = 0},
 	config = {extra = 3},
 	loc_txt = {
-        name = 'Negative Joker',
+        name = '负片小丑',
         text = {
-			"{C:dark_edition}+#1#{C:attention} Joker{} slots"
+			"{C:attention}小丑牌{}槽位{C:dark_edition}+#1#"
 		}
     },
 	rarity = "cry_epic",
@@ -363,12 +362,12 @@ local number_blocks = {
     config = {extra = {money_mod = 1, money = 0}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Number Blocks',
+        name = '数字方块',
         text = {
-			"Earn {C:money}$#1#{} at end of round,",
-			"permanently increase payout by",
-			"{C:money}$#2#{} for each {C:attention}#3#{} held in hand,",
-			"rank changes every round"
+			"回合结束时获得{C:money}$#1#",
+			"每张留在手牌中的{C:attention}#3#",
+			"会使可获得金额永久提升{C:money}$#2#",
+			"每回合改变需求点数"
         }
     },
 	rarity = "cry_epic",
@@ -617,11 +616,10 @@ local oldcandy = {
 	key = "oldcandy",
 	pos = {x = 0, y = 0},
 	loc_txt = {
-	name = 'Nostalgic Candy',
+	name = '割绳吃糖',
 	text = {
-			"Permanently gain",
-			"{C:attention}+3{} hand size",
-			"when sold"
+			"售出后",
+			"手牌上限永久{C:attention}+3"
 		}
 	},
 	rarity = "cry_epic",
