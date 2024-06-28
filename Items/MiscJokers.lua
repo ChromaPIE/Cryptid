@@ -98,11 +98,10 @@ local potofjokes = {
 	config = {extra = {h_size = -2, h_mod = 1}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Pot of Jokes',
+        name = '丑欲之壶',
         text = {
-            "{C:attention}#1#{} hand size,",
-            "increases by",
-            "{C:blue}#2#{} every round"}
+            "手牌上限{C:attention}#1#",
+            "每回合提升{C:blue}#2#"}
     	},
 	rarity = 3,
 	cost = 10,
@@ -291,11 +290,10 @@ local lucky_joker = {
     config = {extra = { dollars = 5}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Lucky Joker',
+        name = '幸运小丑',
         text = {
-            "Earn {C:money}$#1#{} every time a",
-            "{C:attention}Lucky{} card {C:green}successfully{}",
-            "triggers"
+            "{C:attention}幸运牌{C:green}成功{}触发时",
+            "获得{C:money}$#1#"
         }
     },
 	rarity = 1,
@@ -334,11 +332,11 @@ local cursor = {
     config = {extra = {chips = 0, chip_mod = 5}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Cursor',
+        name = '鼠标指针',
         text = {
-            "This Joker gains {C:chips}+#2#{} Chips",
-            "for each card {C:attention}purchased{}",
-            "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
+            "{C:attention}购买{}卡牌时",
+            "本牌获得{C:chips}+#2#{}筹码",
+            "{C:inactive}（当前为{C:chips}+#1#{C:inactive}筹码）"
         }
     },
 	rarity = 1,
@@ -378,11 +376,12 @@ local pickle = {
     config = {extra = {tags = 3, tags_mod = 1}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Pickle',
+        name = '酸黄瓜',
         text = {
-            "When {C:attention}Blind{} is skipped, create",
-            "{C:attention}#1#{} Tags, reduced by",
-            "{C:red}#2#{} when {C:attention}Blind{} is selected"
+            "跳过{C:attention}盲注{}时",
+            "生成{C:attention}#1#{}个标签",
+            "选择{C:attention}盲注{}时",
+            "可生成数量减少{C:red}#2#"
         }
     },
 	rarity = 2,

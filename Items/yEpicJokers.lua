@@ -226,9 +226,9 @@ local m = {
 	loc_txt = {
         name = 'm',
         text = {
-			"This Joker gains {X:mult,C:white} X#1# {} Mult",
-			"when {C:attention}Jolly Joker{} is sold",
-			"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+			"售出{C:attention}开心小丑{}时",
+			"本牌获得{X:mult,C:white} X#1# {}倍率",
+			"{C:inactive}（当前为{X:mult,C:white} X#2# {C:inactive}倍率）"
 		}
     },
 	rarity = "cry_epic",
@@ -271,16 +271,15 @@ local M = {
 	loc_txt = {
         name = 'M',
         text = {
-			"When {C:attention}Blind{} is selected,",
-			"create a {C:dark_edition}Negative{}",
-			"{C:attention}Jolly Joker{}"
+			"选择{C:attention}盲注{}时",
+			"生成一张{C:dark_edition}负片{C:attention}开心小丑"
 		}
     },
 	rarity = "cry_epic",
 	cost = 13,
 	discovered = true,
 	blueprint_compat = true,loc_vars = function(self, info_queue, center)
-		info_queue[#info_queue+1] = { set = 'Joker', key = 'j_jolly', specific_vars = {self.config.jolly.t_mult, self.config.jolly.type} }
+		info_queue[#info_queue+1] = { set = 'Joker', key = 'j_jolly', specific_vars = {self.config.jolly.t_mult, G.localization.misc['poker_hands'][self.config.jolly.type]} }
 		info_queue[#info_queue+1] = G.P_CENTERS.e_negative
     end,
 	atlas = "M",
@@ -725,12 +724,11 @@ local curse = {
     key = "curse",
     pos = {x = 0, y = 0},
     loc_txt = {
-        name = 'Sob',
+        name = '我哭死',
         text = {
-            "{C:edition,E:1}you cannot{} {C:dark_edition,E:1}run...{}",
-            "{C:edition,E:1}you cannot{} {C:dark_edition,E:1}hide...{}",
-            "{C:edition,E:1}you cannot{} {C:dark_edition,E:1}escape...{}",
-	    "{C:inactive}(Must have room){}"
+            "{C:edition,E:1}你躲也{C:dark_edition,E:1}躲不掉……",
+            "{C:edition,E:1}你逃也{C:dark_edition,E:1}逃不了……",
+	    "{C:inactive}（必须有空位）"
         }
     },
     rarity = "cry_epic",

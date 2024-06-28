@@ -20,10 +20,10 @@ local mosaic = {
         return {vars = {self.config.Xchips}}
     end,
     loc_txt = {
-        name = "Mosaic",
-        label = "Mosaic",
+        name = "拼花",
+        label = "拼花",
         text = {
-            "{X:chips,C:white} X#1# {} Chips"
+            "{X:chips,C:white}X#1#{}筹码"
         }
     }
 }
@@ -43,10 +43,10 @@ local oversat = {
         return G.GAME.edition_rate * self.weight
     end,
     loc_txt = {
-        name = "Oversaturated",
-        label = "Oversaturated",
+        name = "过曝",
+        label = "过曝",
         text = {
-            "All values are {C:attention}doubled{}"
+            "所有数值{C:attention}翻倍"
         }
     }
 }
@@ -66,10 +66,10 @@ local glitched = {
         return G.GAME.edition_rate * self.weight
     end,
     loc_txt = {
-        name = "Glitched",
-        label = "Glitched",
+        name = "故障",
+        label = "故障",
         text = {
-            "All values are {C:dark_edition}randomized{}"
+            "所有数值{C:dark_edition}随机变动"
         }
     }
 }
