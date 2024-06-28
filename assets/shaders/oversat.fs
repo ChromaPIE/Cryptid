@@ -175,6 +175,13 @@ mediump vec4 effect( mediump vec4 colour, Image texture, mediump vec2 texture_co
 {
     vec4 tex = Texel(texture, texture_coords);
 	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
+	
+	// Dummy, doesn't do anything but at least it makes the shader useable
+    if (uv.x > uv.x * 2.){
+        uv = oversat;
+    }
+
+    float mod = oversat.r * 1.0;
 
 	number low = min(tex.r, min(tex.g, tex.b));
     number high = max(tex.r, max(tex.g, tex.b));

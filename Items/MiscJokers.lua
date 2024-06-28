@@ -213,7 +213,7 @@ local wee_fib = {
 				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
 				
 				return {
-					extra = {focus = self, message = localize('k_upgrade_ex')},
+					extra = {focus = card, message = localize('k_upgrade_ex')},
 					card = card,
 					colour = G.C.MULT
 				}
@@ -579,7 +579,8 @@ local chili_pepper = {
 	loc_txt = {
         name = 'Chili Pepper',
         text = {
-            "This joker gains {X:mult,C:white} X#2# {} Mult at end of round,",
+            "This Joker gains {X:mult,C:white} X#2# {} Mult",
+            "at end of round,",
             "{C:red}self destructs{} after {C:attention}#3#{} rounds",
 	    "{C:inactive}currently{} {X:mult,C:white} X#1# {} {C:inactive}Mult{}"
         }
