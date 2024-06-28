@@ -1,9 +1,7 @@
 #if defined(VERTEX) || __VERSION__ > 100 || defined(GL_FRAGMENT_PRECISION_HIGH)
 	#define MY_HIGHP_OR_MEDIUMP highp
-	precision highp float;
 #else
 	#define MY_HIGHP_OR_MEDIUMP mediump
-	precision mediump float;
 #endif
 
 extern MY_HIGHP_OR_MEDIUMP vec2 oversat;
@@ -171,7 +169,7 @@ vec3 increaseContrast(vec3 color, float amount)
     // Convert back to [0,1] range and clamp
     return clamp(centered + 0.5, 0.0, 1.0);
 }
-mediump vec4 effect( mediump vec4 colour, Image texture, mediump vec2 texture_coords, mediump vec2 screen_coords )
+vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
     vec4 tex = Texel(texture, texture_coords);
 	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
