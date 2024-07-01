@@ -143,11 +143,10 @@ local queensgambit = {
     key = "queens_gambit",
     pos = {x = 0, y = 0},
     loc_txt = {
-        name = 'Queen\'s Gambit',
-        text = { "If {C:attention}poker hand{} is a",
-        "{C:attention}Royal Flush{}, destroy scored",
-        "{C:attention}Queen{} and create a",
-        "{C:dark_edition}Negative {}{C:red}Rare{}{C:attention} Joker{}"}
+        name = '后翼弃兵',
+        text = { "若出牌{C:attention}牌型{}为{C:attention}皇家同花顺",
+        "摧毁计分的{C:attention}Q{}并生成一张",
+        "{C:dark_edition}负片{C:red}稀有{C:attention}小丑牌"}
     },
     rarity = 3,
     cost = 10,
@@ -191,12 +190,11 @@ local wee_fib = {
 	config = {extra = {mult = 0, mult_mod = 3}},
 	pos = {x = 1, y = 5},
 	loc_txt = {
-        name = 'Wee Fibonacci',
+        name = '小斐斐',
         text = {
-		"This Joker gains",
-		"{C:mult}+#2#{} Mult for each scored",
-		"{C:attention}Ace{}, {C:attention}2{}, {C:attention}3{}, {C:attention}5{}, or {C:attention}8{}",
-		"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"}
+		"打出{C:attention}A{}、{C:attention}2{}、{C:attention}3{}、{C:attention}5{}或{C:attention}8{}并计分时",
+		"本牌获得{C:mult}+#2#{}倍率",
+		"{C:inactive}（当前为{C:mult}+#1#{C:inactive}倍率）"}
     },
 	rarity = 3,
 	cost = 12,
@@ -866,10 +864,10 @@ local chad = {
 	pos = {x = 0, y = 0},
 	config = {extra = {retriggers = 2}},
 	loc_txt = {
-        name = 'Chad',
+        name = '型男',
         text = {
-            "Retrigger {C:attention}leftmost{} Joker",
-            "{C:attention}#1#{} additional time(s)"
+            "重新触发{C:attention}最左侧",
+            "的小丑牌{C:attention}#1#{}次"
 		}
     },
 	rarity = 3,
@@ -906,13 +904,11 @@ local jimball = {
 	pos = {x = 0, y = 0},
     config = {x_mult = 1, extra = 0.15, override_x_mult_check = true},
 	loc_txt = {
-        name = 'Jimball',
+        name = '金宝转转球',
         text = {
-            "This Joker gains {X:mult,C:white} X#1# {} Mult",
-            "per {C:attention}consecutive{} hand played",
-            "while playing your",
-            "most played {C:attention}poker hand",
-            "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+            "{C:attention}连续{}打出{C:attention}最常出牌型{}时",
+            "本牌获得{X:mult,C:white} X#1# {}倍率",
+            "{C:inactive}（当前为{X:mult,C:white} X#2# {C:inactive}倍率）"
 		}
     },
 	loc_vars = function(self, info_queue, center)
@@ -963,10 +959,9 @@ local sus = {
 	loc_txt = {
         name = 'SUS',
         text = {
-            "At end of round, create",
-            "a {C:attention}copy{} of a random",
-            "card {C:attention}held in hand{},",
-            "destroy all others"
+            "回合结束时",
+            "随机{C:attention}复制{}一张{C:attention}手牌",
+            "并摧毁其余所有卡牌"
 		}
     },
 	rarity = 3,
@@ -1087,10 +1082,10 @@ local waluigi = {
     soul_pos = {x = 1, y = 0},
     config = {extra = {Xmult = 2.5}},
 	loc_txt = {
-        name = 'Waluigi',
+        name = '瓦路易基',
         text = {
-            "All Jokers give",
-            "{X:mult,C:white} X#1# {} Mult"
+            "每张小丑牌",
+            "均给予{X:mult,C:white} X#1# {}倍率"
 		}
     },
 	loc_vars = function(self, info_queue, center)
@@ -1179,10 +1174,10 @@ local blurred = {
 	pos = {x = 0, y = 0},
 	config = {extra = {hands = 1}},
 	loc_txt = {
-        name = 'Blurred Joker',
+        name = '模糊小丑',
         text = {
-			"{C:blue}+#1#{} hand(s) when",
-			"{C:attention}Blind{} is selected"
+			"选择{C:attention}盲注{}时",
+			"出牌次数{C:blue}+#1#"
 		}
    	},
 	rarity = 1,
