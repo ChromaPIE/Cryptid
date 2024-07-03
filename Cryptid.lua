@@ -443,10 +443,17 @@ function init_localization()
         G.localization.descriptions.Spectral.c_medium.text[2] = "to {C:attention}#1#{} selected"
         G.localization.descriptions.Spectral.c_deja_vu.text[2] = "to {C:attention}#1#{} selected"
     end
-    G.localization.misc.v_text.ch_c_cry_all_perishable = {"All Jokers are {C:eternal}Perishable{}"}
-    G.localization.misc.v_text.ch_c_cry_all_rental = {"All Jokers are {C:eternal}Rental{}"}
-    G.localization.misc.v_text.ch_c_cry_all_pinned = {"All Jokers are {C:eternal}Pinned{}"}
-    G.localization.misc.v_text.ch_c_cry_rush_hour = {"All Bosses are {C:attention}The Clock{} or {C:attention}Lavender Loop"}
+    if G.SETTINGS.language == 'zh_CN' then
+        G.localization.descriptions.Spectral.c_cryptid.text[1] = "为所选定的{C:attention}#2#{}张手牌"
+        G.localization.descriptions.Spectral.c_talisman.text[1] = "为所选定的{C:attention}#1#{}张手牌"
+        G.localization.descriptions.Spectral.c_trance.text[1] = "为所选定的{C:attention}#1#{}张手牌"
+        G.localization.descriptions.Spectral.c_medium.text[1] = "为所选定的{C:attention}#1#{}张手牌"
+        G.localization.descriptions.Spectral.c_deja_vu.text[1] = "为所选定的{C:attention}#1#{}张手牌"
+    end
+    G.localization.misc.v_text.ch_c_cry_all_perishable = {"所有小丑牌均为{C:eternal}易腐"}
+    G.localization.misc.v_text.ch_c_cry_all_rental = {"所有小丑牌均为{C:eternal}出租"}
+    G.localization.misc.v_text.ch_c_cry_all_pinned = {"所有小丑牌均为{C:eternal}左极固定"}
+    G.localization.misc.v_text.ch_c_cry_rush_hour = {"所有Boss盲注均为{C:attention}时钟{}或{C:attention}淡紫时环"}
 end
 
 

@@ -5,10 +5,10 @@ local pink = {object_type = "Stake",
     atlas = "stake",
     applied_stakes = {"gold"},
 	loc_txt = {
-        name = "Pink Stake",
+        name = "粉注",
         text = {
-        "Required score scales",
-        "faster for each {C:attention}Ante"
+        "{C:attention}底注{}提升时",
+        "过关需求分数的涨幅更大",
         }
     },
     modifiers = function()
@@ -26,10 +26,11 @@ local brown = {object_type = "Stake",
         G.GAME.modifiers.cry_eternal_perishable_compat = true
     end,
 	loc_txt = {
-        name = "Brown Stake",
+        name = "棕注",
         text = {
-        "All {C:attention}stickers{} are compatible",
-        "with each other"
+        "所有{C:attention}标贴",
+        "{C:inactive,s:0.8}（永恒、易腐等）",
+        "均不互斥"
         }
     },
     color = HEX("883200")
@@ -44,10 +45,10 @@ local yellow = {object_type = "Stake",
         G.GAME.modifiers.cry_any_stickers = true
     end,
 	loc_txt = {
-        name = "Yellow Stake",
+        name = "黄注",
         text = {
-        "{C:attention}Stickers{} can appear on",
-        "all purchasable items"
+        "所有可购买物品",
+        "均可能附带{C:attention}标贴"
         }
     },
     color = HEX("f7ff1f")
@@ -62,9 +63,9 @@ local jade = {object_type = "Stake",
         G.GAME.modifiers.flipped_cards = 20
     end,
 	loc_txt = {
-        name = "Jade Stake",
+        name = "玉注",
         text = {
-        "Cards can be drawn {C:attention}face down{}",
+        "卡牌抽取时可能{C:attention}背面朝上",
         }
     },
     shiny = true,
@@ -80,10 +81,10 @@ local cyan = {object_type = "Stake",
         G.GAME.modifiers.cry_rarer_jokers = true
     end,
 	loc_txt = {
-        name = "Cyan Stake",
+        name = "青注",
         text = {
-        "{C:green}Uncommon{} and {C:red}Rare{} Jokers are",
-        "less likely to appear",
+        "{C:green}罕见{}和{C:red}稀有{}小丑牌",
+        "出现几率降低",
         }
     },
     color = HEX("39ffcc")
@@ -98,9 +99,9 @@ local gray = {object_type = "Stake",
         G.GAME.modifiers.cry_reroll_scaling = 2
     end,
 	loc_txt = {
-        name = "Gray Stake",
+        name = "灰注",
         text = {
-        "Rerolls increase by {C:attention}$2{} each"
+        "重掷费用上涨{C:attention}$2"
         }
     },
     color = HEX("999999")
@@ -115,9 +116,9 @@ local crimson = {object_type = "Stake",
         G.GAME.modifiers.cry_voucher_restock_antes = 2
     end,
 	loc_txt = {
-        name = "Crimson Stake",
+        name = "深红注",
         text = {
-        "Vouchers restock on {C:attention}even{} Antes",
+        "奖券仅在{C:attention}偶数{}底注中刷新",
         }
     },
     color = HEX("800000")
@@ -132,9 +133,9 @@ local diamond = {object_type = "Stake",
         G.GAME.win_ante = 10
     end,
 	loc_txt = {
-        name = "Diamond Stake",
+        name = "钻石注",
         text = {
-        "Must beat Ante {C:attention}10{} to win",
+        "赢下游戏需击败底注数提升至{C:attention}10",
         }
     },
     shiny = true,
@@ -150,9 +151,9 @@ local amber = {object_type = "Stake",
         G.GAME.modifiers.cry_booster_packs = 1
     end,
 	loc_txt = {
-        name = "Amber Stake",
+        name = "琥珀注",
         text = {
-        "{C:attention}-1{} Booster Pack slot",
+        "商店内补充包槽位{C:attention}-1",
         }
     },
     shiny = true,
@@ -168,9 +169,9 @@ local bronze = {object_type = "Stake",
         G.GAME.modifiers.cry_voucher_price_hike = 1.5
     end,
 	loc_txt = {
-        name = "Bronze Stake",
+        name = "青铜注",
         text = {
-        "Vouchers are {C:attention}50%{} more expensive",
+        "奖券售价上涨{C:attention}50%",
         }
     },
     shiny = true,
@@ -186,10 +187,10 @@ local quartz = {object_type = "Stake",
         G.GAME.modifiers.cry_enable_pinned_in_shop = true
     end,
 	loc_txt = {
-        name = "Quartz Stake",
+        name = "石英注",
         text = {
-        "Jokers can be {C:attention}Pinned{}",
-        "{s:0.8,C:inactive}(Stays pinned to the leftmost position){}",
+        "小丑牌可能遭到{C:attention}左极固定",
+        "{s:0.8,C:inactive}（强制固定于最左侧）",
         }
     },
     shiny = true,
@@ -205,10 +206,9 @@ local ruby = {object_type = "Stake",
         G.GAME.modifiers.cry_big_boss_rate = 0.3
     end,
 	loc_txt = {
-        name = "Ruby Stake",
+        name = "红宝石注",
         text = {
-        "{C:attention}Big{} Blinds can become",
-        "{C:attention}Boss{} Blinds",
+        "{C:attention}大{}盲注可能被{C:attention}Boss{}盲注替代",
         }
     },
     shiny = true,
@@ -224,9 +224,9 @@ local glass = {object_type = "Stake",
         G.GAME.modifiers.cry_shatter_rate = 30
     end,
 	loc_txt = {
-        name = "Glass Stake",
+        name = "玻璃注",
         text = {
-        "Cards can {C:attention}shatter{} when scored",
+        "卡牌在计分后可能{C:attention}碎裂",
         }
     },
     shiny = true,
@@ -243,11 +243,10 @@ local sapphire = {object_type = "Stake",
         G.GAME.modifiers.cry_ante_tax_max = 10
     end,
 	loc_txt = {
-        name = "Sapphire Stake",
+        name = "蓝宝石注",
         text = {
-        "Lose {C:attention}25%{} of current money",
-        "at end of Ante",
-        "{s:0.8,C:inactive}(Up to $10){}",
+        "底注结束时损失当前资金的{C:attention}25%",
+        "{s:0.8,C:inactive}（至多损失$10）",
         }
     },
     shiny = true,
@@ -263,11 +262,11 @@ local emerald = {object_type = "Stake",
         G.GAME.modifiers.cry_enable_flipped_in_shop = true
     end,
 	loc_txt = {
-        name = "Emerald Stake",
+        name = "绿宝石注",
         text = {
-        "Cards, packs, and vouchers",
-        "can be {C:attention}face down{}",
-        "{s:0.8,C:inactive}(Unable to be viewed until purchased){}",
+        "商店内的卡牌、补充包和奖券",
+        "均有可能{C:attention}背面朝上",
+        "{s:0.8,C:inactive}（购买前无法知悉商品信息）",
         }
     },
     shiny = true,
@@ -284,9 +283,9 @@ local platinum = {object_type = "Stake",
         G.GAME.round_resets.blind_states['Small'] = 'Hide'
     end,
 	loc_txt = {
-        name = "Platinum Stake",
+        name = "铂注",
         text = {
-        "Small Blinds are {C:attention}removed{}",
+        "{C:attention}没有{}小盲注",
         }
     },
     shiny = true,
@@ -303,7 +302,7 @@ local twilight = {object_type = "Stake",
         text = {
         "Cards can be {C:attention}Banana{}",
         "{s:0.8,C:inactive}(1 in 10 chance of being destroyed each round){}",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
+        "{s:0.8,C:inactive}(Not yet implemented){}"
         }
     },
     shiny = true,
@@ -653,15 +652,18 @@ return {name = "More Stakes",
                     v.sticker_pos = v.pos
                     v.sticker_atlas = "sticker"
                     local words = {}
-                    words[1], words[2] = v.loc_txt.name:match("(%w+)(.+)")
+                    if string.find(v.loc_txt.name, "注") then
+                        words[1] = v.loc_txt.name
+                    else
+                        words[1], words[2] = v.loc_txt.name:match("(%w+)(.+)")
+                    end
                     local stakeName = words[1]
                     v.loc_txt = {description = v.loc_txt}
                     v.loc_txt.sticker = {
-                        name = stakeName.." Sticker",
+                        name = stakeName.."纪念贴",
                         text = {
-                            "Used this Joker",
-                            "to win on {C:attention}"..stakeName,
-                            "{C:attention}Stake{} difficulty"
+                            "使用本牌",
+                            "赢得了{C:attention}"..stakeName
                         }
                     }
                 end
