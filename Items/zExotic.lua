@@ -208,7 +208,7 @@ local speculo = {
                         G.jokers:emplace(card) 
                         return true
                     end}))
-                card_eval_status_text(context.blueprint_card or self, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
                 return {calculated = true}
             end
             return
