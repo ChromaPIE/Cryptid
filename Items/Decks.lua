@@ -249,15 +249,11 @@ return {name = "Misc. Decks",
                             local valid_pools = {"Joker", "Consumeables", "Voucher", "Booster"}
                             for _, id in ipairs(valid_pools) do
                                 for k, v in pairs(G.P_CENTER_POOLS[id]) do
-					if not v.no_doe then
-                                    		P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
-					end
+                                    P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
                                 end
                             end
                             for k, v in pairs(G.P_CARDS) do
-				if not v.no_doe then
-                        		P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
-				end
+                                P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
                             end
                         end
                         return P_CRY_ITEMS, "cry_equilibrium"..G.GAME.round_resets.ante
@@ -273,15 +269,11 @@ return {name = "Misc. Decks",
                         local valid_pools = {"Joker", "Consumeables", "Voucher", "Booster"}
                         for _, id in ipairs(valid_pools) do
                             for k, v in pairs(G.P_CENTER_POOLS[id]) do
-				if not v.no_doe then
-                                    	P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
-				end
+                                P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
                             end
                         end
                         for k, v in pairs(G.P_CARDS) do
-				if not v.no_doe then
-                                    	P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
-				end
+                            P_CRY_ITEMS[#P_CRY_ITEMS+1] = v.key
                         end
                     end
                     return G.P_CENTERS[pseudorandom_element(P_CRY_ITEMS,pseudoseed('cry_equipackbrium'..G.GAME.round_resets.ante))]
