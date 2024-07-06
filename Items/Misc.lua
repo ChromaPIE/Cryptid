@@ -16,7 +16,7 @@ local mosaic = {
 	sound = {
 		sound = 'cry_e_mosaic',
 		per = 1,
-		vol = 0.5
+		vol = 0.4
 	},
     get_weight = function(self)
         return G.GAME.edition_rate * self.weight
@@ -106,7 +106,7 @@ local astral = {
 	sound = {
 		sound = 'cry_^Mult',
 		per = 1,
-		vol = 0.5
+		vol = 1
 	},
     get_weight = function(self)
         return G.GAME.edition_rate * self.weight
