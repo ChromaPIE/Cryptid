@@ -112,10 +112,10 @@ local astral = {
         return G.GAME.edition_rate * self.weight
     end,
     loc_txt = {
-        name = "Astral",
-        label = "Astral",
+        name = "玄星",
+        label = "玄星",
         text = {
-            "{X:dark_edition,C:white}^#1#{} Mult"
+            "{X:dark_edition,C:white}^#1#{}倍率"
         }
     },
     config = {pow_mult = 1.1},
@@ -136,9 +136,9 @@ local echo = {
     object_type = 'Enhancement',
     key = 'echo',
     loc_txt = {
-        name = 'Echo Card',
-        text = {'{C:green}#2# in #3#{} chance to',
-        '{C:attention}retrigger{} #1# times'}
+        name = '回响牌',
+        text = {'有{C:green}#2#/#3#{}的几率',
+        '{C:attention}重新触发{}#1#次'}
     },
     atlas = 'echo_atlas',
     config = {retriggers = 2, extra = 2},
@@ -163,10 +163,10 @@ local eclipse = {
     pos = {x=0,y=0},
 	config = {mod_conv = 'm_cry_echo', max_highlighted = 1},
     loc_txt = {
-        name = 'The Eclipse',
+        name = '蚀',
         text = {
-			"Enhances {C:attention}#1#{} selected card",
-			"into an {C:attention}Echo Card"
+			"将{C:attention}#1#{}张选定卡牌",
+			"增强为{C:attention}回响牌"
         }
     },
     atlas = "eclipse_atlas",

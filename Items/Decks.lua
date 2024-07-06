@@ -5,7 +5,7 @@ local very_fair = {
 	config = {hands = -2, discards = -2, cry_no_vouchers = true},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = "很合理的牌组",
+        name = "非常公平的牌组",
         text = {
             "每回合出牌和弃牌次数各{C:red}-2",
             "商店内不再出现{C:attention}奖券"
@@ -42,8 +42,7 @@ very_fair_quips = {
     {"给你变个魔术", "看，奖券没了吧？", "我变没的"},
     {"奖券长啥样啊？", "能拿来搓澡吗？", ""},
     {"把您的奖券", "留给更需要它的赛局吧", ""},
-    {"冷知识：",
-    "骆驼和鲨鱼永远不能相见", "所以为啥要管它叫奖券呢？"},
+    {"冷知识：", "骆驼和鲨鱼永远不能相见", "所以为啥要管它叫奖券呢？"},
     {"对不起", "奖券找妈妈去了", ""},
     {"很不幸", "作者本来要重制奖券内容的", "现在他不想做了"},
     {"击败BOSS盲注", "意味着", "BOSS盲注被你击败了"},
@@ -129,11 +128,10 @@ local misprint = {
 	config = {cry_misprint_min = 0.1, cry_misprint_max = 10},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = "Misprint Deck",
+        name = "印错牌组",
         text = {
-            "Values of cards",
-            "and poker hands",
-            "are {C:attention}randomized"
+            "卡牌和牌型的数值",
+            "均将被错乱地{C:attention}随机化"
         }
     },
     atlas = "misprint"
@@ -153,10 +151,9 @@ local infinite = {
 	pos = {x = 0, y = 0},
     atlas = "infinite",
 	loc_txt = {
-        name = "Infinite Deck",
+        name = "无限牌组",
         text = {
-            "You can select {C:attention}any",
-            "number of cards"
+            "可选定卡牌张数{C:attention}不设限制"
         }
     },
 }
@@ -175,12 +172,11 @@ local conveyor = {
     pos = {x = 0, y = 0},
     atlas = "conveyor",
     loc_txt = {
-        name = "Conveyor Deck",
+        name = "传送带牌组",
         text = {
-            "Jokers may {C:attention}not{} be moved",
-            "At start of round,",
-            "{C:attention}duplicate{} rightmost Joker",
-            "and {C:attention}destroy{} leftmost Joker"
+            "回合开始时{C:attention}复制{}最右侧的",
+            "并{C:attention}摧毁{}最左侧的小丑牌",
+            "{C:attention}禁止{}移动小丑牌"
         }
     }
 }

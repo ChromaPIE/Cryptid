@@ -5,9 +5,9 @@ local blank = {
     key = "blank",
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = "Blank Deck",
+        name = "空白牌组",
         text = {
-            "{C:inactive,E:1}Does nothing?"
+            "{C:inactive,E:1}当真没用？"
         }
     },
     atlas = "blank"
@@ -46,10 +46,9 @@ local antimatter = {
     },
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = "Antimatter Deck",
+        name = "反物质牌组",
         text = {
-            "Applies the {C:legendary,E:1}upsides{}",
-            "of {C:attention}every{} deck"
+            "拥有{C:attention}所有{}牌组的{C:legendary,E:1}正面效果"
         }
     },
     atlas = "antimatter"

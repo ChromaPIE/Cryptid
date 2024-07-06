@@ -17,7 +17,7 @@ local sticker_sheet = {
         banned_cards = {},
         banned_other = {}
     },
-	loc_txt = "Sticker Sheet"
+	loc_txt = "贴纸集"
 }
 local ballin = {
     object_type = "Challenge",
@@ -32,12 +32,12 @@ local ballin = {
         {id = 'j_cry_jimball',eternal=true}
     },
     deck = {enhancement = 'm_stone'},
-	loc_txt = "Ballin'"
+	loc_txt = "滚起来"
 }
 local rush_hour = {
     object_type = "Challenge",
     key = "rush_hour",
-	loc_txt = "Rush Hour",
+	loc_txt = "尖峰时刻",
     rules = {
         custom = {
             {id = 'cry_rush_hour'} --this just explains the rule
