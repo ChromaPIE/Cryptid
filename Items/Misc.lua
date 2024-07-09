@@ -137,7 +137,8 @@ local echo = {
     key = 'echo',
     loc_txt = {
         name = '回响牌',
-        text = {'有{C:green}#2#/#3#{}的几率',
+        text = {'计分时',
+        '有{C:green}#2#/#3#{}的几率',
         '{C:attention}重新触发{}#1#次'}
     },
     atlas = 'echo_atlas',
@@ -170,7 +171,6 @@ local eclipse = {
         }
     },
     atlas = "eclipse_atlas",
-	discovered = true,
     loc_vars = function(self, info_queue)
         return {vars = {self.config.max_highlighted}}
     end,
@@ -194,18 +194,19 @@ return {name = "Misc.",
         --echo card
             cs = Card.calculate_seal
         function Card:calculate_seal(context)
-            cs(self,context)
+            local ret = cs(self,context)
         if context.repetition then
 		    if self.config.center == G.P_CENTERS.m_cry_echo then
                 if pseudorandom('echo') < G.GAME.probabilities.normal/self.ability.extra then
                     return {
                         message = localize('k_again_ex'),
-                        repetitions = self.ability.retriggers,
+                        repetitions = (ret and ret.repetitions or 0) + self.ability.retriggers,
                         card = self
                     }
                 end
             end
         end
+        return ret
         end
         end,
         items = {mosaic_shader, mosaic, oversat_shader, oversat, glitched_shader, glitched, astral_shader, astral, echo_atlas, echo, eclipse_atlas, eclipse}}
