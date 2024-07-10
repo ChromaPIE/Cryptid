@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman]
---- VERSION: 0.4.0a
+--- VERSION: 0.4.1
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -528,6 +528,24 @@ SMODS.Atlas({
     path = "cry_icon.png",
     px = 32,
     py = 32
+}):register()
+SMODS.Atlas({
+    key = "atlasepic",
+    path = "atlasepic.png",
+    px = 71,
+    py = 95
+}):register()
+SMODS.Atlas({
+    key = "atlasone",
+    path = "atlasone.png",
+    px = 71,
+    py = 95
+}):register()
+SMODS.Atlas({
+    key = "atlastwo",
+    path = "atlastwo.png",
+    px = 71,
+    py = 95
 }):register()
 ----------------------------------------------
 ------------MOD CODE END----------------------
