@@ -131,13 +131,14 @@ local infinite = {
     object_type = "Back",
     name = "cry-Infinite",
     key = "infinite",
-	config = {cry_highlight_limit = 1e20},
+	config = {cry_highlight_limit = 1e20, hand_size = 1},
 	pos = {x = 3, y = 0},
         atlas = "atlasdeck",
 	loc_txt = {
         name = "无限牌组",
         text = {
-            "可选定卡牌张数{C:attention}不设限制"
+            "可选定卡牌张数{C:attention}不设限制",
+            "手牌上限{C:attention}+1"
         }
     },
 }
