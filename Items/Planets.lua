@@ -20,6 +20,7 @@ local timantti = {
         }
     },
     cost = 4,
+	aurinko = true,
     atlas = "c_suits",
     can_use = function(self, card)
         return true
@@ -48,6 +49,7 @@ local klubi = {
         }
     },
     cost = 4,
+	aurinko = true,
     atlas = "c_suits",
     can_use = function(self, card)
         return true
@@ -76,6 +78,7 @@ local sydan = {
         }
     },
     cost = 4,
+	aurinko = true,
     atlas = "c_suits",
     can_use = function(self, card)
         return true
@@ -104,6 +107,7 @@ local lapio = {
         }
     },
     cost = 4,
+	aurinko = true,
     atlas = "c_suits",
     can_use = function(self, card)
         return true
@@ -120,11 +124,11 @@ local lapio = {
 }
 
 function suit_level_up(center, card, area, copier, number)
-    for _, v in pairs(card.config.center.config.hand_types) do
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(v, 'poker_hands'),chips = G.GAME.hands[v].chips, mult = G.GAME.hands[v].mult, level=G.GAME.hands[v].level})
-        level_up_hand(card, v, nil, number)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    end
+	for _, v in pairs(card.config.center.config.hand_types) do
+        	update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(v, 'poker_hands'),chips = G.GAME.hands[v].chips, mult = G.GAME.hands[v].mult, level=G.GAME.hands[v].level})
+        	level_up_hand(card, v, nil, number)
+	end
+	update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
 end
 
 local suits_sprite = {
