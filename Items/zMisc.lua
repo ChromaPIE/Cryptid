@@ -145,7 +145,8 @@ local echo = {
     config = {retriggers = 2, extra = 2},
     loc_vars = function(self, info_queue)
         return {vars = {self.config.retriggers,G.GAME.probabilities.normal, self.config.extra}}
-    end
+    end,
+    specific_vars = {} -- Required for tooltip to not crash on older versions of Steamodded
 }
 
 local eclipse_atlas = {
@@ -172,6 +173,8 @@ local eclipse = {
     },
     atlas = "eclipse_atlas",
     loc_vars = function(self, info_queue)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_cry_echo
+
         return {vars = {self.config.max_highlighted}}
     end,
 }
@@ -300,13 +303,6 @@ local typhoon_sprite = {
     path = "s_cry_typhoon.png",
     px = 71,
     py = 95
-}
-local tag_atlas = {
-    object_type = "Atlas",
-    key = "tag_cry",
-    path = "tag_cry.png",
-    px = 34,
-    py = 34
 }
 local cat = {
     object_type = "Tag",
@@ -474,10 +470,49 @@ local bundle = {
         end
     end
 }
+local memory = {
+    object_type = "Tag",
+    atlas = "tag_cry",
+    pos = {x=3, y=1},
+    name = "cry-Memory Tag",
+    config = {type = 'immediate', num = 2},
+    key = "memory",
+    loc_txt = {
+        name = "Memory Tag",
+        text = {
+            "Create {C:attention}#1#{} copies of",
+            "the last {C:attention}Tag{} used",
+            "during this run",
+            "{s:0.8,C:inactive}Copying Tags excluded",
+            "{s:0.8,C:inactive}Currently: {s:0.8,C:attention}#2#"
+        }
+    },
+    loc_vars = function(self, info_queue)
+        if G.GAME.cry_last_tag_used then
+            _c = G.P_TAGS[G.GAME.cry_last_tag_used]
+        end
+        local loc_tag = _c and localize{type = 'name_text', key = G.GAME.cry_last_tag_used, set = _c.set} or localize('k_none')
+        return {vars = {self.config.num, loc_tag}}
+    end,
+    apply = function(tag, context)
+        if context.type == 'immediate' and G.GAME.cry_last_tag_used then
+            local lock = tag.ID
+            G.CONTROLLER.locks[lock] = true
+            tag:yep('+', G.C.ATTENTION,function()
+                add_tag(Tag(G.GAME.cry_last_tag_used))
+                add_tag(Tag(G.GAME.cry_last_tag_used))
+                G.CONTROLLER.locks[lock] = nil
+                return true
+            end)
+            tag.triggered = true
+        end
+        return true
+    end
+}
 local miscitems = {mosaic_shader, mosaic, oversat_shader, oversat, glitched_shader, glitched, astral_shader, astral, 
 echo_atlas, echo, eclipse_atlas, eclipse, 
 typhoon_sprite, azure_seal_sprite, typhoon, azure_seal, 
-tag_atlas, cat, empowered, gambler, bundle}
+cat, empowered, gambler, bundle, memory}
 if cry_enable_epics then
     miscitems[#miscitems+1] = epic_tag
 end
@@ -511,6 +546,17 @@ return {name = "Misc.",
                             }
                         end
                     end
+                end
+                return ret
+            end
+
+            --Memory Tag Patches - store last tag used
+            local tapr = Tag.apply_to_run
+            function Tag:apply_to_run(x)
+                local ret = tapr(self,x)
+                if self.triggered and self.key ~= "tag_double" and self.key ~= "tag_cry_memory" and 
+                self.key ~= "tag_cry_triple" and self.key ~= "tag_cry_quadruple" and self.key ~= "tag_cry_quintuple" then
+                    G.GAME.cry_last_tag_used = self.key
                 end
                 return ret
             end
