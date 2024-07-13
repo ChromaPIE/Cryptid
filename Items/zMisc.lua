@@ -191,12 +191,12 @@ local azure_seal = {
         label = 'Azure Seal',
         -- Tooltip description
         description = {
-            name = 'Azure Seal',
+            name = '碧蓝色蜡封',
             text = {
-                'Create {C:attention}#1#{} {C:dark_edition}Negative{}',
-                '{C:planet}Planets{} for played',
-                '{C:attention}poker hand{}, then',
-                '{C:red}destroy{} this card'
+                '生成{C:attention}#1#{}张',
+                '与所出{C:attention}牌型{}对应的',
+                '{C:dark_edition}负片{C:planet}星球牌',
+                '并{C:red}摧毁{}本牌'
             }
         },
     },
@@ -266,11 +266,10 @@ local typhoon = {
         return {vars = {center.ability.max_highlighted}}
     end,
     loc_txt = {
-        name = 'Typhoon',
+        name = '飓风',
         text = {
-            "Add an {C:cry_azure}Azure Seal{}",
-            "to {C:attention}1{} selected",
-            "card in your hand"
+            "为选定的{C:attention}1{}张手牌",
+            "打上{C:cry_azure}碧蓝色蜡封"
         }
     },
     cost = 4,
@@ -310,8 +309,8 @@ local cat = {
     pos = {x=0, y=2},
     key = "cat",
     loc_txt = {
-        name = "Cat Tag",
-        text = {"Meow."}
+        name = "猫咪标签",
+        text = {"喵呜。"}
     }
 }
 local epic_tag = {
@@ -321,10 +320,10 @@ local epic_tag = {
     config = {type = 'store_joker_create'},
     key = "epic",
     loc_txt = {
-        name = "Epic Tag",
+        name = "史诗标签",
         text = {
-            "Shop has a half-price",
-            "{C:cry_epic}Epic Joker"
+            "商店内将出现一张",
+            "半价的{C:cry_epic}史诗小丑牌"
         }
     },
     apply = function(tag, context)
@@ -362,10 +361,10 @@ local empowered = {
     config = {type = 'new_blind_choice'},
     key = "empowered",
     loc_txt = {
-        name = "Empowered Tag",
+        name = "魂力标签",
         text = {
-            "Gives a free {C:spectral}Spectral Pack",
-            "with {C:legendary,E:1}The Soul{} and {C:cry_exotic,E:1}Gateway{}"
+            "生成一个带有{C:legendary,E:1}灵魂{}和",
+            "{C:cry_exotic,E:1}异界之门{}的{C:spectral}幻灵包"
         }
     },
     loc_vars = function(self, info_queue)
@@ -404,10 +403,10 @@ local gambler = {
     config = {type = 'immediate', odds = 4},
     key = "gambler",
     loc_txt = {
-        name = "Gambler's Tag",
+        name = "赌徒标签",
         text = {
-            "{C:green}#1# in #2#{} chance to create",
-            "an {C:cry_exotic,E:1}Empowered Tag"
+            "有{C:green}#1#/#2#{}的几率",
+            "生成一个{C:cry_exotic,E:1}魂力标签"
         }
     },
     loc_vars = function(self, info_queue)
@@ -440,10 +439,10 @@ local bundle = {
     key = "bundle",
     min_ante = 2,
     loc_txt = {
-        name = "Bundle Tag",
+        name = "大礼包标签",
         text = {
-            "Create a {C:attention}Standard Tag{}, {C:tarot}Charm Tag{},",
-            "{C:attention}Buffoon Tag{}, and {C:planet}Meteor Tag"
+            "生成{C:attention}标准标签{}、{C:tarot}魔符标签{}、",
+            "{C:attention}丑角标签{}和{C:planet}流星标签各一个"
         }
     },
     loc_vars = function(self, info_queue)
@@ -478,13 +477,12 @@ local memory = {
     config = {type = 'immediate', num = 2},
     key = "memory",
     loc_txt = {
-        name = "Memory Tag",
+        name = "记忆标签",
         text = {
-            "Create {C:attention}#1#{} copies of",
-            "the last {C:attention}Tag{} used",
-            "during this run",
-            "{s:0.8,C:inactive}Copying Tags excluded",
-            "{s:0.8,C:inactive}Currently: {s:0.8,C:attention}#2#"
+            "生成{C:attention}#1#{}个本赛局内",
+            "上一次生效过的{C:attention}标签",
+            "{s:0.8,C:inactive}不包括复制型标签",
+            "{s:0.8,C:inactive}当前为{s:0.8,C:attention}#2#"
         }
     },
     loc_vars = function(self, info_queue)

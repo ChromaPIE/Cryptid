@@ -5,10 +5,10 @@ local gateway = {
     key = "gateway",
     pos = {x=0,y=0},
     loc_txt = {
-        name = 'Gateway',
-        text = { "Create a random",
-        "{C:cry_exotic,E:1}Exotic{C:attention} Joker{}, destroy",
-        'all other Jokers' }
+        name = '异界之门',
+        text = { "摧毁所有小丑牌",
+        "并随机生成一张",
+        '{C:cry_exotic,E:1}异界{C:attention}小丑牌' }
     },
     cost = 4,
     atlas = "gateway",
