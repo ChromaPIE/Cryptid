@@ -442,7 +442,7 @@ local bundle = {
         name = "大礼包标签",
         text = {
             "生成{C:attention}标准标签{}、{C:tarot}魔符标签{}、",
-            "{C:attention}丑角标签{}和{C:planet}流星标签各一个"
+            "{C:attention}丑角标签{}和{C:planet}流星标签{}各一个"
         }
     },
     loc_vars = function(self, info_queue)
