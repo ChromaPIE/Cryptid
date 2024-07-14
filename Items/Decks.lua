@@ -181,12 +181,11 @@ local wormhole = {
     pos = {x = 3, y = 4},
     atlas = "atlasdeck",
     loc_txt = {
-        name = "Wormhole Deck",
+        name = "虫洞牌组",
         text = {
-            "Start with an {C:cry_exotic}Exotic{C:attention} Joker",
-            "Jokers are {C:attention}20X{} more",
-            "likely to be {C:dark_edition}Negative",
-            "{C:attention}-2{} Joker slots"
+            "开局即拥有{C:cry_exotic}异界{C:attention}小丑牌",
+            "{C:dark_edition}负片{}小丑牌的出现频率{C:attention}X20",
+            "小丑牌槽位{C:attention}-2"
         }
     }
 }

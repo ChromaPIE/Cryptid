@@ -11,10 +11,10 @@ local copies = {
     atlas = "cry_copies",
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Copies',
+        name = '三重复制',
         text = {
-			"Double Tags become {C:attention}Triple Tags{}",
-            "and are {C:attention}2X{} as common"
+			"双倍标签变为{C:attention}三倍标签",
+            "且出现频率{C:attention}X2"
 		}
     },
     loc_vars = function(self, info_queue)
@@ -36,10 +36,10 @@ local tag_printer = {
     atlas = "cry_tag_printer",
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Tag Printer',
+        name = '四重印刷',
         text = {
-			"Double Tags become {C:attention}Quadruple Tags{}",
-            "and are {C:attention}3X{} as common"
+			"双倍标签变为{C:attention}四倍标签",
+            "且出现频率{C:attention}X3"
 		}
     },
     loc_vars = function(self, info_queue)
@@ -62,10 +62,10 @@ local clone_machine = {
     atlas = "cry_clone_machine",
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Clone Machine',
+        name = '克隆工厂',
         text = {
-			"Double Tags become {C:attention}Quintuple Tags{}",
-            "and are {C:attention}4X{} as common"
+			"双倍标签变为{C:attention}五倍标签",
+            "且出现频率{C:attention}X4"
 		}
     },
     loc_vars = function(self, info_queue)
@@ -82,11 +82,11 @@ local triple = {
     config = {type = 'tag_add', num = 2},
     key = "triple",
     loc_txt = {
-        name = "Triple Tag",
+        name = "三倍标签",
         text = {
-            "Gives {C:attention}#1#{} copies of the",
-            "next selected {C:attention}Tag",
-            "{s:0.8,C:inactive}Copying Tags excluded",
+            "为下一个获得的{C:attention}标签",
+            "额外生成{C:attention}#1#{}个复制品",
+            "{s:0.8,C:inactive}复制型标签除外"
         }
     },
     loc_vars = function(self, info_queue)
@@ -122,11 +122,11 @@ local quadruple = {
     config = {type = 'tag_add', num = 3},
     key = "quadruple",
     loc_txt = {
-        name = "Quadruple Tag",
+        name = "四倍标签",
         text = {
-            "Gives {C:attention}#1#{} copies of the",
-            "next selected {C:attention}Tag",
-            "{s:0.8,C:inactive}Copying Tags excluded",
+            "为下一个获得的{C:attention}标签",
+            "额外生成{C:attention}#1#{}个复制品",
+            "{s:0.8,C:inactive}复制型标签除外"
         }
     },
     loc_vars = function(self, info_queue)
@@ -162,11 +162,11 @@ local quintuple = {
     config = {type = 'tag_add', num = 4},
     key = "quintuple",
     loc_txt = {
-        name = "Quintuple Tag",
+        name = "五倍标签",
         text = {
-            "Gives {C:attention}#1#{} copies of the",
-            "next selected {C:attention}Tag",
-            "{s:0.8,C:inactive}Copying Tags excluded",
+            "为下一个获得的{C:attention}标签",
+            "额外生成{C:attention}#1#{}个复制品",
+            "{s:0.8,C:inactive}复制型标签除外"
         }
     },
     loc_vars = function(self, info_queue)

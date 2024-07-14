@@ -53,11 +53,11 @@ local iterum = {
 	config = {extra = {x_mult = 2, repetitions = 1}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Iterum',
+        name = '往复',
         text = {
-        "Retrigger all cards played {C:attention}#2#{} time(s),",
-        "each played card gives",
-        "{X:mult,C:white} X#1# {} Mult when scored"}
+        "每张打出的牌",
+        "在计分时给予{X:mult,C:white} X#1# {}倍率",
+        "且可重新触发{C:attention}#2#{}次"}
     },
 	rarity = "cry_exotic",
 	cost = 50,
@@ -102,11 +102,10 @@ local universum = {
 	config = {extra = 2},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Universum',
+        name = '归一',
         text = {
-        "{C:attention}Poker hands{} gain",
-        "{X:red,C:white} X#1# {} Mult and {X:blue,C:white} X#1# {} Chips",
-        "when leveled up",
+        "{C:attention}牌型{}升级时",
+        "倍率和筹码{X:red,C:white}X#1#"
         }
     },
 	rarity = "cry_exotic",
@@ -138,11 +137,11 @@ local exponentia = {
 	config = {extra = {pow_mult = 1, pow_mult_mod = 0.01}},
 	pos = {x = 0, y = 0},
 	loc_txt = {
-        name = 'Exponentia',
+        name = '幂',
         text = {
-			"This Joker gains {X:dark_edition,C:white} ^#1# {} Mult",
-			"when {X:red,C:white} XMult {} is triggered",
-			"{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)"
+			"有{X:red,C:white}乘倍{}效果触发时",
+			"本牌获得{X:dark_edition,C:white} ^#1# {}倍率",
+			"{C:inactive}（当前为{X:dark_edition,C:white} ^#2# {C:inactive}倍率）"
         }
     },
 	rarity = "cry_exotic",
@@ -351,12 +350,12 @@ local crustulum = {
 	pos = {x = 0, y = 0},
 	soul_pos = {x = 2, y = 0, extra = {x = 1, y = 0}},
 	loc_txt = {
-        name = 'Crustulum',
+        name = '烘焙',
         text = {
-            "This Joker gains {C:chips}+#2#{} Chips",
-            "per {C:attention}reroll{} in the shop,",
-            "{C:green}all rerolls are free{}",
-            "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"
+            "在商店内每{C:attention}重掷{}一次",
+            "本牌获得{C:chips}+#2#{}筹码",
+            "{C:green}重掷免费",
+            "{C:inactive}（当前为{C:chips}+#1#{C:inactive}筹码）"
         }
     	},
 	rarity = "cry_exotic",
