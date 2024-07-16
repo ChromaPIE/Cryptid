@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman]
---- VERSION: 0.4.1b
+--- VERSION: 0.4.1c
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -503,6 +503,9 @@ function init_localization()
     G.localization.misc.v_text.ch_c_cry_all_rental = {"所有小丑牌均为{C:eternal}出租"}
     G.localization.misc.v_text.ch_c_cry_all_pinned = {"所有小丑牌均为{C:eternal}左极固定"}
     G.localization.misc.v_text.ch_c_cry_rush_hour = {"所有Boss盲注均为{C:attention}时钟{}或{C:attention}淡紫时环"}
+    G.localization.misc.v_text.ch_c_cry_rush_hour_ii = {"所有盲注均为{C:attention}时钟{}或{C:attention}淡紫时环"}
+    G.localization.misc.v_text.ch_c_cry_rush_hour_iii = {"{C:attention}时钟{}和{C:attention}淡紫时环的得分要求提升速率{C:attention}翻倍"}
+    G.localization.misc.v_text.ch_c_cry_no_tags = {"{C:attention}禁止{}跳过盲注"}
 end
 
 
@@ -542,6 +545,21 @@ function Card:set_eternal(_eternal)
     if (self.config.center.eternal_compat or G.GAME.modifiers.cry_any_stickers) and (not self.ability.perishable or G.GAME.modifiers.cry_eternal_perishable_compat) then
         self.ability.eternal = _eternal
     end
+end
+
+--Register custom rarity pools
+local is = SMODS.injectItems
+function SMODS.injectItems()
+    local m = is()
+    G.P_JOKER_RARITY_POOLS.cry_epic = {}
+    G.P_JOKER_RARITY_POOLS.cry_exotic = {}
+    for k, v in pairs(G.P_CENTERS) do
+        v.key = k
+        if v.rarity and (v.rarity == 'cry_epic' or v.rarity == 'cry_exotic') and v.set == 'Joker' and not v.demo then 
+            table.insert(G.P_JOKER_RARITY_POOLS[v.rarity], v)
+        end
+    end
+    return m
 end
 
 SMODS.Sound({
