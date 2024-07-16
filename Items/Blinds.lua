@@ -1054,12 +1054,12 @@ return {name = "Blinds",
                                 chip_text_node.config.scale = score_number_scale(0.9, get_blind_amount(G.GAME.round_resets.blind_ante)*G.GAME.starting_params.ante_scaling*G.CRY_BLINDS[c])
                                 G.blind_select_opts[string.lower(c)]:recalculate()
                             end
-                        elseif not G.GAME.blind.disabled and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) then
+                        elseif G.GAME.round_resets.blind_states[c] ~= "Defeated" and not G.GAME.blind.disabled and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) then
                             G.GAME.blind.chips = G.GAME.blind.chips + G.GAME.blind:cry_ante_base_mod(dt*(G.GAME.modifiers.cry_rush_hour_iii and 2 or 1))*get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling
                             G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                         end
                     end
-                    if G.GAME and G.GAME.blind and not G.GAME.blind.disabled and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) then
+                    if G.GAME.round_resets.blind_states[c] == "Current" and G.GAME and G.GAME.blind and not G.GAME.blind.disabled and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) then
                         G.GAME.blind.chips = G.GAME.blind.chips * G.GAME.blind:cry_round_base_mod(dt*(G.GAME.modifiers.cry_rush_hour_iii and 2 or 1))
                         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                     end
@@ -1093,6 +1093,7 @@ return {name = "Blinds",
             local sr = Game.start_run
             function Game:start_run(args)
                 sr(self, args)
+                G.P_BLINDS.bl_cry_clock.mult = 0
                 if not G.GAME.defeated_blinds then G.GAME.defeated_blinds = {} end
             end
             --patch for multiple Clocks to tick separately and load separately
@@ -1106,7 +1107,10 @@ return {name = "Blinds",
             end
             local rb = reset_blinds
             function reset_blinds()
-                G.CRY_BLINDS = {}
+                if G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+                    G.CRY_BLINDS = {}
+                    G.P_BLINDS.bl_cry_clock.mult = 0
+                end
                 rb()
             end
         end,
