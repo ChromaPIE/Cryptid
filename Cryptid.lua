@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman]
---- VERSION: 0.4.2
+--- VERSION: 0.4.2b
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -119,6 +119,15 @@ function Card:calculate_joker(context)
             else
                 ret.joker_repetitions[i] = 0
             end
+            if G.jokers.cards[i] == self and self.edition and self.edition.retriggers then
+                local old_repetitions = ret.joker_repetitions[i] ~= 0 and ret.joker_repetitions[i].repetitions or 0
+                local check = calculate_blurred(self)
+                if check and check.repetitions then
+                    check.repetitions = check.repetitions + old_repetitions
+                    ret.joker_repetitions[i] = check
+                end
+            end
+
         end
     end
     return ret
@@ -470,7 +479,7 @@ end
 function Card:get_nominal(mod)
 	local mult = 1
 	local rank_mult = 1
-	if mod == 'suit' then mult = 10000 end
+	if mod == 'suit' then mult = 1000000 end
 	if self.ability.effect == 'Stone Card' or (self.config.center.no_suit and self.config.center.no_rank) then 
 		mult = -10000
 	elseif self.config.center.no_suit then
@@ -478,7 +487,7 @@ function Card:get_nominal(mod)
 	elseif self.config.center.no_rank then
 		rank_mult = 0
 	end
-	return 10*(self.base.id or 0)*rank_mult + self.base.suit_nominal*mult + (self.base.suit_nominal_original or 0)*0.0001*mult + 10*self.base.face_nominal*rank_mult + 0.000001*self.unique_val
+	return 10*(self.base.id or 0.1)*rank_mult + self.base.suit_nominal*mult + (self.base.suit_nominal_original or 0)*0.0001*mult + 10*self.base.face_nominal*rank_mult + 0.000001*self.unique_val
 end
 
 --Cryptid (the spectral) localization
