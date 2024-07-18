@@ -543,7 +543,7 @@ return {name = "More Stakes",
                         G.jokers.cards[i]:calculate_joker({ remove_playing_cards = true, removed = destroyed_cards })
                     end
                 end,
-            })
+            },true)
             SMODS.Consumable:take_ownership('familiar', {
                 use = function(self, card, area, copier)
                     local used_tarot = copier or card
@@ -587,7 +587,7 @@ return {name = "More Stakes",
                         G.jokers.cards[i]:calculate_joker({ remove_playing_cards = true, removed = destroyed_cards })
                     end
                 end,
-            })
+            },true)
             SMODS.Consumable:take_ownership('incantation', {
                 use = function(self, card, area, copier)
                     local used_tarot = copier or card
@@ -631,7 +631,7 @@ return {name = "More Stakes",
                         G.jokers.cards[i]:calculate_joker({ remove_playing_cards = true, removed = destroyed_cards })
                     end
                 end,
-            })
+            },true)
             
             -- This is short enough that I'm fine overriding it
             function calculate_reroll_cost(skip_increment)
