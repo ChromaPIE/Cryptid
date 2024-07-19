@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman]
---- VERSION: 0.4.2b
+--- VERSION: 0.4.2c
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -338,6 +338,9 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
       if G.GAME.modifiers.cry_all_pinned then
           card.pinned = true
       end
+      if G.GAME.modifiers.cry_all_banana then
+          card.ability.banana = true
+      end
       if (area == G.shop_jokers) or (area == G.pack_cards) then 
           local eternal_perishable_poll = pseudorandom('cry_et'..(key_append or '')..G.GAME.round_resets.ante)
           if G.GAME.modifiers.enable_eternals_in_shop and eternal_perishable_poll > 0.7 then
@@ -356,6 +359,12 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
           end
           if G.GAME.modifiers.cry_enable_pinned_in_shop and pseudorandom('cry_pin'..(key_append or '')..G.GAME.round_resets.ante) > 0.7 then
               card.pinned = true
+          end
+          if not G.GAME.modifiers.cry_eternal_perishable_compat and G.GAME.modifiers.enable_banana and (pseudorandom('cry_banana'..(key_append or '')..G.GAME.round_resets.ante) > 0.7) and (eternal_perishable_poll <= 0.7) then
+              card.ability.banana = true
+          end
+          if G.GAME.modifiers.cry_eternal_perishable_compat and G.GAME.modifiers.enable_banana and (pseudorandom('cry_banana'..(key_append or '')..G.GAME.round_resets.ante) > 0.7) then
+              card.ability.banana = true
           end
           if G.GAME.modifiers.cry_enable_flipped_in_shop and pseudorandom('cry_flip'..(key_append or '')..G.GAME.round_resets.ante) > 0.7 then
               card.cry_flipped = true
@@ -443,15 +452,24 @@ function cry_deep_copy(obj, seen)
     return res
 end
 function cry_misprintize(card, override, force_reset)
-    if not force_reset and (G.GAME.modifiers.cry_misprint_min or override) then
-        --will make this check more advanced later
+    if (not force_reset or G.GAME.modifiers.cry_jkr_misprint_mod) and (G.GAME.modifiers.cry_misprint_min or override or card.ability.set == "Joker") then
         if card.ability.set == "Enhanced" or card.ability.set == "Default" then
+            --apparently there's a better way to do this with newer APIs, will look at it later
             card.config.center = cry_deep_copy(card.config.center)
             cry_misprintize_tbl(card.config.center_key.."_conf", card.config.center.config, nil, override)
             card:set_ability(card.config.center)
             card.base.nominal = cry_misprintize_val(card.base.nominal, override)
         elseif card.ability.set == "Joker" then 
-            cry_misprintize_tbl(card.config.center_key, card.ability, nil, override)
+            if G.GAME.modifiers.cry_jkr_misprint_mod then
+                if not override then override = {} end
+                override.min = override.min or G.GAME.modifiers.cry_misprint_min or 1
+                override.max = override.max or G.GAME.modifiers.cry_misprint_max or 1
+                override.min = override.min * G.GAME.modifiers.cry_jkr_misprint_mod
+                override.max = override.max * G.GAME.modifiers.cry_jkr_misprint_mod
+            end
+            if G.GAME.modifiers.cry_misprint_min or override and override.min then
+                cry_misprintize_tbl(card.config.center_key, card.ability, nil, override)
+            end
         else
             cry_misprintize_tbl(card.config.center_key.."_conf", G.P_CENTERS[card.config.center_key].config, nil, override)
         end
@@ -500,6 +518,7 @@ function init_localization()
         G.localization.descriptions.Spectral.c_trance.text[2] = "to {C:attention}#1#{} selected"
         G.localization.descriptions.Spectral.c_medium.text[2] = "to {C:attention}#1#{} selected"
         G.localization.descriptions.Spectral.c_deja_vu.text[2] = "to {C:attention}#1#{} selected"
+        G.localization.misc.labels.banana = "Banana"
     end
     if G.SETTINGS.language == 'zh_CN' then
         G.localization.descriptions.Spectral.c_cryptid.text[1] = "为所选定的{C:attention}#2#{}张手牌"
@@ -511,10 +530,21 @@ function init_localization()
     G.localization.misc.v_text.ch_c_cry_all_perishable = {"所有小丑牌均为{C:eternal}易腐"}
     G.localization.misc.v_text.ch_c_cry_all_rental = {"所有小丑牌均为{C:eternal}出租"}
     G.localization.misc.v_text.ch_c_cry_all_pinned = {"所有小丑牌均为{C:eternal}左极固定"}
+    G.localization.misc.v_text.ch_c_cry_all_banana = {"所有小丑牌全部变成{C:eternal}香蕉"}
     G.localization.misc.v_text.ch_c_cry_rush_hour = {"所有Boss盲注均为{C:attention}时钟{}或{C:attention}淡紫时环"}
     G.localization.misc.v_text.ch_c_cry_rush_hour_ii = {"所有盲注均为{C:attention}时钟{}或{C:attention}淡紫时环"}
     G.localization.misc.v_text.ch_c_cry_rush_hour_iii = {"{C:attention}时钟{}和{C:attention}淡紫时环的得分要求提升速率{C:attention}翻倍"}
     G.localization.misc.v_text.ch_c_cry_no_tags = {"{C:attention}禁止{}跳过盲注"}
+end
+
+function SMODS.current_mod.process_loc_text()
+    G.localization.descriptions.Other.banana = {
+        name = "Banana",
+        text = {
+            "{C:green}#1# in #2#{} chance of being",
+            "destroyed each round"
+        },
+    }
 end
 
 
@@ -540,13 +570,31 @@ SMODS.Atlas({
     key = "sticker",
     path = "sticker_cry.png",
     px = 71,
-    py = 95
+    py = 95,
+    inject = function(self)
+        local file_path = type(self.path) == 'table' and
+            (self.path[G.SETTINGS.language] or self.path['default'] or self.path['en-us']) or self.path
+        if file_path == 'DEFAULT' then return end
+        -- language specific sprites override fully defined sprites only if that language is set
+        if self.language and not (G.SETTINGS.language == self.language) then return end
+        if not self.language and self.obj_table[('%s_%s'):format(self.key, G.SETTINGS.language)] then return end
+        self.full_path = (self.mod and self.mod.path or SMODS.path) ..
+            'assets/' .. G.SETTINGS.GRAPHICS.texture_scaling .. 'x/' .. file_path
+        local file_data = assert(NFS.newFileData(self.full_path),
+            ('Failed to collect file data for Atlas %s'):format(self.key))
+        self.image_data = assert(love.image.newImageData(file_data),
+            ('Failed to initialize image data for Atlas %s'):format(self.key))
+        self.image = love.graphics.newImage(self.image_data,
+            { mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling })
+        G[self.atlas_table][self.key_noloc or self.key] = self
+        G.shared_sticker_banana = Sprite(0, 0, G.CARD_W, G.CARD_H, G[self.atlas_table][self.key_noloc or self.key], {x = 5,y = 2})
+    end
 })
 function Card:set_perishable(_perishable) 
     self.ability.perishable = nil
     if (self.config.center.perishable_compat or G.GAME.modifiers.cry_any_stickers) and (not self.ability.eternal or G.GAME.modifiers.cry_eternal_perishable_compat) then 
         self.ability.perishable = true
-        self.ability.perish_tally = G.GAME.perishable_rounds
+        self.ability.perish_tally = G.GAME.perishable_rounds or 5
     end
 end
 function Card:set_eternal(_eternal)
@@ -569,6 +617,32 @@ function SMODS.injectItems()
         end
     end
     return m
+end
+
+--Gradients based on Balatrostuck code
+local upd = Game.update
+Cryptid.C = {
+    EXOTIC = {HEX("708b91"),HEX("1e9eba")},
+    TWILIGHT = {HEX("0800ff"),HEX("aa00ff")},
+    VERDANT = {HEX("00ff22"),HEX("f4ff57")},
+    EMBER = {HEX("ff0000"),HEX("ffae00")},
+    DAWN = {HEX("00aaff"),HEX("ff00e3")},
+    HORIZON = {HEX("c8fd09"),HEX("1ee7d9")},
+    BLOSSOM = {HEX("ff09da"),HEX("ffd121")},
+    AZURE = {HEX("0409ff"),HEX("63dcff")},
+    ASCENDANT = {HEX("2e00f5"),HEX("e5001d")},
+}
+function Game:update(dt)
+    upd(self,dt)
+    local anim_timer = self.TIMERS.REAL*1.5
+    local p = 0.5*(math.sin(anim_timer)+1)
+    for k, c in pairs(Cryptid.C) do
+        if not G.C["CRY_"..k] then G.C["CRY_"..k] = {0,0,0,0} end
+        for i = 1, 4 do
+            G.C["CRY_"..k][i] = c[1][i] * p + c[2][i] * (1-p)
+        end
+    end
+    G.C.RARITY["cry_exotic"] = G.C.CRY_EXOTIC
 end
 
 SMODS.Sound({

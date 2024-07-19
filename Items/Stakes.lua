@@ -14,7 +14,7 @@ local pink = {object_type = "Stake",
     modifiers = function()
         G.GAME.modifiers.scaling = math.max(G.GAME.modifiers.scaling or 0, 4)
     end,
-    color = HEX("ff5ee6")
+    colour = HEX("ff5ee6")
 }
 local brown = {object_type = "Stake",
 	name = "cry-Brown Stake",
@@ -33,7 +33,7 @@ local brown = {object_type = "Stake",
         "均不互斥"
         }
     },
-    color = HEX("883200")
+    colour = HEX("883200")
 }
 local yellow = {object_type = "Stake",
 	name = "cry-Yellow Stake",
@@ -51,7 +51,7 @@ local yellow = {object_type = "Stake",
         "均可能附带{C:attention}标贴"
         }
     },
-    color = HEX("f7ff1f")
+    colour = HEX("f7ff1f")
 }
 local jade = {object_type = "Stake",
 	name = "cry-Jade Stake",
@@ -69,7 +69,7 @@ local jade = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("78953c")
+    colour = HEX("78953c")
 }
 local cyan = {object_type = "Stake",
 	name = "cry-Cyan Stake",
@@ -87,7 +87,7 @@ local cyan = {object_type = "Stake",
         "出现几率降低",
         }
     },
-    color = HEX("39ffcc")
+    colour = HEX("39ffcc")
 }
 local gray = {object_type = "Stake",
 	name = "cry-Gray Stake",
@@ -104,7 +104,7 @@ local gray = {object_type = "Stake",
         "重掷费用上涨{C:attention}$2"
         }
     },
-    color = HEX("999999")
+    colour = HEX("999999")
 }
 local crimson = {object_type = "Stake",
 	name = "cry-Crimson Stake",
@@ -121,7 +121,7 @@ local crimson = {object_type = "Stake",
         "奖券仅在{C:attention}偶数{}底注中刷新",
         }
     },
-    color = HEX("800000")
+    colour = HEX("800000")
 }
 local diamond = {object_type = "Stake",
 	name = "cry-Diamond Stake",
@@ -139,7 +139,7 @@ local diamond = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("88e5d9")
+    colour = HEX("88e5d9")
 }
 local amber = {object_type = "Stake",
 	name = "cry-Amber Stake",
@@ -157,7 +157,7 @@ local amber = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("feb900")
+    colour = HEX("feb900")
 }
 local bronze = {object_type = "Stake",
 	name = "cry-Bronze Stake",
@@ -175,7 +175,7 @@ local bronze = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("d27c37")
+    colour = HEX("d27c37")
 }
 local quartz = {object_type = "Stake",
 	name = "cry-Quartz Stake",
@@ -194,7 +194,7 @@ local quartz = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("e8e8e8")
+    colour = HEX("e8e8e8")
 }
 local ruby = {object_type = "Stake",
 	name = "cry-Ruby Stake",
@@ -212,7 +212,7 @@ local ruby = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("fc5f55")
+    colour = HEX("fc5f55")
 }
 local glass = {object_type = "Stake",
 	name = "cry-Glass Stake",
@@ -230,7 +230,7 @@ local glass = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("ffffff")
+    colour = HEX("ffffff8f")
 }
 local sapphire = {object_type = "Stake",
 	name = "cry-Sapphire Stake",
@@ -250,7 +250,7 @@ local sapphire = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("3551fc")
+    colour = HEX("3551fc")
 }
 local emerald = {object_type = "Stake",
 	name = "cry-Emerald Stake",
@@ -270,7 +270,7 @@ local emerald = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("06fc2c")
+    colour = HEX("06fc2c")
 }
 local platinum = {object_type = "Stake",
 	name = "cry-Platinum Stake",
@@ -289,24 +289,35 @@ local platinum = {object_type = "Stake",
         }
     },
     shiny = true,
-    color = HEX("b0f6ff")
+    colour = HEX("b0f6ff")
 }
+--init colors so they have references 
+G.C.CRY_TWILIGHT = {0,0,0,0}
+G.C.CRY_VERDANT = {0,0,0,0}
+G.C.CRY_EMBER = {0,0,0,0}
+G.C.CRY_DAWN = {0,0,0,0}
+G.C.CRY_HORIZON = {0,0,0,0}
+G.C.CRY_BLOSSOM = {0,0,0,0}
+G.C.CRY_AZURE = {0,0,0,0}
+G.C.CRY_ASCENDANT = {0,0,0,0}
 local twilight = {object_type = "Stake",
 	name = "cry-Twilight Stake",
 	key = "twilight",
 	pos = {x = 1, y = 3},
     atlas = "stake",
     applied_stakes = {"cry_platinum"},
+    modifiers = function()
+        G.GAME.modifiers.enable_banana = true
+    end,
 	loc_txt = {
-        name = "Twilight Stake",
+        name = "暮光之注",
         text = {
-        "Cards can be {C:attention}Banana{}",
-        "{s:0.8,C:inactive}(1 in 10 chance of being destroyed each round){}",
-        "{s:0.8,C:inactive}(Not yet implemented){}"
+        "卡牌可能变成{C:attention}香蕉",
+        "{s:0.8,C:inactive}（每回合后均有1/10的几率被摧毁）",
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_TWILIGHT
 }
 local verdant = {object_type = "Stake",
 	name = "cry-Verdant Stake",
@@ -314,16 +325,18 @@ local verdant = {object_type = "Stake",
 	pos = {x = 2, y = 3},
     atlas = "stake",
     applied_stakes = {"cry_twilight"},
+    modifiers = function()
+        G.GAME.modifiers.scaling = 5
+    end,
 	loc_txt = {
         name = "Verdant Stake",
         text = {
         "Required score scales",
         "faster for each {C:attention}Ante",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_VERDANT
 }
 local ember = {object_type = "Stake",
 	name = "cry-Ember Stake",
@@ -331,15 +344,17 @@ local ember = {object_type = "Stake",
 	pos = {x = 3, y = 3},
     atlas = "stake",
     applied_stakes = {"cry_verdant"},
+    modifiers = function()
+        G.GAME.modifiers.cry_no_sell_value = true
+    end,
 	loc_txt = {
         name = "Ember Stake",
         text = {
         "All items have no sell value",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_EMBER
 }
 local dawn = {object_type = "Stake",
 	name = "cry-Dawn Stake",
@@ -347,17 +362,19 @@ local dawn = {object_type = "Stake",
 	pos = {x = 4, y = 3},
     atlas = "stake",
     applied_stakes = {"cry_ember"},
+    modifiers = function()
+        G.GAME.modifiers.cry_consumable_reduce = true
+    end,
 	loc_txt = {
         name = "Dawn Stake",
         text = {
         "Tarots and Spectrals target {C:attention}1",
         "fewer card",
-        "{s:0.8,C:inactive}(Minimum of 1){}",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
+        "{s:0.8,C:inactive}(Minimum of 1){}"
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_DAWN
 }
 local horizon = {object_type = "Stake",
 	name = "cry-Horizon Stake",
@@ -365,16 +382,18 @@ local horizon = {object_type = "Stake",
 	pos = {x = 0, y = 4},
     atlas = "stake",
     applied_stakes = {"cry_dawn"},
+    modifiers = function()
+        G.GAME.modifiers.cry_card_each_round = true
+    end,
 	loc_txt = {
         name = "Horizon Stake",
         text = {
         "When blind selected, add a",
         "{C:attention}random card{} to deck",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_HORIZON
 }
 local blossom = {object_type = "Stake",
 	name = "cry-Blossom Stake",
@@ -382,16 +401,18 @@ local blossom = {object_type = "Stake",
 	pos = {x = 1, y = 4},
     atlas = "stake",
     applied_stakes = {"cry_horizon"},
+    modifiers = function()
+        G.GAME.modifiers.cry_big_showdown = true
+    end,
 	loc_txt = {
         name = "Blossom Stake",
         text = {
         "{C:attention}Final{} Boss Blinds can appear",
-        "after Ante 1",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
+        "in {C:attention}any{} Ante"
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_BLOSSOM
 }
 local azure = {object_type = "Stake",
 	name = "cry-Azure Stake",
@@ -399,16 +420,18 @@ local azure = {object_type = "Stake",
 	pos = {x = 2, y = 4},
     atlas = "stake",
     applied_stakes = {"cry_blossom"},
+    modifiers = function()
+        G.GAME.modifiers.cry_jkr_misprint_mod = 0.8
+    end,
 	loc_txt = {
         name = "Azure Stake",
         text = {
         "Values on Jokers are reduced",
-        "by {C:attention}20%{}",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
+        "by {C:attention}20%{}"
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_AZURE
 }
 local ascendant = {object_type = "Stake",
 	name = "cry-Ascendant Stake",
@@ -416,15 +439,17 @@ local ascendant = {object_type = "Stake",
 	pos = {x = 3, y = 4},
     atlas = "stake",
     applied_stakes = {"cry_azure"},
+    modifiers = function()
+        change_shop_size(-1)
+    end,
 	loc_txt = {
         name = "Ascendant Stake",
         text = {
-        "{C:attention}-1{} Joker slot",
-        "{s:0.8,C:inactive}(Not yet implemented){}",
+        "{C:attention}-1{} Shop slot",
         }
     },
     shiny = true,
-    color = HEX("ffffff") --temporary before gradients
+    colour = G.C.CRY_ASCENDANT
 }
 local stake_atlas = {object_type = "Atlas",
     key = "stake",
@@ -457,12 +482,33 @@ return {name = "More Stakes",
                       amount = amount - amount%(10^math.floor(math.log10(amount)-1))
                     end
                     return amount
+                elseif G.GAME.modifiers.scaling == 5 then
+                    local amounts = {
+                        to_big(300),  to_big(1500), to_big(5000),  to_big(14000),  to_big(35000),  to_big(150000),  to_big(260000),  to_big(400000)
+                    }
+                    if ante < 1 then return to_big(100) end
+                    if ante <= 8 then return amounts[ante] end
+                    local a, b, c, d = amounts[8],1.6,ante-8, 1 + 0.2*(ante-8)
+                    local amount = a*(b+(k*c)^d)^c
+                    if type(amount) == 'table' then
+                        if (amount:lt(R.MAX_SAFE_INTEGER)) then
+                            local exponent = to_big(10)^(math.floor(amount:log10() - to_big(1))):to_number()
+                            amount = math.floor(amount / exponent):to_number() * exponent
+                        end
+                        amount:normalize()
+                    else
+                      amount = amount - amount%(10^math.floor(math.log10(amount)-1))
+                    end
+                    return amount
                 else return gba(ante)
                 end
             end
             -- Disallow use of Debuffed Perishable consumables
             local cuc = Card.can_use_consumeable
             function Card:can_use_consumeable(any_state, skip_check)
+                if self.ability.perish_tally == nil then
+                    self.ability.perish_tally = G.GAME.perishable_rounds or 5
+                end
                 if self.ability.perishable and self.ability.perish_tally <= 0 then 
                     return false
                 end
@@ -651,6 +697,9 @@ return {name = "More Stakes",
                     self.sell_cost = math.max(1, math.floor(self.cost/2)) + (self.ability.extra_value or 0)
                     if self.area and self.ability.couponed and (self.area == G.shop_jokers or self.area == G.shop_booster) then self.cost = 0 end
                     self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
+                end
+                if G.GAME.modifiers.cry_no_sell_value then
+                    self.sell_cost = 0
                 end
             end
 
