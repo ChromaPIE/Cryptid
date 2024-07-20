@@ -131,12 +131,12 @@ local blurred_shader = {
 local blurred = {
     object_type = "Edition",
     key = "blur",
-    weight = 0.1, --very rare
+    weight = 0.5, --very rare
     shader = "blur",
     in_shop = true,
     extra_cost = 3,
     sound = {
-        sound = 'cry_^Mult',
+        sound = 'cry_e_blur',
         per = 1,
         vol = 0.5
     },
@@ -457,6 +457,7 @@ local gambler = {
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RARITY.cry_exotic,function()
                     add_tag(Tag("tag_cry_empowered"))
+                    G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'immediate'})
                     G.CONTROLLER.locks[lock] = nil
                     return true
                 end)

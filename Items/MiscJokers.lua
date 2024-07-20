@@ -1591,6 +1591,7 @@ local sapling = {
 	rarity = 2,
 	cost = 6,
 	blueprint_compat = true,
+	eternal_compat = false,
 	loc_vars = function(self, info_queue, center)
 		return {vars = {center.ability.extra.score, center.ability.extra.req}}
     	end,
@@ -1688,7 +1689,7 @@ local happy = {
     eternal_compat = false,
     atlas = "atlastwo",
     calculate = function(self, card, context)
-        if context.selling_self and #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit and not context.retrigger_joker then
+        if context.selling_self and not context.retrigger_joker then
 		local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
 		G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
 		local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'happy')
@@ -1699,7 +1700,6 @@ local happy = {
         end
     end,
     add_to_deck = function(self, card, from_debuff)
-	if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
 		local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
 		G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
 		local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'happy')
@@ -1707,7 +1707,6 @@ local happy = {
 			G.jokers:emplace(card)
 			G.GAME.joker_buffer = 0
 			return {completed=true}
-        end
     end
 }
 local meteor = {
