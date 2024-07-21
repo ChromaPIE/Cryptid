@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman]
---- VERSION: 0.4.3a
+--- VERSION: 0.4.3b
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -532,6 +532,7 @@ function init_localization()
     G.localization.misc.v_text.ch_c_cry_rush_hour_ii = {"All Blinds are {C:attention}The Clock{} or {C:attention}Lavender Loop"}
     G.localization.misc.v_text.ch_c_cry_rush_hour_iii = {"{C:attention}The Clock{} and {C:attention}Lavender Loop{} scale {C:attention}twice{} as fast"}
     G.localization.misc.v_text.ch_c_cry_no_tags = {"Skipping is {C:attention}disabled{}"}
+    G.localization.misc.dictionary.k_cry_program_pack = "Program Pack"
 end
 
 function SMODS.current_mod.process_loc_text()
@@ -644,23 +645,23 @@ end
 
 SMODS.Sound({
     key = "e_mosaic",
-    path = "e_mosaic.wav"
+    path = "e_mosaic.ogg"
 })
 SMODS.Sound({
     key = "e_glitched",
-    path = "e_glitched.wav"
+    path = "e_glitched.ogg"
 })
 SMODS.Sound({
     key = "e_oversaturated",
-    path = "e_oversaturated.wav"
+    path = "e_oversaturated.ogg"
 })
 SMODS.Sound({
     key = "e_blur",
-    path = "e_blur.wav"
+    path = "e_blur.ogg"
 })
 SMODS.Sound({
     key = "music-Jimball",
-    path = "music-Jimball.wav"
+    path = "music-Jimball.ogg"
 })
 SMODS.Atlas({
     key = "modicon",
