@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman]
---- VERSION: 0.4.3a
+--- VERSION: 0.4.3b
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -530,6 +530,7 @@ function init_localization()
         G.localization.descriptions.Spectral.c_trance.text[1] = "为所选定的{C:attention}#1#{}张手牌"
         G.localization.descriptions.Spectral.c_medium.text[1] = "为所选定的{C:attention}#1#{}张手牌"
         G.localization.descriptions.Spectral.c_deja_vu.text[1] = "为所选定的{C:attention}#1#{}张手牌"
+        G.localization.misc.labels.banana = "香蕉"
     end
     G.localization.misc.v_text.ch_c_cry_all_perishable = {"所有小丑牌均为{C:eternal}易腐"}
     G.localization.misc.v_text.ch_c_cry_all_rental = {"所有小丑牌均为{C:eternal}出租"}
@@ -539,6 +540,7 @@ function init_localization()
     G.localization.misc.v_text.ch_c_cry_rush_hour_ii = {"所有盲注均为{C:attention}时钟{}或{C:attention}淡紫时环"}
     G.localization.misc.v_text.ch_c_cry_rush_hour_iii = {"{C:attention}时钟{}和{C:attention}淡紫时环的得分要求提升速率{C:attention}翻倍"}
     G.localization.misc.v_text.ch_c_cry_no_tags = {"{C:attention}禁止{}跳过盲注"}
+    G.localization.misc.dictionary.k_cry_program_pack = "Program Pack"
 end
 
 function SMODS.current_mod.process_loc_text()
@@ -651,23 +653,23 @@ end
 
 SMODS.Sound({
     key = "e_mosaic",
-    path = "e_mosaic.wav"
+    path = "e_mosaic.ogg"
 })
 SMODS.Sound({
     key = "e_glitched",
-    path = "e_glitched.wav"
+    path = "e_glitched.ogg"
 })
 SMODS.Sound({
     key = "e_oversaturated",
-    path = "e_oversaturated.wav"
+    path = "e_oversaturated.ogg"
 })
 SMODS.Sound({
     key = "e_blur",
-    path = "e_blur.wav"
+    path = "e_blur.ogg"
 })
 SMODS.Sound({
     key = "music-Jimball",
-    path = "music-Jimball.wav"
+    path = "music-Jimball.ogg"
 })
 SMODS.Atlas({
     key = "modicon",
