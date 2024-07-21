@@ -12,7 +12,7 @@ local mosaic = {
     shader = "mosaic",
     in_shop = true,
     extra_cost = 6,
-    config = {Xchips = 2.5},
+    config = {x_chips = 2.5},
     sound = {
         sound = 'cry_e_mosaic',
         per = 1,
@@ -22,7 +22,7 @@ local mosaic = {
         return G.GAME.edition_rate * self.weight
     end,
     loc_vars = function(self, info_queue)
-        return {vars = {self.config.Xchips}}
+        return {vars = {self.config.x_chips}}
     end,
     loc_txt = {
         name = "拼花",
@@ -104,7 +104,7 @@ local astral = {
     in_shop = true,
     extra_cost = 3,
     sound = {
-        sound = 'cry_^Mult',
+        sound = 'talisman_emult',
         per = 1,
         vol = 0.5
     },
@@ -118,9 +118,9 @@ local astral = {
             "{X:dark_edition,C:white}^#1#{}倍率"
         }
     },
-    config = {pow_mult = 1.1},
+    config = {e_mult = 1.1},
     loc_vars = function(self, info_queue)
-        return {vars = {self.config.pow_mult}}
+        return {vars = {self.config.e_mult}}
     end
 }
 
@@ -148,7 +148,7 @@ local blurred = {
         name = "Blurred",
         label = "Blurred",
         text = {
-            "{C:attention}Retrigger{} card",
+            "{C:attention}Retrigger{} this card",
             "{C:green}#1# in #2#{} chance", "to retrigger {C:attention}#3#{}", "additional time"
         }
     },
@@ -395,7 +395,7 @@ local empowered = {
     object_type = "Tag",
     atlas = "tag_cry",
     pos = {x=1, y=0},
-    config = {type = 'immediate'},
+    config = {type = 'new_blind_choice'},
     key = "empowered",
     loc_txt = {
         name = "魂力标签",
@@ -413,7 +413,7 @@ local empowered = {
         return {vars = {}}
     end,
     apply = function(tag, context)
-        if context.type == 'immediate' then
+        if context.type == 'new_blind_choice' then
             tag:yep('+', G.C.SECONDARY_SET.Spectral,function() 
                 local key = 'p_spectral_normal_1'
                 local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
@@ -437,7 +437,7 @@ local gambler = {
     object_type = "Tag",
     atlas = "tag_cry",
     pos = {x=2, y=0},
-    config = {type = 'immediate', odds = 4},
+    config = {type = 'new_blind_choice', odds = 4},
     key = "gambler",
     loc_txt = {
         name = "赌徒标签",
@@ -451,13 +451,13 @@ local gambler = {
         return {vars = {G.GAME.probabilities.normal or 1, self.config.odds}}
     end,
     apply = function(tag, context)
-        if context.type == 'immediate' then
+        if context.type == 'new_blind_choice' then
             if pseudorandom('cry_gambler_tag') < G.GAME.probabilities.normal/tag.config.odds then
                 local lock = tag.ID
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RARITY.cry_exotic,function()
                     add_tag(Tag("tag_cry_empowered"))
-                    G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'immediate'})
+                    G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'new_blind_choice'})
                     G.CONTROLLER.locks[lock] = nil
                     return true
                 end)
