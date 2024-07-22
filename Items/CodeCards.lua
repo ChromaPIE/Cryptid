@@ -5,9 +5,9 @@ local code = {
     secondary_colour = HEX("12f254"),
     collection_rows = {4,4}, -- 4 pages for all code cards
     loc_txt = {
-        collection = "Code Cards",
-        name = "Code",
-        label = "Code"
+        collection = "代码卡",
+        name = "代码",
+        label = "代码"
     },
     shop_rate = 0.0,
     default = 'c_cry_crash',
@@ -48,10 +48,11 @@ local pack1 = {
 		return { vars = {card.config.center.config.choose, card.ability.extra} }
 	end,
     loc_txt = {
-        name = "Program Pack",
+        name = "程序包",
         text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:cry_code} Code{} cards"
+            "从{C:attention}#2#{}张",
+            "{C:cry_code}代码卡{}中",
+            "选择{C:attention}#1#{}张"
         }
     },
     group_key = "k_cry_program_pack"
@@ -76,10 +77,11 @@ local pack2 = {
 		return { vars = {card.config.center.config.choose, card.ability.extra} }
 	end,
     loc_txt = {
-        name = "Program Pack",
+        name = "程序包",
         text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:cry_code} Code{} cards"
+            "从{C:attention}#2#{}张",
+            "{C:cry_code}代码卡{}中",
+            "选择{C:attention}#1#{}张"
         }
     },
     group_key = "k_cry_program_pack"
@@ -104,10 +106,11 @@ local packJ = {
 		return { vars = {card.config.center.config.choose, card.ability.extra} }
 	end,
     loc_txt = {
-        name = "Jumbo Program Pack",
+        name = "巨型程序包",
         text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:cry_code} Code{} cards"
+            "从{C:attention}#2#{}张",
+            "{C:cry_code}代码卡{}中",
+            "选择{C:attention}#1#{}张"
         }
     },
     group_key = "k_cry_program_pack"
@@ -132,10 +135,11 @@ local packM = {
 		return { vars = {card.config.center.config.choose, card.ability.extra} }
 	end,
     loc_txt = {
-        name = "Mega Program Pack",
+        name = "超级程序包",
         text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:cry_code} Code{} cards"
+            "从{C:attention}#2#{}张",
+            "{C:cry_code}代码卡{}中",
+            "选择{C:attention}#1#{}张"
         }
     },
     group_key = "k_cry_program_pack"
@@ -150,7 +154,8 @@ local crash = {
     loc_txt = {
         name = '://CRASH',
         text = {
-			"{C:cry_code,E:1}Don't."
+            "{C:inactive,s:0.8}-- 崩溃",
+			"{C:cry_code,E:1}别搞。"
         }
     },
     cost = 4,
@@ -174,8 +179,9 @@ local payload = {
     loc_txt = {
         name = '://PAYLOAD',
         text = {
-			"Next defeated Blind",
-            "gives {C:cry_code}X#1#{} interest"
+            "{C:inactive,s:0.8}-- 载荷",
+			"下个击败的盲注",
+            "所给予的资金{C:cry_code}X#1#"
         }
     },
     loc_vars = function(self, info_queue, center)
@@ -204,9 +210,10 @@ local reboot = {
     loc_txt = {
         name = '://REBOOT',
         text = {
-			"Replenish {C:blue}Hands{} and {C:red}Discards{},",
-            "return {C:cry_code}all{} cards to deck",
-            "and draw a {C:cry_code}new{} hand"
+            "{C:inactive,s:0.8}-- 重启",
+			"补满{C:blue}出牌{}和{C:red}弃牌{}次数",
+            "将{C:cry_code}所有{}扑克牌洗回牌组",
+            "并{C:cry_code}重新{}抽取手牌"
         }
     },
     cost = 4,
@@ -246,8 +253,9 @@ local revert = {
     loc_txt = {
         name = '://REVERT',
         text = {
-			"Set {C:cry_code}game state{} to",
-            "start of {C:cry_code}this Ante{}"
+            "{C:inactive,s:0.8}-- 回退",
+			"将游戏回退至{C:cry_code}当前底注",
+            "开始时的{C:cry_code}状态"
         }
     },
     cost = 4,
@@ -317,28 +325,28 @@ crash_functions = {
     end,
     function()
         --by WilsonTheWolf and MathIsFun_, funky error screen with random funny message
-        messages = {"Oops.", "Your cards have been TOASTED, extra crispy for your pleasure.", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "What we have here is a certified whoopsidaisy", "Why don't you buy more jonkers? Are you stupid?", "lmao",
-            "How about a game of YOU MUST DIE?",
-            "Sorry, I was in the bathroom. What'd I mi'Where'd... Where is everyone?",
+        messages = {"Oops.", "Your cards have been TOASTED, extra crispy for your pleasure.", "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+            "What we have here is a certified whoopsidaisy", "Why don't you buy more jonkers? Are you stupid?", "笑死",
+            "我们玩个那个叫“你死定了”的游戏吧？",
+            "不好意思哈刚上了个厕所。你们刚谈…你们去……诶不是你们人呢？",
             "Peter? What are you doing? Cards. WHAT THE FUCK?", "what if it was called freaklatro", "4",
             "I SAWED THIS GAME IN HALF!", "is this rush hour 4", "You missed a semicolon on line 19742, you buffoon",
             "you are an idiot", "You do not recognise the cards in the deck.", ":( Your P", "Assertion failed",
-            "Play ULTRAKILL", "Play Nova Drift", "Play Balatro- wait",
+            "进入游戏：王者荣耀", "进入游戏：元气骑士", "进入游戏：小丑- 呃",
             "what if instead of rush hour it was called kush hour and you just smoked a massive blunt",
-            "death.fell.accident.water", "Balatro's innards were made outards", "i am going to club yrou",
-            "But the biggest joker of them all, it was you all along!", "fission mailed successfully",
-            "table index is nil", "index is nil table", "nil is index table", "nildex is in table", "I AM THE TABLE",
-            "I'm never going back this casino agai-", "what did you think would happen?",
-            "DO THE EARTHQUAKE! [screams]", "fuck you", "Screaming in the casino prank! AAAAAAAAAAAAAAAAAA",
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "You musn't tear or crease it.",
-            "Sure, but the point is to do it without making a hole.",
-            "The end of all things! As was foretold in the prophecy!", "Do it again. It'd be funny", "", ":3",
-            "Looks like a skill issue to me.", "it turns out that card was ligma", "YouJustLostTheCasinoGame",
+            "死亡.失足.意外.水", "Balatro's innards were made outards", "i am going to club yrou",
+            "那么多张小丑，只有你才是那个纯纯的铁沙口！", "任务成工地矢败了",
+            "表 索引 为 nil", "索引 为 nil 表", "nil 为 索引 表", "nil引 为 位于 表", "我 就 是 TA表LE",
+            "再赌我就是犭-", "你以为能怎样呢？",
+            "DO THE EARTHQUAKE! [screams]", "操你妈", "Screaming in the casino prank! AAAAAAAAAAAAAAAAAA",
+            "https://www.bilibili.com/video/BV1GJ411x7h7", "严禁撕扯或折皱。",
+            "啊那确实，但我意思是别掏个洞出来。",
+            "The end of all things! As was foretold in the prophecy!", "再来一次。多好玩啊", "", ":3",
+            "我菜，我认了。", "噢我知道了。那张卡叫牛魔", "赛博赌博都能赌输哈哈",
             "Nah fuck off", "attempt to call global your_mom (value too large)", "Killed by intentional game design",
-            "attempt to index field 'attempt to call global to_big (too big)' (a nil value)", "what.avi", "The C",
-            "Shoulda kept Chicot", "Maybe next time don't do that?", "[recursion]", "://SHART", "It's converging time.",
-            "This is the last error message."}
+            "attempt to index field 'attempt to call global to_big (too big)' (a nil value)", "啥.avi", "The C",
+            "早知道不卖希科了", "下次注意，行不？", "[recursion]", "://SHART", "It's converging time.",
+            "这是最后一条错误信息。"}
         function corruptString(str)
             -- replace each character with a random valid ascii character
             local newStr = ""
