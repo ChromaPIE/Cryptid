@@ -471,8 +471,7 @@ function cry_misprintize(card, override, force_reset)
                 cry_misprintize_tbl(card.config.center_key, card.ability, nil, override)
             end
         else
-            cry_misprintize_tbl(card.config.center_key.."_conf", G.P_CENTERS[card.config.center_key].config, nil, override)
-            cry_misprintize_tbl(card.config.center_key, card.ability, true)
+            cry_misprintize_tbl(card.config.center_key, G.P_CENTERS[card.config.center_key].config, nil, override)
             for k, v in pairs(G.P_CENTERS[card.config.center_key].config) do
                 card.ability[k] = cry_deep_copy(v)
             end
@@ -483,8 +482,14 @@ function cry_misprintize(card, override, force_reset)
             card:set_cost()
         end
     else
-        cry_misprintize_tbl(card.config.center_key.."_conf", G.P_CENTERS[card.config.center_key].config, true)
-        cry_misprintize_tbl(card.config.center_key, card.ability, true)
+        if card.ability.set == "Joker" then
+            cry_misprintize_tbl(card.config.center_key, card.ability, true)
+        else
+            cry_misprintize_tbl(card.config.center_key, G.P_CENTERS[card.config.center_key].config, true)
+            for k, v in pairs(G.P_CENTERS[card.config.center_key].config) do
+                card.ability[k] = cry_deep_copy(v)
+            end
+        end
     end
 end
 function cry_log_random(seed,min,max)
