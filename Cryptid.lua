@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
 --- DEPENDENCIES: [Talisman]
---- VERSION: 0.4.3b
+--- VERSION: 0.4.3c
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -65,6 +65,18 @@ function eval_card(card, context)
     end
     local ret = ec(card, context)
     if card.ability.cry_rigged then
+        G.GAME.probabilities.normal = ggpn
+    end
+    return ret
+end
+local uc = Card.use_consumeable
+function Card:use_consumeable(area,copier)
+    local ggpn = G.GAME.probabilities.normal
+    if self.ability.cry_rigged then
+        G.GAME.probabilities.normal = 1e300
+    end
+    local ret = uc(self, area, copier)
+    if self.ability.cry_rigged then
         G.GAME.probabilities.normal = ggpn
     end
     return ret
@@ -691,7 +703,10 @@ SMODS.Sound({
 })
 SMODS.Sound({
     key = "music-Jimball",
-    path = "Jimball.ogg"
+    path = "Jimball.ogg",
+    select_music_track = function()
+        return next(find_joker('cry-Jimball')) and Cryptid_config.Cryptid.jimball_music
+    end
 })
 SMODS.Atlas({
     key = "modicon",
