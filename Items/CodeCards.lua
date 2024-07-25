@@ -289,7 +289,7 @@ local semicolon = {
     config = {},
     loc_txt = {
         name = ';//',
-        text = {"立即结束当前的非Boss{C:cry_code}盲注,", "但{C:cry_code}无法{}给予奖励金"}
+        text = {"立即结束当前的非Boss{C:cry_code}盲注,", "但{C:cry_code}跳过{}提现阶段"}
     },
     cost = 4,
     atlas = "code",
@@ -367,9 +367,9 @@ local seed = {
     loc_txt = {
         name = '://SEED',
         text = {
-            "Select a Joker",
-            "or playing card",
-            "to become {C:cry_code}Rigged"
+            "{C:inactive,s:0.8}-- 种子",
+            "将选定的小丑牌或扑克牌",
+            "变为{C:cry_code}私改"
         }
     },
     cost = 4,
@@ -406,12 +406,13 @@ local variable = {
         y = 1,
     },
     cost = 4,
-    config = {max_highlighted = 1, extra = {enteredrank = ""}},
+    config = {max_highlighted = 2, extra = {enteredrank = ""}},
     loc_txt = {
         name = '://VARIABLE',
         text = {
-            'Convert {C:cry_code}#1#{} selected card',
-            'to a {C:cry_code}chosen{} rank'
+            "{C:inactive,s:0.8}-- 变量",
+            '将{C:cry_code}#1#{}张选定卡牌的点数',
+            '变为{C:cry_code}输入值'
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -441,8 +442,9 @@ local class = {
     loc_txt = {
         name = '://CLASS',
         text = {
-            'Convert {C:cry_code}#1#{} selected card',
-            'to a {C:cry_code}chosen{} enhancement'
+            "{C:inactive,s:0.8}-- 变量",
+            '为{C:cry_code}#1#{}张选定卡牌',
+            '添加{C:cry_code}输入值{}对应的增强'
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -465,11 +467,12 @@ local automaton = {
     pos = {x=5,y=1},
     config = {create = 1},
     loc_txt = {
-        name = 'The Automaton',
+        name = '自动机',
         text = {
-            "Creates up to {C:attention}#1#",
-            "random {C:cry_code}Code{} card",
-            "{C:inactive}(Must have room)"
+            "随机生成",
+            "至多{C:attention}#1#{}张",
+            "{C:cry_code}代码{}卡",
+            "{C:inactive}（必须有空位）"
         }
     },
     atlas = "code",
@@ -608,14 +611,15 @@ G.FUNCS.variable_apply = function()
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
                 local card = G.hand.highlighted[i]
                 local suit_prefix = string.sub(card.base.suit, 1, 1)..'_'
-                if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
-                elseif rank_suffix == 10 then rank_suffix = 'T'
-                elseif rank_suffix == 11 then rank_suffix = 'J'
-                elseif rank_suffix == 12 then rank_suffix = 'Q'
-                elseif rank_suffix == 13 then rank_suffix = 'K'
-                elseif rank_suffix == 14 then rank_suffix = 'A'
+                local r2suffix = nil
+                if rank_suffix < 10 then r2suffix = tostring(rank_suffix)
+                elseif rank_suffix == 10 then r2suffix = 'T'
+                elseif rank_suffix == 11 then r2suffix = 'J'
+                elseif rank_suffix == 12 then r2suffix = 'Q'
+                elseif rank_suffix == 13 then r2suffix = 'K'
+                elseif rank_suffix == 14 then r2suffix = 'A'
                 end
-                card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
+                card:set_base(G.P_CARDS[suit_prefix..r2suffix])
                 return true end }))
         end  
         for i=1, #G.hand.highlighted do
@@ -1153,6 +1157,25 @@ return {name = "Code Cards",
                     sr()
                 end
                 sr()
+            end
+            --Semicolon - don't evaluate round
+            local gfer = G.FUNCS.evaluate_round
+            function G.FUNCS.evaluate_round()
+                if G.GAME.current_round.semicolon then
+                    add_round_eval_row({dollars = 0, name='blind1', pitch = 0.95, saved = true})
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        delay = 1.3*math.min(G.GAME.blind.dollars+2, 7)/2*0.15 + 0.5,
+                        func = function()
+                        G.GAME.blind:defeat()
+                        return true
+                        end
+                    }))
+                    delay(0.2)
+                    add_round_eval_row({name = 'bottom', dollars = 0})
+                else
+                    return gfer()
+                end
             end
         end,
         items = code_cards}

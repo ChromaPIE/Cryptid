@@ -555,9 +555,9 @@ function init_localization()
     G.localization.misc.v_text.ch_c_cry_rush_hour_ii = {"所有盲注均为{C:attention}时钟{}或{C:attention}淡紫时环"}
     G.localization.misc.v_text.ch_c_cry_rush_hour_iii = {"{C:attention}时钟{}和{C:attention}淡紫时环的得分要求提升速率{C:attention}翻倍"}
     G.localization.misc.v_text.ch_c_cry_no_tags = {"{C:attention}禁止{}跳过盲注"}
-    G.localization.misc.dictionary.k_cry_program_pack = "Program Pack"
-    G.localization.misc.labels.banana = "Banana"
-    G.localization.misc.labels.cry_rigged = "Rigged"
+    G.localization.misc.dictionary.k_cry_program_pack = "程序包"
+    G.localization.misc.labels.banana = "香蕉"
+    G.localization.misc.labels.cry_rigged = "私改"
 end
 
 function SMODS.current_mod.process_loc_text()
