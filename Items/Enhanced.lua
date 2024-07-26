@@ -65,6 +65,22 @@ local justice_deck = {object_type = "Back",
         }
     },
 }
+local eclipse_deck = {object_type = "Back",
+    name = "cry-The Eclipse's Deck",
+    key = "eclipse_deck",
+	config = {cry_force_enhancement = "m_cry_echo"},
+	pos = {x = 1, y = 5},
+    atlas = "atlasenchanced",
+	loc_txt = {
+        name = "The Eclipse's Deck",
+        text = {
+            "Start with a deck",
+            "of {C:attention}Echo Cards{}",
+            "Cards cannot change enhancements"
+        }
+    },
+    
+}
 local chariot_deck = {object_type = "Back",
     name = "cry-The Chariot's Deck",
     key = "chariot_deck",
@@ -322,6 +338,21 @@ local medium_deck = {object_type = "Back",
     },
     atlas = "atlasenchanced"
 }
+local typhoon_deck = {object_type = "Back",
+    name = "cry-Typhoon Deck",
+    key = "typhoon_deck",
+	config = {cry_force_seal = 's_cry_azure'},
+	pos = {x = 0, y = 2},
+	loc_txt = {
+        name = "Typhoon Deck",
+        text = {
+            "Start with a deck",
+            "of {C:attention}Azure Seal Cards{}",
+            "Cards cannot change seals"
+        }
+    },
+    
+}
 local eternal_deck = {object_type = "Back",
     name = "cry-Eternal Deck",
     key = "eternal_deck",
@@ -361,6 +392,34 @@ local rental_deck = {object_type = "Back",
         text = {
             "Start with a deck",
             "of {C:attention}Rental Cards{}"
+        }
+    },
+}
+local banana_deck = {object_type = "Back",
+    name = "cry-Banana Deck",
+    key = "banana_deck",
+	config = {cry_force_sticker = 'banana'},
+	pos = {x = 5, y = 4},
+    atlas = "atlasenchanced",
+	loc_txt = {
+        name = "Banana Deck",
+        text = {
+            "Start with a deck",
+            "of {C:attention}Banana Cards{}"
+        }
+    },
+}
+local pinned_deck = {object_type = "Back",
+    name = "cry-Pinned Deck",
+    key = "pinned_deck",
+	config = {cry_force_sticker = 'pinned'},
+	pos = {x = 0, y = 5},
+    atlas = "atlasenchanced",
+	loc_txt = {
+        name = "Pinned Deck",
+        text = {
+            "Start with a deck",
+            "of {C:attention}Pinned Cards{}"
         }
     },
 }
@@ -458,7 +517,7 @@ return {name = "Enhanced Decks",
                     }))
                 end
                 if self.effect.config.cry_force_edition then
-                    if self.effect.config.cry_force_edition ~= 'random' then G.GAME.modifiers.cry_force_edition = self.effect.config.cry_force_edition end
+                    if self.effect.config.cry_force_edition ~= 'random' then G.GAME.modifiers.cry_force_edition = self.effect.config.cry_force_edition else G.GAME.modifiers.cry_force_random_edition = true end
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             for c = #G.playing_cards, 1, -1 do
@@ -502,6 +561,7 @@ return {name = "Enhanced Decks",
                     }))
                 end
                 if self.effect.config.cry_force_sticker then
+                    G.GAME.modifiers.cry_force_sticker = self.effect.config.cry_force_sticker
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             for c = #G.playing_cards, 1, -1 do
@@ -552,8 +612,8 @@ return {name = "Enhanced Decks",
             end
         end,
         items = {atlasenchanced,
-hierophant_deck, empress_deck, lovers_deck, justice_deck, chariot_deck, tower_deck, devil_deck, magician_deck,
+hierophant_deck, empress_deck, lovers_deck, justice_deck, eclipse_deck, chariot_deck, tower_deck, devil_deck, magician_deck,
 foil_deck, holo_deck, poly_deck, nega_deck, astral_deck, mosaic_deck, oversat_deck, glitched_deck, blurred_deck,
-talisman_deck, deja_vu_deck, trance_deck, medium_deck,
-eternal_deck, perishable_deck, rental_deck,
+talisman_deck, deja_vu_deck, trance_deck, medium_deck, typhoon_deck,
+eternal_deck, perishable_deck, rental_deck, banana_deck, pinned_deck,
 star_deck, moon_deck, sun_deck, world_deck}}
