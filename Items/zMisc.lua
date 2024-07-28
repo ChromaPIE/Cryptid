@@ -1,3 +1,4 @@
+
 --Edition code based on Bunco's Glitter Edition
 
 local mosaic_shader = {
@@ -56,7 +57,7 @@ local oversat = {
         name = "过曝",
         label = "过曝",
         text = {
-            "所有数值{C:attention}翻倍",
+            "本牌的所有数值{C:attention}翻倍",
             "{C:inactive}（如果可能）"
         }
     }
@@ -85,7 +86,7 @@ local glitched = {
         name = "故障",
         label = "故障",
         text = {
-            "所有数值",
+            "本牌的所有数值",
             "{C:dark_edition}随机{C:blue}X0.1{} - {C:red}X10",
             "{C:inactive}（如果可能）"
         }
@@ -132,7 +133,7 @@ local blurred_shader = {
 local blurred = {
     object_type = "Edition",
     key = "blur",
-    weight = 0.5, --very rare
+    weight = 0.6, --very rare
     shader = "blur",
     in_shop = true,
     extra_cost = 3,
@@ -148,7 +149,7 @@ local blurred = {
         name = "Blurred",
         label = "Blurred",
         text = {
-            "{C:attention}Retrigger{} this card",
+            "{C:attention}Retrigger{} this", "card {C:attention}1{} time",
             "{C:green}#1# in #2#{} chance", "to retrigger {C:attention}#3#{}", "additional time"
         }
     },
