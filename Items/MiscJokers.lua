@@ -94,11 +94,11 @@ local happyhouse = {
     pos = {x = 2, y = 4},
     config = {extra = {mult = 4, check = 0}},
     loc_txt = {
-        name = 'Happy House',
-        text = { "{X:dark_edition,C:white}^#1#{} Mult only after",
-        "playing {C:attention}114{} hands{}",
-	"{C:inactive}(Currently #2#/114){}",
-	"{C:inactive,s:0.8}There is no place like home!{}"
+        name = '快乐老家',
+        text = { "{C:attention}114{}次出牌后",
+        "{X:dark_edition,C:white}^#1#{}倍率",
+	"{C:inactive}（当前已出牌#2#/114次）",
+	"{C:inactive,s:0.8}金窝银窝，不如自己的小狗窝！"
 	}
     },
     rarity = 2,
@@ -1643,10 +1643,10 @@ local hunger = {
     	config = {extra = {money = 3}},
 	pos = {x = 3, y = 0},
 	loc_txt = {
-        name = 'Consume-able',
+        name = '消化牌',
         text = {
-            "Earn {C:money}$#1#{} when",
-            "using a {C:attention}consumable{}",
+            "使用{C:attention}消耗牌{}时",
+            "获得{C:money}$#1#",
         }
     	},
 	rarity = 2,
@@ -1676,9 +1676,9 @@ local weegaming = {
     loc_txt = {
         name = '2D',
         text = {
-            "Retrigger each played {C:attention}2{}", --wee gaming
-            "{C:attention:}#1#{} additional time(s)", --wee gaming?
-	    "{C:inactive,s:0.8}Wee Gaming?{}"
+            "打出的每张{C:attention}2", --wee gaming
+            "均会重新触发{C:attention:}#1#{}次", --wee gaming?
+	    "{C:inactive,s:0.8}小玩一会儿？"
         }
     },
     rarity = 2,
@@ -1717,10 +1717,11 @@ local redbloon = {
     config = {extra = {money = 20, rounds_remaining = 2, text = "s"}},
     pos = {x = 5, y = 1},
     loc_txt = {
-        name = 'Red Bloon',
+        name = '红气球',
         text = {
-            "Earn {C:money}$#1#{} in {C:attention}#2#{} round#3#",
-            "{C:red,E:2}self destructs{}"
+            "{C:attention}#2#{}回合后",
+            "获得{C:money}$#1#",
+            "{C:red,E:2}自毁"
         }
     },
     rarity = 1,
@@ -1800,8 +1801,8 @@ local apjoker = {
     pos = {x = 2, y = 0},
     config = {extra = {x_mult = 4}},
     loc_txt = {
-        name = 'AP Joker',
-        text = { "{X:mult,C:white} X#1# {} Mult against {C:attention}Boss Blinds{}"}
+        name = '穿甲弹小丑',
+        text = { "对阵{C:attention}Boss盲注{}时","{X:mult,C:white} X#1# {}倍率"}
     },
     rarity = 2,
     cost = 6,
@@ -1843,12 +1844,10 @@ local maze = {
     key = "maze",
     pos = {x = 1, y = 1},
     loc_txt = {
-        name = 'Labyrinth',
+        name = '迷宫',
         text = {
-            "All hands are considered the",
-            "{C:attention}first hand{} of each round,",
-            "all discards are considered the",
-            "{C:attention}first discard{} of each round"
+            "所有出牌/弃牌均视为",
+            "当前回合内的{C:attention}第一手出牌/弃牌",
         }
     },
     rarity = 1,
