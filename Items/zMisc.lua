@@ -87,7 +87,7 @@ local glitched = {
         label = "故障",
         text = {
             "本牌的所有数值",
-            "{C:dark_edition}随机{C:blue}X0.1{} - {C:red}X10",
+            "{C:dark_edition}随机{C:attention}X0.1{} - {C:attention}X10",
             "{C:inactive}（如果可能）"
         }
     }

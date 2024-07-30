@@ -837,6 +837,7 @@ function init_localization()
     G.localization.misc.dictionary.k_cry_program_pack = "程序包"
     G.localization.misc.labels.banana = "香蕉"
     G.localization.misc.labels.cry_rigged = "私改"
+    G.localization.misc.labels.food_jokers = "食物小丑"
 end
 
 function SMODS.current_mod.process_loc_text()
@@ -852,6 +853,14 @@ function SMODS.current_mod.process_loc_text()
         text = {
             "All {C:cry_code}probabilities",
             "are {C:cry_code}guaranteed"
+        },
+    }
+    G.localization.descriptions.Other.food_jokers = {
+        name = "Food Jokers",
+        text = {
+            "{s:0.8}Gros Michel, Egg, Ice Cream, Cavendish,",
+            "{s:0.8}Turtle Bean, Diet Cola, Popcorn, Ramen,",
+            "{s:0.8}Seltzer, Pickle, Chili Pepper, Caramel"
         },
     }
 								-- i am so sorry for this
