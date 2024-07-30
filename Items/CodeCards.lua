@@ -402,7 +402,7 @@ local seed = {
     atlas = "code",
     can_use = function(self, card)
         --the card itself and one other card
-        return #G.jokers.highlighted + #G.hand.highlighted + #G.consumeables.highlighted == 2
+        return #G.jokers.highlighted + #G.hand.highlighted + #G.consumeables.highlighted + (G.pack_cards and #G.pack_cards.highlighted or 0) == 2
     end,
     loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = {key = 'cry_rigged', set = 'Other', vars = {}}
@@ -417,6 +417,9 @@ local seed = {
         end
         if G.consumeables.highlighted[1] then
             G.consumeables.highlighted[1].ability.cry_rigged = true
+        end
+        if G.pack_cards and G.pack_cards.highlighted[1] then
+            G.pack_cards.highlighted[1].ability.cry_rigged = true
         end
     end
 }
@@ -481,6 +484,180 @@ local class = {
             definition = create_UIBox_class(card),
             config = {align="bmi", offset = {x=0,y=G.ROOM.T.y + 29},major = G.jokers, bond = 'Weak', instance_type = "POPUP"}
         }
+    end
+}
+local commit = {
+    object_type = 'Consumable',
+    set = 'Code',
+    key = 'commit',
+    name = 'cry-Commit',
+    atlas = 'code',
+    pos = {
+        x = 1,
+        y = 2,
+    },
+    cost = 4,
+    loc_txt = {
+        name = '://COMMIT',
+        text = {
+            'Destroy a {C:cry_code}selected{} Joker,',
+            'create a {C:cry_code}new{} Joker',
+            'of the {C:cry_code}same rarity'
+        }
+    },
+    can_use = function(self, card)
+        return #G.jokers.highlighted == 1
+    end,
+    use = function(self, card, area, copier)
+        local rarity = G.jokers.highlighted[1].config.center.rarity
+        local legendary = nil
+        --please someone add a rarity api to steamodded
+        if rarity == 1 then
+            rarity = 0
+        elseif rarity == 2 then
+            rarity = 0.9
+        elseif rarity == 3 then
+            rarity = 0.99
+        elseif rarity == 4 then
+            rarity = nil
+            legendary = true
+        elseif rarity == 'cry_epic' then
+            rarity = 1
+        end
+        local _first_dissolve = nil
+        G.E_MANAGER:add_event(Event({trigger = 'before', delay = 0.75, func = function()
+            G.jokers.highlighted[1]:start_dissolve(nil, _first_dissolve)
+                _first_dissolve = true
+            return true end }))
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            play_sound('timpani')
+            local card = create_card('Joker', G.jokers, legendary, rarity, nil, nil, nil, 'cry_commit')
+            card:add_to_deck()
+            G.jokers:emplace(card)
+            card:juice_up(0.3, 0.5)
+            return true end }))
+    end
+}
+local merge = {
+    object_type = 'Consumable',
+    set = 'Code',
+    key = 'merge',
+    name = 'cry-Merge',
+    atlas = 'code',
+    pos = {
+        x = 0,
+        y = 2,
+    },
+    cost = 4,
+    loc_txt = {
+        name = '://MERGE',
+        text = {
+            'Merge a selected {C:cry_code}consumable',
+            'with a selected {C:cry_code}playing card'
+        }
+    },
+    can_use = function(self, card)
+        return #G.hand.highlighted + #G.consumeables.highlighted - (card.area == G.consumeables and card.highlighted and 1 or 0) == 2
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
+        if not G.redeemed_vouchers_during_hand then
+            G.redeemed_vouchers_during_hand = CardArea(
+                G.play.T.x, G.play.T.y, G.play.T.w, G.play.T.h, 
+                {type = 'play', card_limit = 5})
+        end
+        area:remove_from_highlighted(card)
+        local key = G.consumeables.highlighted[1].config.center.key
+        local c = G.consumeables.highlighted[1]
+        local CARD = G.hand.highlighted[1]
+        card:start_dissolve()
+        play_sound('card1');
+        G.consumeables:remove_from_highlighted(c)
+        CARD.area = G.play;
+        c.area = G.redeemed_vouchers_during_hand
+        draw_card(G.hand, G.play, 1, 'up', true, CARD)
+        draw_card(G.consumeables,G.redeemed_vouchers_during_hand,1,'up',true,c)
+        delay(0.2)
+        CARD:flip()
+        c:flip();
+        delay(0.2)
+        local percent = 0.85 + (1-0.999)/(#G.hand.highlighted-0.998)*0.3
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function() 
+            play_sound("timpani");c:start_dissolve(nil,nil,0);CARD:flip();CARD:set_ability(G.P_CENTERS[key], true, nil);play_sound('tarot2', percent);CARD:juice_up(0.3, 0.3);return true end }))
+        delay(0.5)
+        draw_card(G.play,G.hand,1,'up',true,CARD)
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.5,func = function() 
+            G.redeemed_vouchers_during_hand:remove(c);return true end }))
+        return true end }))
+    end
+}
+local multiply = {
+    object_type = 'Consumable',
+    set = 'Code',
+    key = 'multiply',
+    name = 'cry-Multiply',
+    atlas = 'code',
+    pos = {
+        x = 3,
+        y = 2,
+    },
+    cost = 4,
+    loc_txt = {
+        name = '://MULTIPLY',
+        text = {
+            '{C:cry_code}Double{} all values of',
+            'a selected {C:cry_code}Joker{} until',
+            'end of round'
+        }
+    },
+    can_use = function(self, card)
+        return #G.jokers.highlighted == 1
+    end,
+    use = function(self, card, area, copier)
+        if not G.jokers.highlighted[1].cry_multiply then
+            G.jokers.highlighted[1].cry_multiply = 1
+        end
+        G.jokers.highlighted[1].cry_multiply = G.jokers.highlighted[1].cry_multiply * 2
+        cry_misprintize(G.jokers.highlighted[1],{min=2,max=2},nil,true)
+    end
+}
+local divide = {
+    object_type = 'Consumable',
+    set = 'Code',
+    key = 'divide',
+    name = 'cry-Divide',
+    atlas = 'code',
+    pos = {
+        x = 2,
+        y = 2,
+    },
+    cost = 4,
+    loc_txt = {
+        name = '://DIVIDE',
+        text = {
+            '{C:cry_code}Halve{} all listed prices',
+            'in current shop'
+        }
+    },
+    can_use = function(self, card)
+        return G.STATE == G.STATES.SHOP
+    end,
+    use = function(self, card, area, copier)
+        for i = 1, #G.shop_jokers.cards do
+            local c = G.shop_jokers.cards[i]
+            c.misprint_cost_fac = (c.misprint_cost_fac or 1) * 0.5
+            c:set_cost()
+        end
+        for i = 1, #G.shop_booster.cards do
+            local c = G.shop_booster.cards[i]
+            c.misprint_cost_fac = (c.misprint_cost_fac or 1) * 0.5
+            c:set_cost()
+        end
+        for i = 1, #G.shop_vouchers.cards do
+            local c = G.shop_vouchers.cards[i]
+            c.misprint_cost_fac = (c.misprint_cost_fac or 1) * 0.5
+            c:set_cost()
+        end
     end
 }
 local automaton = {
@@ -1111,7 +1288,7 @@ crash_functions = {
 
 
 
-local code_cards = {code, code_atlas, pack_atlas, pack1, pack2, packJ, packM, console, automaton, payload, reboot, revert, crash, semicolon, malware, seed, variable, class}
+local code_cards = {code, code_atlas, pack_atlas, pack1, pack2, packJ, packM, console, automaton, payload, reboot, revert, crash, semicolon, malware, seed, variable, class, commit, merge, multiply, divide}
 return {name = "Code Cards",
         init = function()
             --allow Program Packs to let you keep the cards
@@ -1122,7 +1299,7 @@ return {name = "Code Cards",
                         return {
                             n=G.UIT.ROOT, config = {padding = -0.1,  colour = G.C.CLEAR}, nodes={
                             {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, minh = 0.7*card.T.h, maxw = 0.7*card.T.w - 0.15, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_reserve_card'}, nodes={
-                                {n=G.UIT.T, config={text = "RESERVE",colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+                                {n=G.UIT.T, config={text = "PULL",colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
                             }},
                             {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, maxw = 0.9*card.T.w - 0.15, minh = 0.1*card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'Do you know that this parameter does nothing?', func = 'can_use_consumeable'}, nodes={
                                 {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
@@ -1198,6 +1375,18 @@ return {name = "Code Cards",
                     add_round_eval_row({name = 'bottom', dollars = 0})
                 else
                     return gfer()
+                end
+            end
+            --Multiply - reset Jokers at end of round
+            local er = end_round
+            function end_round()
+                er()
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i].cry_multiply then
+                        m = G.jokers.cards[i].cry_multiply
+                        cry_misprintize(G.jokers.cards[i],{min=1/m,max=1/m},nil,true)
+                        G.jokers.cards[i].cry_multiply = nil
+                    end
                 end
             end
         end,
