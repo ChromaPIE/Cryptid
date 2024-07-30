@@ -365,6 +365,11 @@ local clock = {
             "本盲注最低要求+0.1X"
         }
     },
+    config = {
+        tw_bl = {
+            ignore = true
+        }
+    },
     atlas = "blinds",
     boss_colour = HEX('853455'),
     defeat = function(self, silent)
