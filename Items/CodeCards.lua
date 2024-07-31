@@ -301,7 +301,7 @@ local revert = {
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 4,
+            delay = G.SETTINGS.GAMESPEED,
             func = function()
                 G:delete_run()
                 G:start_run({
@@ -568,7 +568,16 @@ local merge = {
         }
     },
     can_use = function(self, card)
-        return #G.hand.highlighted + #G.consumeables.highlighted - (card.area == G.consumeables and card.highlighted and 1 or 0) == 2
+        if #G.hand.highlighted ~= 1 + (card.area == G.hand and 1 or 0) then
+            return false
+        end
+        if #G.consumeables.highlighted ~= 1 + (card.area == G.consumeables and 1 or 0) then
+            return false
+        end
+        local n = 1
+        if G.hand.highlighted[1] == card then n = 2 end
+        if G.hand.highlighted[n].ability.consumeable then return false end
+        return true
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
@@ -694,7 +703,7 @@ local delete = {
         return G.STATE == G.STATES.SHOP and #G.shop_jokers.highlighted + #G.shop_booster.highlighted + #G.shop_vouchers.highlighted == 1
     end,
     use = function(self, card, area, copier)
-        if not G.GAME.cry_delete then G.GAME.cry_delete = {} end
+        if not G.GAME.banned_keys then G.GAME.banned_keys = {} end	-- i have no idea if this is always initialised already tbh
         local a = nil
         local c = nil
         if G.shop_jokers.highlighted[1] then
@@ -709,7 +718,7 @@ local delete = {
             a = G.shop_vouchers
             c = G.shop_vouchers.highlighted[1]
         end
-        G.GAME.cry_delete[c.config.center.key] = true
+        G.GAME.banned_keys[c.config.center.key] = true
         c:start_dissolve()
     end
 }
