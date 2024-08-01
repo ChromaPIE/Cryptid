@@ -672,6 +672,9 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
           check_for_unlock({type = 'have_edition'})
       end
   end
+  if (card.ability.set == "Code") and G.GAME.used_vouchers.v_cry_quantum_computing then
+    card:set_edition({negative = true})
+    end
   if G.GAME.modifiers.cry_force_edition and (not G.GAME.modifiers.cry_force_random_edition) and area ~= G.pack_cards then
       card:set_edition(nil, true)
   end
@@ -685,6 +688,7 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
   if card.ability.consumeable and card.pinned then	-- counterpart is in Sticker.toml
       G.GAME.cry_pinned_consumeables = G.GAME.cry_pinned_consumeables + 1
   end
+
   return card
 end
 
@@ -1100,7 +1104,7 @@ SMODS.Sound({
 SMODS.Sound({
     key = "music_jimball",
     path = "music_jimball.ogg",
-    no_sync = true,
+    sync = false,
     pitch = 1,
     select_music_track = function()
         return next(find_joker('cry-Jimball')) and Cryptid_config.Cryptid.jimball_music and 1.57e308
