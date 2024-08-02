@@ -329,10 +329,10 @@ local verdant = {object_type = "Stake",
         G.GAME.modifiers.scaling = 5
     end,
 	loc_txt = {
-        name = "Verdant Stake",
+        name = "翠绿之注",
         text = {
-        "Required score scales",
-        "faster for each {C:attention}Ante",
+        "{C:attention}底注{}提升时",
+        "过关需求分数的涨幅更大",
         }
     },
     shiny = true,
@@ -348,9 +348,9 @@ local ember = {object_type = "Stake",
         G.GAME.modifiers.cry_no_sell_value = true
     end,
 	loc_txt = {
-        name = "Ember Stake",
+        name = "余烬之注",
         text = {
-        "All items have no sell value",
+        "所有物品售出价格为零",
         }
     },
     shiny = true,
@@ -366,11 +366,11 @@ local dawn = {object_type = "Stake",
         G.GAME.modifiers.cry_consumable_reduce = true
     end,
 	loc_txt = {
-        name = "Dawn Stake",
+        name = "黎明之注",
         text = {
-        "Tarots and Spectrals target {C:attention}1",
-        "fewer card",
-        "{s:0.8,C:inactive}(Minimum of 1){}"
+        "塔罗牌和幻灵牌的",
+        "可选定卡牌张数{C:attention}-1",
+        "{s:0.8,C:inactive}（至少仍可选1张）"
         }
     },
     shiny = true,
@@ -386,10 +386,10 @@ local horizon = {object_type = "Stake",
         G.GAME.modifiers.cry_card_each_round = true
     end,
 	loc_txt = {
-        name = "Horizon Stake",
+        name = "视界之注",
         text = {
-        "When blind selected, add a",
-        "{C:attention}random card{} to deck",
+        "选择盲注时",
+        "向牌组中随机{}添加一张{C:attention}卡牌",
         }
     },
     shiny = true,
@@ -405,10 +405,10 @@ local blossom = {object_type = "Stake",
         G.GAME.modifiers.cry_big_showdown = true
     end,
 	loc_txt = {
-        name = "Blossom Stake",
+        name = "盛放之注",
         text = {
-        "{C:attention}Final{} Boss Blinds can appear",
-        "in {C:attention}any{} Ante"
+        "{C:attention}终局{}Boss盲注",
+        "可能出现在{C:attention}任何{}底注中"
         }
     },
     shiny = true,
@@ -424,10 +424,9 @@ local azure = {object_type = "Stake",
         G.GAME.modifiers.cry_jkr_misprint_mod = 0.8
     end,
 	loc_txt = {
-        name = "Azure Stake",
+        name = "蔚蓝之注",
         text = {
-        "Values on Jokers are reduced",
-        "by {C:attention}20%{}"
+        "小丑牌的各项数值削减{C:attention}20%"
         }
     },
     shiny = true,
@@ -443,9 +442,9 @@ local ascendant = {object_type = "Stake",
         change_shop_size(-1)
     end,
 	loc_txt = {
-        name = "Ascendant Stake",
+        name = "胜势之注",
         text = {
-        "{C:attention}-1{} Shop slot",
+        "商店内的商品槽位{C:attention}-1",
         }
     },
     shiny = true,
