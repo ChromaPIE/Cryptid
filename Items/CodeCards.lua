@@ -511,9 +511,9 @@ local commit = {
     loc_txt = {
         name = '://COMMIT',
         text = {
-            'Destroy a {C:cry_code}selected{} Joker,',
-            'create a {C:cry_code}new{} Joker',
-            'of the {C:cry_code}same rarity'
+            "{C:inactive,s:0.8}-- 提交",
+            '摧毁{C:cry_code}选定{}的小丑牌',
+            '{C:cry_code}重新{}生成一张{C:cry_code}同等稀有度{}的小丑牌'
         }
     },
     can_use = function(self, card)
@@ -563,8 +563,9 @@ local merge = {
     loc_txt = {
         name = '://MERGE',
         text = {
-            'Merge a selected {C:cry_code}consumable',
-            'with a selected {C:cry_code}playing card'
+            "{C:inactive,s:0.8}-- 合并",
+            '将选定的{C:cry_code}消耗牌',
+            '与选定的{C:cry_code}扑克牌{}合并'
         }
     },
     can_use = function(self, card)
@@ -625,9 +626,9 @@ local multiply = {
     loc_txt = {
         name = '://MULTIPLY',
         text = {
-            '{C:cry_code}Double{} all values of',
-            'a selected {C:cry_code}Joker{} until',
-            'end of round'
+            "{C:inactive,s:0.8}-- 倍增",
+            '使{C:cry_code}选定{}小丑牌的所有数值{C:cry_code}翻倍',
+            '回合结束时失效'
         }
     },
     can_use = function(self, card)
@@ -655,8 +656,9 @@ local divide = {
     loc_txt = {
         name = '://DIVIDE',
         text = {
-            '{C:cry_code}Halve{} all listed prices',
-            'in current shop'
+            "{C:inactive,s:0.8}-- 除分",
+            '使当前商店内',
+            '所有列出的价格{C:cry_code}减半',
         }
     },
     can_use = function(self, card)
@@ -694,9 +696,9 @@ local delete = {
     loc_txt = {
         name = '://DELETE',
         text = {
-            '{C:cry_code}Permanently{} remove a',
-            '{C:cry_code}selected{} shop item',
-            '{C:inactive,s:0.8}Item cannot appear again this run'
+            "{C:inactive,s:0.8}-- 删除",
+            '{C:cry_code}永久{}移除一件{C:cry_code}选定{}的商品',
+            '{C:inactive,s:0.8}本赛局内不会再次上架'
         }
     },
     can_use = function(self, card)
@@ -736,8 +738,9 @@ local spaghetti = {
     loc_txt = {
         name = '://SPAGHETTI',
         text = {
-            'Create a {C:cry_code}Glitched',
-            'Food Joker'
+            "{C:inactive,s:0.8}-- 意面",
+            '生成一张带有{C:cry_code}故障{}的',
+            '食物小丑牌',
         }
     },
     loc_vars = function(self, info_queue, card)

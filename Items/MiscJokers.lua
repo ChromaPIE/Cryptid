@@ -2332,11 +2332,9 @@ local happy = {
     loc_txt = {
         name = ':D',
         text = {
-            "Create a random {C:attention}Joker{}",
-            "at end of round",
-	    "Sell this card to",
-	    "create a random {C:attention}Joker{}",
-	    "{C:inactive}(Must have room){}"
+            "回合结束时随机生成一张{C:attention}小丑牌",
+	    "售出本牌时随机生成一张{C:attention}小丑牌",
+	    "{C:inactive}（必须有空位）"
         }
     },
     rarity = 1,
