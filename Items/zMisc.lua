@@ -296,7 +296,7 @@ local typhoon = {
     loc_txt = {
         name = '飓风',
         text = {
-            "为选定的{C:attention}1{}张手牌",
+            "为选定的{C:attention}#1#{}张手牌",
             "打上{C:cry_azure}碧蓝色蜡封"
         }
     },
@@ -640,7 +640,7 @@ function Card:calculate_banana()
                     self.children.center.pinch.x = true
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
                         func = function()
-                                self.area:remove_card(self)
+                                if self.area then self.area:remove_card(self) end
                                 self:remove()
                                 self = nil
                             return true; end})) 

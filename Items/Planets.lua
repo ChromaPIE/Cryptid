@@ -35,7 +35,7 @@ local timantti = {
         suit_level_up(self, card, area, copier, number)
     end,
     calculate = function(self, card, context)
-	if G.GAME.used_vouchers.v_observatory and context.scoring_name == "High Card" or context.scoring_name == "Pair" or context.scoring_name == "Two Pair" then
+	if G.GAME.used_vouchers.v_observatory and (context.scoring_name == "High Card" or context.scoring_name == "Pair" or context.scoring_name == "Two Pair") then
 		local value = G.P_CENTERS.v_observatory.config.extra
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {value}},
@@ -73,7 +73,7 @@ local klubi = {
         suit_level_up(self, card, area, copier, number)
     end,
     calculate = function(self, card, context)
-	if G.GAME.used_vouchers.v_observatory and context.scoring_name == "Three of a Kind" or context.scoring_name == "Straight" or context.scoring_name == "Flush" then
+	if G.GAME.used_vouchers.v_observatory and (context.scoring_name == "Three of a Kind" or context.scoring_name == "Straight" or context.scoring_name == "Flush") then
 		local value = G.P_CENTERS.v_observatory.config.extra
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {value}},
@@ -111,7 +111,7 @@ local sydan = {
         suit_level_up(self, card, area, copier, number)
     end,
     calculate = function(self, card, context)
-	if G.GAME.used_vouchers.v_observatory and context.scoring_name == "Full House" or context.scoring_name == "Four of a Kind" or context.scoring_name == "Straight Flush" then
+	if G.GAME.used_vouchers.v_observatory and (context.scoring_name == "Full House" or context.scoring_name == "Four of a Kind" or context.scoring_name == "Straight Flush") then
 		local value = G.P_CENTERS.v_observatory.config.extra
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {value}},
@@ -149,7 +149,7 @@ local lapio = {
         suit_level_up(self, card, area, copier, number)
     end,
     calculate = function(self, card, context)
-	if G.GAME.used_vouchers.v_observatory and context.scoring_name == "Five of a Kind" or context.scoring_name == "Flush House" or context.scoring_name == "Flush Five" then
+	if G.GAME.used_vouchers.v_observatory and (context.scoring_name == "Five of a Kind" or context.scoring_name == "Flush House" or context.scoring_name == "Flush Five") then
 		local value = G.P_CENTERS.v_observatory.config.extra
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {value}},
