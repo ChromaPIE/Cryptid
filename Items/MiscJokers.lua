@@ -877,11 +877,11 @@ local eternalflame = {
 	pos = {x = 0, y = 4},
 	config = {extra = {extra = 0.1, x_mult = 1}},
 	loc_txt = {
-        name = 'Eternal Flame',
+        name = '永恒之火',
         text = {
-			"This Joker gains {X:mult,C:white} X#1# {} Mult",
-			"for each card {C:attention}sold{}",
-			"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+			"每{C:attention}售出{}一张卡牌",
+			"本牌获得{X:mult,C:white} X#1# {}倍率",
+			"{C:inactive}（当前为{X:mult,C:white} X#2# {C:inactive}倍率）"
 		}
     },
 	rarity = 3,
@@ -1332,12 +1332,11 @@ local krustytheclown = {
 	pos = {x = 3, y = 4},
 	config = {extra = {extra = 0.02, x_mult = 1}},
 	loc_txt = {
-        name = 'Krusty the Clown',
+        name = '小丑库斯提',
         text = {
-			"This Joker gains",
-			"{X:mult,C:white} X#1# {} Mult when",
-			"each played {C:attention}card{} is scored",
-			"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+			"打出{C:attention}卡牌{}的每次计分",
+			"均使本牌获得{X:mult,C:white} X#1# {}倍率",
+			"{C:inactive}（当前为{X:mult,C:white} X#2# {C:inactive}倍率）"
 		}
     	},
 	rarity = 2,

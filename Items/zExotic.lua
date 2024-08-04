@@ -193,12 +193,11 @@ local speculo = {
 	key = "speculo",
 	pos = {x = 3, y = 1},
 	loc_txt = {
-        name = 'Speculo',
+        name = '宝鉴',
         text = {
-            "Creates a {C:dark_edition}Negative{} copy",
-            "of a random {C:attention}Joker{}",
-            "at the end of the {C:attention}shop",
-	    "{C:inactive,s:0.8}Does not copy other Speculo{}",
+            "退出{C:attention}商店{}时，随机复制一张{C:attention}小丑牌",
+            "并使其版本变为{C:dark_edition}负片",
+	    "{C:inactive,s:0.8}不会复制其他“宝鉴”",
         }
     },
 	rarity = "cry_exotic",
@@ -241,12 +240,10 @@ local redeo = {
     end,
 	pos = {x = 3, y = 0},
 	loc_txt = {
-        name = 'Redeo',
+        name = '复还',
         text = {
-            "{C:attention}-#1#{} Ante when",
-            "{C:money}$#2#{} {C:inactive}($#3#){} spent",
-            "{s:0.8}Requirements increase by",
-            "{C:money,s:0.8}$#4#{s:0.8} after each use"
+            "花费{C:money}$#2#{C:inactive}（$#3#）{}后，底注{C:attention}-#1#",
+            "每次生效后，花费门槛提升{C:money}$#4#",
         }
     },
 	rarity = "cry_exotic",
@@ -288,10 +285,10 @@ local tenebris = {
 	soul_pos = {x = 4, y = 2, extra = {x = 5, y = 2}},
 	config = {extra = {slots = 25, money = 25}},
 	loc_txt = {
-      		name = 'Tenebris',
+      		name = '昏黯',
         	text = {
-			"{C:dark_edition}+#1#{C:attention} Joker{} slots",
-			"Earn {C:money}$#2#{} at end of round"
+			"{C:attention}小丑牌{}槽位{C:dark_edition}+#1#",
+			"每回合结束时获得{C:money}$#2#"
 		}
    	},
 	rarity = "cry_exotic",
@@ -333,12 +330,11 @@ local effarcire = {
 	pos = {x = 0, y = 3},
 	soul_pos = {x = 1, y = 3, extra = {x = 2, y = 3}},
 	loc_txt = {
-        name = 'Effarcire',
+        name = '充塞',
         text = {
-    		'Draw {C:green}full deck{} to hand',
-    		'when {C:attention}Blind{} is selected',
-    		'{C:inactive,s:0.8}"If you can\'t handle me at my 1x"',
-    		'{C:inactive,s:0.8}"you don\'t deserve me at my 2x"'
+    		'选择{C:attention}盲注{}时',
+    		'将{C:green}整个牌组{}抽取至手牌',
+    		'{C:inactive,s:0.8}“给你机会你别{C:dark_edition,s:0.8}把握{C:inactive,s:0.8}不住啊”',
 	}
 	},
 	rarity = 3,
@@ -420,12 +416,12 @@ local primus = {
     config = {extra = {Emult = 1.01, Emult_mod = 0.17}},
     pos = {x = 0, y = 4},
     loc_txt = {
-        name = 'Primus',
+        name = '先机',
         text = {
-            "This Joker gains {X:dark_edition,C:white} ^#1# {} Mult",
-            "if all cards in played hand are",
-            "{C:attention}Aces{}, {C:attention}2s{}, {C:attention}3s{}, {C:attention}5s{}, or {C:attention}7s{}",
-            "{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)"
+            "若打出的牌均为",
+            "{C:attention}A{}、{C:attention}2{}、{C:attention}3{}、{C:attention}5{}或{C:attention}7",
+            "本牌获得{X:dark_edition,C:white} ^#1# {}倍率",
+            "{C:inactive}（当前为{X:dark_edition,C:white} ^#2# {C:inactive}倍率）"
         }
     },
     rarity = "cry_exotic",
@@ -448,7 +444,7 @@ local primus = {
 				card.ability.extra.Emult = card.ability.extra.Emult + card.ability.extra.Emult_mod
 				return {
 					card_eval_status_text(card, 'extra', nil, nil, nil, {
-						message = "Upgrade!",
+						message = "升级！",
 						colour = G.C.DARK_EDITION,
 					})
 				}   
