@@ -350,7 +350,7 @@ local ember = {object_type = "Stake",
 	loc_txt = {
         name = "余烬之注",
         text = {
-        "所有物品售出价格为零",
+        "无法通过售出物品赚取任何资金",
         }
     },
     shiny = true,
@@ -696,9 +696,6 @@ return {name = "More Stakes",
                     self.sell_cost = math.max(1, math.floor(self.cost/2)) + (self.ability.extra_value or 0)
                     if self.area and self.ability.couponed and (self.area == G.shop_jokers or self.area == G.shop_booster) then self.cost = 0 end
                     self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
-                end
-                if G.GAME.modifiers.cry_no_sell_value then
-                    self.sell_cost = 0
                 end
             end
 
