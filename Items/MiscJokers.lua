@@ -1963,13 +1963,12 @@ key = "unjust_dagger",
 pos = {x = 3, y = 0},
 config = {extra = {x_mult = 1}},
 loc_txt = {
-name = 'Unjust Dagger',
+name = '不义匕首',
 text = {
-"When {C:attention}Blind{} is selected,",
-"destroy Joker to the left",
-"and gain {C:attention}one-fifth{} of",
-"its sell value as {X:mult,C:white} XMult {}",
-"{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"
+"选择{C:attention}盲注{}时",
+"摧毁本牌左侧的小丑牌",
+"并获得其售价{C:attention}1/5{}的{X:mult,C:white}乘倍",
+"{C:inactive}（当前为{X:mult,C:white} X#1# {C:inactive}倍率"
 }
 },
 rarity = 2,
@@ -2025,13 +2024,12 @@ local monkey_dagger = {
 	pos = {x = 4, y = 3},
 	config = {extra = {chips = 0}},
 	loc_txt = {
-		name = 'Monkey Dagger',
+		name = '猴子匕首',
 		text = {
-			"When {C:attention}Blind{} is selected,",
-			"destroy Joker to the left",
-			"and permanently add {C:attention}ten times{}",
-			"its sell value to this {C:chips}Chips{}",
-			"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
+			"选择{C:attention}盲注{}时",
+			"摧毁本牌左侧的小丑牌",
+			"并获得其售价{C:attention}10倍{}的{C:chips}筹码",
+			"{C:inactive}（当前为{C:chips}+#1#{C:inactive}筹码）"
 		}
 	},
 	rarity = 2,
@@ -2084,13 +2082,12 @@ local pirate_dagger = {
 	pos = {x = 3, y = 3},
 	config = {extra = {x_chips = 1}},
 	loc_txt = {
-		name = 'Pirate Dagger',
+		name = '海盗匕首',
 		text = {
-			"When {C:attention}Blind{} is selected,",
-			"destroy Joker to the right",
-			"and gain {C:attention}one-fourth{} of",
-			"its sell value as {X:chips,C:white} XChips {}",
-			"{C:inactive}(Currently {X:chips,C:white} X#1# {C:inactive} Chips)"
+			"选择{C:attention}盲注{}时",
+			"摧毁其右侧的小丑牌",
+			"并获得其售价的{C:attention}1/4{}的{X:chips,C:white}筹码倍乘",
+			"{C:inactive}（当前为{X:chips,C:white} X#1# {C:inactive}筹码）"
 		}
 	},
 	rarity = 2,
