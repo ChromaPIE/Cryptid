@@ -1,3 +1,4 @@
+cry_enable_exotics = false
 local gateway = {
     object_type = "Consumable",
     set = "Spectral",
@@ -762,6 +763,7 @@ local scalae = {
 }
 return {name = "Exotic Jokers", 
         init = function()
+            cry_enable_exotics = true
             --Universum Patches
             local uht = update_hand_text
             function update_hand_text(config, vals)
