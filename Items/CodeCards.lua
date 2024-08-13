@@ -152,10 +152,9 @@ local console = {
     key = "console",
     min_ante = 2,
     loc_txt = {
-        name = "Console Tag",
+        name = "控制台标签",
         text = {
-            "Gives a free",
-            "{C:cry_code}Program Pack"
+            "获得一个免费的{C:cry_code}程序包"
         }
     },
     loc_vars = function(self, info_queue)
@@ -879,8 +878,9 @@ local run = {
     loc_txt = {
         name = "://RUN",
         text = {
-            "Visit a {C:cry_code}shop",
-            "during a {C:cry_code}Blind"
+            "{C:inactive,s:0.8}-- 运行",
+            "在{C:cry_code}盲注{}进行时",
+            "进入{C:cry_code}商店"
         }
     },
     cost = 3,
@@ -928,11 +928,11 @@ local exploit = {
     loc_txt = {
         name = '://EXPLOIT',
         text = {
-            'The {C:cry_code}next{} hand played',
-            'is calculated as a',
-            '{C:cry_code}chosen{} poker hand',
-            '{C:inactive,s:0.8}Secret hands must be',
-            '{C:inactive,s:0.8}discovered to be valid'
+            "{C:inactive,s:0.8}-- 非法利用",
+            '{C:cry_code}输入{}一种牌型',
+            '{C:cry_code}下次{}出牌计分时',
+            '将被视作该牌型',
+            '{C:inactive,s:0.8}不接受未打出过的秘密牌型'
         }
     },
     can_use = function(self, card)
@@ -945,6 +945,125 @@ local exploit = {
             definition = create_UIBox_exploit(card),
             config = {align="bmi", offset = {x=0,y=G.ROOM.T.y + 29},major = G.jokers, bond = 'Weak', instance_type = "POPUP"}
         }
+    end
+}
+local oboe = {
+    object_type = 'Consumable',
+    set = 'Code',
+    key = 'oboe',
+    name = 'cry-oboe',
+    atlas = 'code',
+    config = {extra = {choices = 1}},
+    pos = {
+        x = 2,
+        y = 3,
+    },
+    cost = 4,
+    loc_txt = {
+        name = '://OFFBYONE',
+        text = {
+            "{C:inactive,s:0.8}-- 单字节溢出",
+            '打开的下一个{C:cry_code}补充包',
+            '将额外包含{C:cry_code}#1#{}张卡牌',
+            '且可拿取张数{C:cry_code}+#1#'
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+		return {vars = {card.ability.extra.choices}}
+	end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        G.GAME.cry_oboe = (G.GAME.cry_oboe or 0) + card.ability.extra.choices
+    end
+}
+local rework = {
+    object_type = 'Consumable',
+    set = 'Code',
+    key = 'rework',
+    name = 'cry-Rework',
+    atlas = 'code',
+    pos = {
+        x = 3,
+        y = 3,
+    },
+    cost = 4,
+    loc_txt = {
+        name = '://REWORK',
+        text = {
+            "{C:inactive,s:0.8}-- 重做",
+            '摧毁{C:cry_code}选定{}的小丑牌',
+            '并生成一个版本{C:cry_code}升级{}的{C:cry_code}重做标签',
+            '{C:inactive,s:0.8}升级以收藏中的顺序为准'
+        }
+    },
+    loc_vars = function(self, info_queue)
+        info_queue[#info_queue+1] = {set = "Tag", key = "tag_cry_rework", specific_vars = {"[edition]", "[joker]"}}
+        return {vars = {}}
+    end,
+    can_use = function(self, card)
+        return #G.jokers.highlighted == 1
+    end,
+    use = function(self, card, area, copier)
+        local jkr = G.jokers.highlighted[1]
+        local found_index = 1
+        if jkr.edition then
+            for i, v in ipairs(G.P_CENTER_POOLS.Edition) do
+                if v.key == jkr.edition.key then
+                    found_index = i
+                    break
+                end
+            end
+        end
+        found_index = found_index + 1
+        if found_index > #G.P_CENTER_POOLS.Edition then found_index = found_index - #G.P_CENTER_POOLS.Edition end
+        local tag = Tag("tag_cry_rework")
+        tag.config.rework_key = jkr.config.center.key
+        tag.config.rework_edition = G.P_CENTER_POOLS.Edition[found_index].key
+        add_tag(tag)
+        --SMODS.Tags.tag_cry_rework.apply(tag, {type = "store_joker_create"})
+        G.E_MANAGER:add_event(Event({trigger = 'before', delay = 0.75, func = function()
+            jkr:start_dissolve()
+            return true end }))
+    end
+}
+local rework_tag = {
+    object_type = "Tag",
+    atlas = "tag_cry",
+    pos = {x=0, y=0},
+    config = {type = 'store_joker_create'},
+    key = "rework",
+    config = {rework_edition = "[版本]", rework_key = "[小丑牌]"},
+    loc_txt = {
+        name = "重做标签",
+        text = {
+            "商店内将提供一张",
+            "{C:dark_edition}#1#{}的{C:attention}#2#"
+        }
+    },
+    loc_vars = function(self, info_queue)
+		return {vars = {
+            self.config and self.config.rework_edition and localize{type = "name", set = "Edition", key = self.config.rework_edition} or "[版本]",
+            self.config and self.config.rework_key and localize{type = "name", set = "Joker", key = self.config.rework_key} or "[小丑牌]",
+        }}
+	end,
+    apply = function(tag, context)
+        if context.type == 'store_joker_create' then
+            local card = create_card('Joker', context.area, nil, nil, nil, nil, tag.config.rework_key)
+            create_shop_card_ui(card, 'Joker', context.area)
+            card:set_edition(tag.config.rework_edition)
+            card.states.visible = false
+            tag:yep('+', G.C.FILTER,function() 
+                card:start_materialize()
+                return true
+            end)
+            tag.triggered = true
+            return card
+        end
+    end,
+    in_pool = function()
+        return false
     end
 }
 
@@ -1698,7 +1817,7 @@ crash_functions = {
 
 
 
-local code_cards = {code, code_atlas, pack_atlas, pack1, pack2, packJ, packM, console, automaton, payload, reboot, revert, crash, semicolon, malware, seed, rigged, variable, class, commit, merge, multiply, divide, delete, machinecode, run, exploit}
+local code_cards = {code, code_atlas, pack_atlas, pack1, pack2, packJ, packM, console, automaton, payload, reboot, revert, crash, semicolon, malware, seed, rigged, variable, class, commit, merge, multiply, divide, delete, machinecode, run, exploit, oboe, --[[rework, rework_tag--]]}
 if Cryptid_config["Misc."] then code_cards[#code_cards+1] = spaghetti end
 return {name = "Code Cards",
         init = function()
