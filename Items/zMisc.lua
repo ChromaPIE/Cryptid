@@ -146,11 +146,11 @@ local blurred = {
         return G.GAME.edition_rate * self.weight
     end,
     loc_txt = {
-        name = "Blurred",
-        label = "Blurred",
+        name = "模糊",
+        label = "模糊",
         text = {
-            "{C:attention}Retrigger{} this", "card {C:attention}1{} time",
-            "{C:green}#1# in #2#{} chance", "to retrigger {C:attention}#3#{}", "additional time"
+            "{C:attention}重新触发1{}次",
+            "另有{C:green}#1#/#2#{}的几率", "再重新触发{C:attention}#3#{}次"
         }
     },
     config = {retrigger_chance = 2, retriggers = 1},

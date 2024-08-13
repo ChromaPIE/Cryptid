@@ -445,7 +445,8 @@ local seed = {
 }
 local rigged = {
     object_type = "Sticker",
-    pos = {x = 10, y = 10}, --add texture later
+    atlas = "sticker",
+    pos = {x = 5, y = 1}, 
     loc_txt = {
         name = "私改",
         label = "私改",
@@ -457,7 +458,11 @@ local rigged = {
     key = "cry_rigged",
     no_sticker_sheet = true,
     prefix_config = {key = false},
-    badge_colour = HEX("14b341")
+    badge_colour = HEX("14b341"),
+    draw = function(self, card) --don't draw shine
+        G.shared_stickers[self.key].role.draw_major = card
+        G.shared_stickers[self.key]:draw_shader('dissolve', nil, nil, nil, card.children.center)
+    end
 }
 
 local variable = {

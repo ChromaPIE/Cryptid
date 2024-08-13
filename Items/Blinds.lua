@@ -488,10 +488,9 @@ local windmill = {
         max = 10
     },
 	loc_txt = {
-        name = 'The Windmill',
+        name = '风车',
         text = {
-            "All Uncommon Jokers",
-            "are debuffed"
+            "罕见小丑牌全部失效",
         }
     },
     atlas = "blinds",
