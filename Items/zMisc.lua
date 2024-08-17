@@ -397,6 +397,9 @@ local empowered = {
     end,
     apply = function(tag, context)
         if context.type == 'new_blind_choice' then
+            if G.STATE ~= G.STATES.SPECTRAL_PACK then
+                G.GAME.PACK_INTERRUPT = G.STATE
+            end
             tag:yep('+', G.C.SECONDARY_SET.Spectral,function() 
                 local key = 'p_spectral_normal_1'
                 local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
@@ -420,7 +423,7 @@ local gambler = {
     object_type = "Tag",
     atlas = "tag_cry",
     pos = {x=2, y=0},
-    config = {type = 'new_blind_choice', odds = 4},
+    config = {type = 'immediate', odds = 4},
     min_ante = 2,
     key = "gambler",
     loc_txt = {
@@ -435,13 +438,15 @@ local gambler = {
         return {vars = {G.GAME.probabilities.normal or 1, self.config.odds}}
     end,
     apply = function(tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'immediate' then
             if pseudorandom('cry_gambler_tag') < G.GAME.probabilities.normal/tag.config.odds then
                 local lock = tag.ID
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RARITY.cry_exotic,function()
                     add_tag(Tag("tag_cry_empowered"))
+                    if not G.GAME.PACK_INTERRUPT then
                     G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'new_blind_choice'})
+                    end
                     G.CONTROLLER.locks[lock] = nil
                     return true
                 end)
@@ -536,7 +541,8 @@ local memory = {
     end
 }
 
-local miscitems = {mosaic_shader, mosaic, oversat_shader, oversat, glitched_shader, glitched, astral_shader, astral, blurred_shader, blurred,
+local miscitems = {mosaic_shader, oversat_shader, glitched_shader, astral_shader, blurred_shader,
+glitched, mosaic, oversat, blurred, astral,
 echo_atlas, echo, eclipse, 
 azure_seal_sprite, typhoon, azure_seal, 
 cat, empowered, gambler, bundle, memory}
@@ -568,11 +574,8 @@ end
 se = Card.set_edition
 function Card:set_edition(x,y,z)
     local from_copy = false
-    if type(x) == "table" then
-    if x.from_copy then from_copy = true end
-    x.from_copy = nil
-    if x == {} then x = nil end
-    end
+    if self.from_copy then from_copy = true end
+    self.from_copy = nil
     se(self,x,y,z)
     if not from_copy then
         if self.edition and self.edition.cry_oversat then
@@ -585,6 +588,7 @@ function Card:set_edition(x,y,z)
         end
     end
 end
+
 --echo card
 cs = Card.calculate_seal
 function Card:calculate_seal(context)

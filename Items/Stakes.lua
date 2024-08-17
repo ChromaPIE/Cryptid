@@ -12,7 +12,7 @@ local pink = {object_type = "Stake",
         }
     },
     modifiers = function()
-        G.GAME.modifiers.scaling = math.max(G.GAME.modifiers.scaling or 0, 4)
+        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
     end,
     colour = HEX("ff5ee6")
 }
@@ -338,7 +338,7 @@ local verdant = {object_type = "Stake",
     atlas = "stake",
     applied_stakes = {"cry_twilight"},
     modifiers = function()
-        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 0) + 1
+        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
     end,
 	loc_txt = {
         name = "翠绿之注",

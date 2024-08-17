@@ -396,6 +396,14 @@ end
 
 -- File loading based on Relic-Jokers
 local files = NFS.getDirectoryItems(mod_path.."Items")
+--for first boot, make sure config is defined properly beforehand
+for _, file in ipairs(files) do
+    local f, err = SMODS.load_file("Items/"..file)
+    if not err then
+        local curr_obj = f()
+        if Cryptid_config[curr_obj.name] == nil then Cryptid_config[curr_obj.name] = true end
+    end
+end
 for _, file in ipairs(files) do
     print("Loading file "..file)
     local f, err = SMODS.load_file("Items/"..file)
@@ -561,6 +569,9 @@ SMODS.current_mod.extra_tabs = function() return cryptidTabs end
 
 -- This is short enough that I'm fine overriding it
 function calculate_reroll_cost(skip_increment)
+    if next(find_joker("cry-crustulum")) then
+        G.GAME.current_round.reroll_cost = 0; return
+    end
 	if G.GAME.current_round.free_rerolls < 0 then G.GAME.current_round.free_rerolls = 0 end
         if G.GAME.current_round.free_rerolls > 0 then G.GAME.current_round.reroll_cost = 0; return end                
 	G.GAME.current_round.reroll_cost_increase = G.GAME.current_round.reroll_cost_increase or 0

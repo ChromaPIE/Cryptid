@@ -18,8 +18,8 @@ local copies = {
 		}
     },
     loc_vars = function(self, info_queue)
-        info_queue[#info_queue+1] = {set = "Tag", key = "tag_double"}
-        info_queue[#info_queue+1] = {set = "Tag", key = "tag_cry_triple", specific_vars = {2}}
+        --info_queue[#info_queue+1] = {set = "Tag", key = "tag_double"}
+        --info_queue[#info_queue+1] = {set = "Tag", key = "tag_cry_triple", specific_vars = {2}}
         return {vars = {}}
     end,
 }
@@ -36,8 +36,8 @@ local tag_printer = {
 		}
     },
     loc_vars = function(self, info_queue)
-        info_queue[#info_queue+1] = {set = "Tag", key = "tag_double"}
-        info_queue[#info_queue+1] = {set = "Tag", key = "tag_cry_quadruple", specific_vars = {3}}
+        --info_queue[#info_queue+1] = {set = "Tag", key = "tag_double"}
+        --info_queue[#info_queue+1] = {set = "Tag", key = "tag_cry_quadruple", specific_vars = {3}}
         return {vars = {}}
     end,
     requires = {"v_cry_copies"}
@@ -55,8 +55,8 @@ local clone_machine = {
 		}
     },
     loc_vars = function(self, info_queue)
-        info_queue[#info_queue+1] = {set = "Tag", key = "tag_double"}
-        info_queue[#info_queue+1] = {set = "Tag", key = "tag_cry_quintuple", specific_vars = {4}}
+        --info_queue[#info_queue+1] = {set = "Tag", key = "tag_double"}
+        --info_queue[#info_queue+1] = {set = "Tag", key = "tag_cry_quintuple", specific_vars = {4}}
         return {vars = {}}
     end,
     requires = {"v_cry_tag_printer"}
@@ -323,7 +323,7 @@ local moneybean = {
 	key = "moneybean",
 	config = {extra = 1e300},
    	atlas = "atlasvoucher",
-	pos = {x = 2, y = 0},
+	pos = {x = 5, y = 1},
 	requires = {"v_money_tree"},
 	loc_txt = {
         name = 'Money Beanstalk',
