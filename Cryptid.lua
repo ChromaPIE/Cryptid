@@ -5,7 +5,7 @@
 --- MOD_AUTHOR: [MathIsFun_, Balatro Discord]
 --- MOD_DESCRIPTION: Adds unbalanced ideas to Balatro.
 --- BADGE_COLOUR: 708b91
---- DEPENDENCIES: [Talisman>=2.0.0-beta4, Steamodded>=1.0.0~ALPHA-0812d]
+--- DEPENDENCIES: [Talisman>=2.0.0-beta4, Steamodded>=1.0.0~ALPHA-0820b]
 --- VERSION: 0.4.3i
 
 ----------------------------------------------
@@ -13,11 +13,7 @@
 
 local mod_path = ''..SMODS.current_mod.path
 -- Load Options
-Cryptid_config = {["Cryptid"]={jimball_music = true, code_music = true, big_music = true, exotic_music = true}}
-local read_config = SMODS.load_file("config.lua")
-if read_config then
-    Cryptid_config = read_config()
-end
+Cryptid_config = SMODS.current_mod.config
 
 -- Custom Rarity setup (based on Relic-Jokers)
 Game:set_globals()
@@ -432,12 +428,6 @@ for _, file in ipairs(files) do
     end
 end
 
-local G_FUNCS_options_ref = G.FUNCS.options
-G.FUNCS.options = function(e)
-  G_FUNCS_options_ref(e)
-  NFS.write(mod_path.."/config.lua", STR_PACK(Cryptid_config))
-end
-
 if not SpectralPack then
     SpectralPack = {}
     local ct = create_tabs
@@ -752,7 +742,15 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
   if card.ability.consumeable and card.pinned then	-- counterpart is in Sticker.toml
       G.GAME.cry_pinned_consumeables = G.GAME.cry_pinned_consumeables + 1
   end
-
+  if card.ability.name == "cry-meteor" then 
+	card:set_edition('e_foil', true)
+  end
+  if card.ability.name == "cry-exoplanet" then 
+	card:set_edition('e_holo', true)
+  end
+  if card.ability.name == "cry-stardust" then 
+	card:set_edition('e_polychrome', true)
+  end
   return card
 end
 
@@ -1041,6 +1039,19 @@ function SMODS.current_mod.reset_game_globals(run_start)
     G.GAME.cry_ach_conditions = G.GAME.cry_ach_conditions or {}
 end
 
+--Fix a corrupted game state
+function Controller:queue_L_cursor_press(x, y)
+    if self.locks.frame then return end
+    if G.STATE == G.STATES.SPLASH then
+        if not G.HUD then 
+            self:key_press('escape')
+        else
+            G.STATE = G.STATES.BLIND_SELECT
+        end
+    end
+    self.L_cursor_queue = {x = x, y = y}
+end
+
 --Used to check to play the exotic music
 function cry_has_exotic()
     if G.jokers then
@@ -1263,12 +1274,41 @@ SMODS.Atlas({
 SMODS.Sticker:take_ownership('perishable', {
     atlas = "sticker",
     pos = {x = 4, y = 4},
-    prefix_config = {key = false}
+    prefix_config = {key = false},
+    loc_vars = function(self, info_queue, card)
+        if card.ability.consumeable then return {key = 'cry_perishable_consumeable'}
+	elseif card.ability.set == 'Voucher' then return {key = 'cry_perishable_voucher', vars = {G.GAME.cry_voucher_perishable_rounds or 1, card.ability.perish_tally or G.GAME.cry_voucher_perishable_rounds}}
+	elseif card.ability.set == 'Booster' then return {key = 'cry_perishable_booster'}
+	else return {vars = {G.GAME.perishable_rounds or 1, card.ability.perish_tally or G.GAME.perishable_rounds}}
+	end
+    end
 })
 SMODS.Sticker:take_ownership('pinned', {
     atlas = "sticker",
     pos = {x = 5, y = 0},
-    prefix_config = {key = false}
+    prefix_config = {key = false},
+    loc_vars = function(self, info_queue, card)
+        if card.ability.consumeable then return {key = 'cry_pinned_consumeable'}		-- this doesn't work. i want this to work :(
+	elseif card.ability.set == 'Voucher' then return {key = 'cry_pinned_voucher'}
+	elseif card.ability.set == 'Booster' then return {key = 'cry_pinned_booster'}
+	end
+    end
+})
+SMODS.Sticker:take_ownership('eternal', {
+    loc_vars = function(self, info_queue, card)
+	if card.ability.set == 'Voucher' then return {key = 'cry_eternal_voucher'}
+	elseif card.ability.set == 'Booster' then return {key = 'cry_eternal_booster'}
+	end
+    end
+})
+SMODS.Sticker:take_ownership('rental', {
+    loc_vars = function(self, info_queue, card)
+        if card.ability.consumeable then return {key = 'cry_rental_consumeable', vars = {G.GAME.cry_consumeable_rental_rate or 1}}
+	elseif card.ability.set == 'Voucher' then return {key = 'cry_rental_voucher', vars = {G.GAME.cry_voucher_rental_rate or 1}}
+	elseif card.ability.set == 'Booster' then return {key = 'cry_rental_booster'}
+	else return {vars = {G.GAME.rental_rate or 1}}
+	end
+    end
 })
 ----------------------------------------------
 ------------MOD CODE END----------------------

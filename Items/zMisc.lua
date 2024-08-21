@@ -221,14 +221,12 @@ local azure_seal = {
         -- Badge name
         label = 'Azure Seal',
         -- Tooltip description
-        description = {
-            name = 'Azure Seal',
-            text = {
-                'Create {C:attention}#1#{} {C:dark_edition}Negative{}',
-                '{C:planet}Planets{} for played',
-                '{C:attention}poker hand{}, then',
-                '{C:red}destroy{} this card'
-            }
+        name = 'Azure Seal',
+        text = {
+            'Create {C:attention}#1#{} {C:dark_edition}Negative{}',
+            '{C:planet}Planets{} for played',
+            '{C:attention}poker hand{}, then',
+            '{C:red}destroy{} this card'
         },
     },
     loc_vars = function(self, info_queue)
@@ -307,23 +305,26 @@ local typhoon = {
     cost = 4,
     atlas = "atlasnotjokers",
     pos = {x=0, y=4},
-    use = function(self, card, area, copier)
+    use = function(self, card, area, copier) --Good enough
+	for i = 1, #G.hand.highlighted do
+	local highlighted = G.hand.highlighted[i]
+	G.E_MANAGER:add_event(Event({func = function()
+            	play_sound('tarot1')
+            	highlighted:juice_up(0.3, 0.5)
+            	return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.1,
             func = function()
-                for i = 1, card.ability.max_highlighted do
-                    local highlighted = G.hand.highlighted[i]
-
                     if highlighted then
                         highlighted:set_seal('s_cry_azure')
-                    else
-                        break
                     end
-                end
                 return true
             end
         }))
+	delay(0.5)
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+	end
     end
 }
 local cat = {
@@ -448,10 +449,17 @@ local gambler = {
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RARITY.cry_exotic,function()
                     add_tag(Tag("tag_cry_empowered"))
-                    if not G.GAME.PACK_INTERRUPT then
-                        G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'new_blind_choice'})
-                    end
-                    G.CONTROLLER.locks[lock] = nil
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        delay = 0.3,
+                        func = function()
+                            if not G.GAME.PACK_INTERRUPT then
+                                G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'new_blind_choice'})
+                            end
+                            G.CONTROLLER.locks[lock] = nil
+                            return true
+                        end
+                    }))
                     return true
                 end)
             else
@@ -549,7 +557,7 @@ local memory = {
 local miscitems = {mosaic_shader, oversat_shader, glitched_shader, astral_shader, blurred_shader,
 glitched, mosaic, oversat, blurred, astral,
 echo_atlas, echo, eclipse, 
-azure_seal_sprite, typhoon, azure_seal, 
+azure_seal_sprite, typhoon, azure_seal,
 cat, empowered, gambler, bundle, memory}
 if cry_enable_epics then
     miscitems[#miscitems+1] = epic_tag
