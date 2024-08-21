@@ -216,16 +216,14 @@ local azure_seal = {
 	config = { planets_amount = 3 },
     loc_txt = {
         -- Badge name
-        label = 'Azure Seal',
+        label = '碧蓝色蜡封',
         -- Tooltip description
-        description = {
-            name = '碧蓝色蜡封',
-            text = {
-                '生成{C:attention}#1#{}张',
-                '与所出{C:attention}牌型{}对应的',
-                '{C:dark_edition}负片{C:planet}星球牌',
-                '并{C:red}摧毁{}本牌'
-            }
+        name = '碧蓝色蜡封',
+        text = {
+            '生成{C:attention}#1#{}张',
+            '与所出{C:attention}牌型{}对应的',
+            '{C:dark_edition}负片{C:planet}星球牌',
+            '并{C:red}摧毁{}本牌'
         },
     },
     loc_vars = function(self, info_queue)
@@ -303,23 +301,26 @@ local typhoon = {
     cost = 4,
     atlas = "atlasnotjokers",
     pos = {x=0, y=4},
-    use = function(self, card, area, copier)
+    use = function(self, card, area, copier) --Good enough
+	for i = 1, #G.hand.highlighted do
+	local highlighted = G.hand.highlighted[i]
+	G.E_MANAGER:add_event(Event({func = function()
+            	play_sound('tarot1')
+            	highlighted:juice_up(0.3, 0.5)
+            	return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.1,
             func = function()
-                for i = 1, card.ability.max_highlighted do
-                    local highlighted = G.hand.highlighted[i]
-
                     if highlighted then
                         highlighted:set_seal('s_cry_azure')
-                    else
-                        break
-                    end
                 end
                 return true
             end
         }))
+	delay(0.5)
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+	end
     end
 }
 local cat = {
@@ -444,10 +445,17 @@ local gambler = {
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RARITY.cry_exotic,function()
                     add_tag(Tag("tag_cry_empowered"))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        delay = 0.3,
+                        func = function()
                     if not G.GAME.PACK_INTERRUPT then
                     G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'new_blind_choice'})
                     end
                     G.CONTROLLER.locks[lock] = nil
+                    return true
+                        end
+                    }))
                     return true
                 end)
             else

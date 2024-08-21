@@ -61,7 +61,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -140,7 +140,17 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "^" },
-                    { ref_table = "card.joker_display_values", ref_value = "e_mult" }
+                    { 
+                        ref_table = "card.joker_display_values",
+                        ref_value = "e_mult",
+                        retrigger_type = function (number, triggers)
+                            local num = number
+                            for i=1, triggers-1 do
+                                num = num ^ number
+                            end
+                            return num
+                        end
+                    }
                 },
                 border_colour = G.C.DARK_EDITION
             }
@@ -308,7 +318,7 @@ if JokerDisplay then
     wee_fib.joker_display_definition = {
         text = {
             { text = "+" },
-            { ref_table = "card.ability.extra", ref_value = "mult" }
+            { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
         },
         text_config = { colour = G.C.MULT },
         reminder_text = {
@@ -372,7 +382,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -417,7 +427,7 @@ local lucky_joker = {
 if JokerDisplay then
     lucky_joker.joker_display_definition = {
         text = {
-            { ref_table = "card.joker_display_values", ref_value = "count" },
+            { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
             { text = "x",                              scale = 0.35 },
             { text = "$",                              colour = G.C.GOLD },
             { ref_table = "card.ability.extra",        ref_value = "dollars", colour = G.C.GOLD },
@@ -484,7 +494,7 @@ if JokerDisplay then
     cursor.joker_display_definition = {
         text = {
             { text = "+" },
-            { ref_table = "card.ability.extra", ref_value = "chips" }
+            { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
         },
         text_config = { colour = G.C.CHIPS },
     }
@@ -566,11 +576,13 @@ if JokerDisplay then
     pickle.joker_display_definition = {
         reminder_text = {
             { text = '(', },
+            { text = '+', colour = G.C.ORANGE },
+            { ref_table = "card.ability.extra", ref_value = "tags", colour = G.C.ORANGE, retrigger_type = "mult" },
             { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
             { text = ')', },
         },
         calc_function = function(card)
-            card.joker_display_values.localized_text = "+" .. card.ability.extra.tags .. " " .. localize("b_tags")
+            card.joker_display_values.localized_text = " " .. localize("b_tags")
         end
     }
 end
@@ -607,7 +619,7 @@ if JokerDisplay then
     cube.joker_display_definition = {
         text = {
             { text = "+" },
-            { ref_table = "card.ability.extra", ref_value = "chips" }
+            { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
         },
         text_config = { colour = G.C.CHIPS },
     }
@@ -655,7 +667,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -772,7 +784,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "Xmult" }
+                    { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
                 }
             }
         },
@@ -867,7 +879,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_chips" }
+                    { ref_table = "card.ability.extra", ref_value = "x_chips", retrigger_type = "exp" }
                 },
                 border_colour = G.C.CHIPS
             }
@@ -915,7 +927,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -966,7 +978,7 @@ if JokerDisplay then
     nice.joker_display_definition = {
         text = {
             { text = "+", },
-            { ref_table = "card.joker_display_values", ref_value = "chips" },
+            { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" },
         },
         text_config = { colour = G.C.CHIPS },
         reminder_text = {
@@ -1073,6 +1085,9 @@ if JokerDisplay then
                 G.jokers.cards[1].config.center.key
             card.joker_display_values.localized_text = leftmost_joker_key and
                 localize { type = 'name_text', key = leftmost_joker_key, set = 'Joker' } or "-"
+        end,
+        retrigger_joker_function = function (card, retrigger_joker)
+			return card ~= retrigger_joker and G.jokers.cards[1] == card and retrigger_joker.ability.extra.retriggers or 0
         end
     }
 end
@@ -1127,7 +1142,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -1269,7 +1284,7 @@ if JokerDisplay then
     fspinner.joker_display_definition = {
         text = {
             { text = "+" },
-            { ref_table = "card.joker_display_values", ref_value = "chips" }
+            { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
         },
         text_config = { colour = G.C.CHIPS },
         calc_function = function(card)
@@ -1285,6 +1300,51 @@ if JokerDisplay then
                 end
             end
             card.joker_display_values.chips = (hand_exists and (G.GAME.hands[text].played < play_more_than and card.ability.extra.chips + card.ability.extra.chip_mod) or card.ability.extra.chips)
+        end
+    }
+end
+local luigi = {
+	object_type = "Joker",
+	name = "cry-luigi",
+	key = "luigi",
+	pos = {x = 0, y = 3},
+    soul_pos = {x = 1, y = 3},
+    config = {extra = {x_chips = 3}},
+	loc_txt = {
+        name = 'Luigi',
+        text = {
+            "All Jokers give",
+            "{X:chips,C:white} X#1# {} Chips"
+		}
+    },
+	loc_vars = function(self, info_queue, center)
+		return {vars = {center.ability.extra.x_chips}}
+    end,
+	rarity = 4,
+	cost = 20,
+	blueprint_compat = true,
+	calculate = function(self, card, context)
+        if context.other_joker and context.other_joker.ability.set == "Joker" then
+            if not Talisman.config_file.disable_anims then 
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        context.other_joker:juice_up(0.5, 0.5)
+                        return true
+                    end
+                })) 
+            end
+            return {
+                message = localize{type='variable',key='a_xchips',vars={card.ability.extra.x_chips}}, colour = G.C.CHIPS,
+                Xchip_mod = card.ability.extra.x_chips
+            }
+        end
+	end,
+	atlas = "atlasthree",
+}
+if JokerDisplay then
+    luigi.joker_display_definition = {
+        mod_function = function(card, mod_joker)
+            return { x_chips = mod_joker.ability.extra.x_chips }
         end
     }
 end
@@ -1329,10 +1389,97 @@ local waluigi = {
 if JokerDisplay then
     waluigi.joker_display_definition = {
         mod_function = function(card, mod_joker)
-            return { x_mult = mod_joker.ability.extra.Xmult }
+            return { x_mult = mod_joker.ability.extra.Xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) }
         end
     }
 end
+
+local mario = {
+    object_type = "Joker",
+    name = "cry-mario",
+    key = "mario",
+    config = {extra = {retriggers = 1}},
+    pos = {x = 4, y = 3},
+    soul_pos = {x = 5, y = 3},
+    loc_txt = {
+        name = 'Mario',
+        text = {
+            "All Jokers",
+            "retrigger {C:attention}#1#{} additional time"
+            }
+        },
+    rarity = 4,
+    cost = 20,
+    blueprint_compat = true,
+	immune_to_chemach = true,
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.retriggers}}
+    end,
+    atlas = "atlasthree",
+    calculate = function(self, card, context)
+        if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= self then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
+                }
+        end
+    end
+}
+if JokerDisplay then
+    mario.joker_display_definition = {
+        reminder_text = {
+            { text = '(', },
+            { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+            { text = ')', },
+        },
+
+        retrigger_joker_function = function (card, retrigger_joker)
+            return card ~= retrigger_joker == card and retrigger_joker.ability.extra.retrigger or 0
+        end
+    }
+end
+
+local wario = {
+	object_type = "Joker",
+	name = "cry-wario",
+	key = "wario",
+	pos = {x = 2, y = 3},
+	immune_to_chemach = true,
+    soul_pos = {x = 3, y = 3 },
+    config = {extra = {money = 3}},
+    
+	loc_txt = {
+        name = 'Wario',
+        text = {
+            "All Jokers give",
+            "{C:money}$#1#{} at end of round",
+		}
+    },
+	loc_vars = function(self, info_queue, center)
+		return {vars = {center.ability.extra.money}}
+    end,
+
+calc_dollar_bonus = function(self, card)
+  if G.jokers and G.jokers.cards then
+    return #G.jokers.cards * card.ability.extra.money
+  end
+end,
+
+	rarity = 4,
+	cost = 20,
+
+	atlas = "atlasthree",
+}
+if JokerDisplay then
+    wario.joker_display_definition = {
+        mod_function = function(card, mod_joker)
+            return { card.ability.extra.money }  
+        end
+    }
+end
+
+
 local krustytheclown = {
 	object_type = "Joker",
 	name = "cry-krustytheclown",
@@ -1377,7 +1524,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -1451,7 +1598,7 @@ if JokerDisplay then
     gardenfork.joker_display_definition = {
         text = {
             { text = "+$" },
-            { ref_table = "card.joker_display_values", ref_value = "dollars" },
+            { ref_table = "card.joker_display_values", ref_value = "dollars", retrigger_type = "mult" },
         },
         text_config = { colour = G.C.GOLD },
         reminder_text = {
@@ -1517,7 +1664,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -1536,7 +1683,7 @@ if JokerDisplay then
                     end
                 end
             end
-            card.joker_display_values.x_mult = tonumber(string.format("%.2f", (card.ability.extra.xmult ^ count)))
+            card.joker_display_values.x_mult = card.ability.extra.xmult ^ count
         end,
     }
 end
@@ -1579,7 +1726,8 @@ if JokerDisplay then
     nosound.joker_display_definition = {
         retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
             if held_in_hand then return 0 end
-            return playing_card:get_id() and playing_card:get_id() == 7 and joker_card.ability.extra.retriggers or 0
+            return playing_card:get_id() and playing_card:get_id() == 7 and
+                joker_card.ability.extra.retriggers * JokerDisplay.calculate_joker_triggers(joker_card) or 0
         end
     }
 end
@@ -1633,7 +1781,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_chips" }
+                    { ref_table = "card.ability.extra", ref_value = "x_chips", retrigger_type = "exp" }
                 },
                 border_colour = G.C.CHIPS
             }
@@ -1713,7 +1861,8 @@ if JokerDisplay then
     weegaming.joker_display_definition = {
         retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
             if held_in_hand then return 0 end
-            return playing_card:get_id() and playing_card:get_id() == 2 and joker_card.ability.extra.retriggers or 0
+            return playing_card:get_id() and playing_card:get_id() == 2 and 
+                joker_card.ability.extra.retriggers * JokerDisplay.calculate_joker_triggers(joker_card) or 0
         end
     }
 end
@@ -1834,7 +1983,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -2020,7 +2169,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -2080,7 +2229,7 @@ if JokerDisplay then
     monkey_dagger.joker_display_definition = {
         text = {
             { text = "+" },
-            { ref_table = "card.ability.extra", ref_value = "chips" }
+            { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
         },
         text_config = { colour = G.C.CHIPS },
     }
@@ -2141,7 +2290,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_chips" }
+                    { ref_table = "card.ability.extra", ref_value = "x_chips", retrigger_type = "exp" }
                 },
                 border_colour = G.C.CHIPS
             }
@@ -2193,12 +2342,15 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
     }
 end
+
+
+
 local sapling = {
 	object_type = "Joker",
 	name = "cry-sapling",
@@ -2313,7 +2465,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_chips" }
+                    { ref_table = "card.ability.extra", ref_value = "x_chips", retrigger_type = "exp" }
                 },
                 border_colour = G.C.CHIPS
             }
@@ -2393,18 +2545,21 @@ local meteor = {
         name = 'Meteor Shower',
         text = {
             "{C:dark_edition}Foil{} cards each",
-            "give {C:chips}+#1#{} Chips"
+            "give {C:chips}+#1#{} Chips",
+	    "{C:inactive,s:0.8}Effect does not trigger",
+            "{C:inactive,s:0.8}on Meteor Shower"
         }
     },
     loc_vars = function(self, info_queue, center)
 	info_queue[#info_queue+1] = G.P_CENTERS.e_foil
         return {vars = {center.ability.extra.chips}}
     end,
-    rarity = 2,
-    cost = 5,
+    rarity = 1,
+    cost = 4,
     blueprint_compat = true,
     calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.edition and context.other_joker.edition.foil == true then
+        if context.other_joker and context.other_joker.edition 
+	and context.other_joker.edition.foil == true and context.other_joker.ability.name ~= "cry-meteor" then
             if not Talisman.config_file.disable_anims then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -2447,7 +2602,7 @@ if JokerDisplay then
     meteor.joker_display_definition = {
         text = {
             { text = "+" },
-            { ref_table = "card.joker_display_values", ref_value = "chips" }
+            { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
         },
         text_config = { colour = G.C.CHIPS },
         reminder_text = {
@@ -2483,18 +2638,21 @@ local exoplanet = {
         name = 'Exoplanet',
         text = {
             "{C:dark_edition}Holographic{} cards",
-            "each give {C:mult}+#1#{} Mult"
+            "each give {C:mult}+#1#{} Mult",
+	    "{C:inactive,s:0.8}Effect does not trigger",
+            "{C:inactive,s:0.8}on Exoplanet"
 		}
     	},
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue+1] = G.P_CENTERS.e_holo
 		return {vars = {center.ability.extra.mult}}
     	end,
-	rarity = 2,
-	cost = 5,
+	rarity = 1,
+	cost = 3,
 	blueprint_compat = true,
 	calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.edition and context.other_joker.edition.holo == true then
+        if context.other_joker and context.other_joker.edition
+	and context.other_joker.edition.holo == true and context.other_joker.ability.name ~= "cry-exoplanet" then
             if not Talisman.config_file.disable_anims then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -2537,7 +2695,7 @@ if JokerDisplay then
     exoplanet.joker_display_definition = {
         text = {
             { text = "+" },
-            { ref_table = "card.joker_display_values", ref_value = "mult" }
+            { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
         },
         text_config = { colour = G.C.MULT },
         reminder_text = {
@@ -2573,18 +2731,21 @@ local stardust = {
         name = 'Stardust',
         text = {
             "{C:dark_edition}Polychrome{} cards",
-            "each give {X:mult,C:white}X#1#{} Mult"
+            "each give {X:mult,C:white}X#1#{} Mult",
+	    "{C:inactive,s:0.8}Effect does not trigger",
+            "{C:inactive,s:0.8}on Stardust"
 		}
     	},
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
 		return {vars = {center.ability.extra.xmult}}
     	end,
-	rarity = 2,
-	cost = 6,
+	rarity = 1,
+	cost = 2,
 	blueprint_compat = true,
 	calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.edition and context.other_joker.edition.polychrome == true then
+        if context.other_joker and context.other_joker.edition 
+	and context.other_joker.edition.polychrome == true and context.other_joker.ability.name ~= "cry-stardust" then
             if not Talisman.config_file.disable_anims then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -2629,7 +2790,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -2649,7 +2810,7 @@ if JokerDisplay then
                     end
                 end
             end
-            card.joker_display_values.x_mult = tonumber(string.format("%.2f", (card.ability.extra.xmult ^ count)))
+            card.joker_display_values.x_mult = card.ability.extra.xmult ^ count
             card.joker_display_values.localized_text = localize { type = 'name_text', set = 'Edition', key = "e_polychrome" }
         end
     }
@@ -2714,10 +2875,8 @@ local rnj_loc_txts = {
         planet = {"if card is a {C:planet}Planet{} card"},
         spectral = {"if card is a {C:spectral}Spectral{} card"},
         joker = {"if card is a {C:attention}Joker{}"},
-        heart = {"if card is a {C:hearts}Heart{}"},
-        diamond = {"if card is a {C:diamonds}Diamond{}"},
-        spade = {"if card is a {C:spades}Spade{}"},
-        club = {"if card is a {C:clubs}Club{}"},
+        suit = {"if card is a {V:1}#3#{}"},
+        rank = {"if card is rank {C:attention}#3#{}"},
         face = {"if card is a {C:attention}face{} card"},
         boss = {"if {C:attention}blind{} is a {C:attention}Boss {C:attention}Blind{}"},
         non_boss = {"if {C:attention}blind{} is a {C:attention}Non-Boss {C:attention}Blind{}"},
@@ -2816,9 +2975,9 @@ function rnjoker_randomize(card)
             values.value = ((stat == "x_mult") or (stat == "x_chips")) and 1 or 0
             scale = true
             if stat == "plus_mult" then
-                values.scale_value = pseudorandom('rnj_scaling') * 5
+                values.scale_value = pseudorandom('rnj_scaling') * 10
             elseif stat == "plus_chips" then
-                values.scale_value = pseudorandom('rnj_scaling') * 25
+                values.scale_value = pseudorandom('rnj_scaling') * 50
             elseif stat == "h_size" then
                 values.scale_value = 1
             elseif stat == "money" then
@@ -2853,10 +3012,8 @@ function rnjoker_randomize(card)
             }
         elseif context == "playing_card_added" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
@@ -2870,10 +3027,8 @@ function rnjoker_randomize(card)
             }
         elseif context == "remove_playing_cards" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
@@ -2892,55 +3047,43 @@ function rnjoker_randomize(card)
             }
         elseif context == "discard" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
         elseif context == "individual_play" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
         elseif context == "individual_hand_score" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
         elseif context == "individual_hand_end" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
         elseif context == "repetition_play" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
         elseif context == "repetition_hand" then
             conds = {
-                "heart",
-                "spade",
-                "club",
-                "diamond",
+                "suit",
+                "rank",
                 "face",
                 "odds"
             }
@@ -2986,6 +3129,20 @@ function rnjoker_randomize(card)
                 local none, key = pseudorandom_element(G.GAME.hands, pseudoseed('rnj_poker-hand'))
                 values.cond_value = localize(key, 'poker_hands')
                 values.poker_hand = key
+            end
+            if cond == "suit" then
+                local suit = pseudorandom_element(SMODS.Suits, pseudoseed('rnj_suit'))
+                values.cond_value = localize(suit.key, 'suits_singular')
+                values.suit = suit.key
+                values.color = G.C.SUITS[suit.key]
+                if values.color == nil then
+                    values.color = G.C.IMPORTANT
+                end
+            end
+            if cond == "rank" then
+                local rank = pseudorandom_element(SMODS.Ranks, pseudoseed('rnj_rank'))
+                values.cond_value = localize(rank.key, 'ranks')
+                values.rank = rank.id
             end
             if (cond == "or_more") or (cond == "or_less") then
                 values.cond_value = math.min(5, math.floor(pseudorandom('rnj_cards') * 6))
@@ -3087,6 +3244,9 @@ function rnjoker_randomize(card)
     if values.cond_value then
         card.ability.extra.cond_value = values.cond_value
     end
+    if values.color then
+        card.ability.extra.color = values.color
+    end
     local text_parsed = {}
     for _, line in ipairs(values.loc_txt) do
         text_parsed[#text_parsed+1] = loc_parse_string(line)
@@ -3170,12 +3330,16 @@ local rnjoker = {
 		}
     },
 	loc_vars = function(self, info_queue, card)
-        return {vars = {
+        local vars = {vars = {
             (card.ability.extra and card.ability.extra.value_mod and card.ability.extra.value) or 0,
             (card.ability.extra and card.ability.extra.value and card.ability.extra.value_mod) or (card.ability.extra and card.ability.extra.value) or 0,
             card.ability.extra and card.ability.extra.cond_value or 0,
             G.GAME and G.GAME.probabilities.normal or 1
         }}
+        if card.ability.extra and card.ability.extra.color then
+            vars.vars.colours = {card.ability.extra.color}
+        end
+        return vars
     end,
 	rarity = 3,
 	cost = 6,
@@ -3264,7 +3428,7 @@ local rnjoker = {
                                 if context.card and context.card.ability and (context.card.ability.set == "Joker") then
                                     cond_passed = true
                                 end
-                            elseif j.cond == "heart" then
+                            elseif j.cond == "suit" then
                                 times_passed = 0
                                 local cards = context.cards
                                 if cards == nil then
@@ -3274,12 +3438,12 @@ local rnjoker = {
                                     cards = {context.other_card}
                                 end
                                 for i2, j2 in ipairs(cards) do
-                                    if j2:is_suit("Hearts") then
+                                    if j2:is_suit(j.suit) then
                                         cond_passed = true
                                         times_passed = times_passed + 1
                                     end
                                 end
-                            elseif j.cond == "diamond" then
+                            elseif j.cond == "rank" then
                                 times_passed = 0
                                 local cards = context.cards
                                 if cards == nil then
@@ -3289,37 +3453,7 @@ local rnjoker = {
                                     cards = {context.other_card}
                                 end
                                 for i2, j2 in ipairs(cards) do
-                                    if j2:is_suit("Diamonds") then
-                                        cond_passed = true
-                                        times_passed = times_passed + 1
-                                    end
-                                end
-                            elseif j.cond == "spade" then
-                                times_passed = 0
-                                local cards = context.cards
-                                if cards == nil then
-                                    cards = context.removed
-                                end
-                                if cards == nil then
-                                    cards = {context.other_card}
-                                end
-                                for i2, j2 in ipairs(cards) do
-                                    if j2:is_suit("Spades") then
-                                        cond_passed = true
-                                        times_passed = times_passed + 1
-                                    end
-                                end
-                            elseif j.cond == "club" then
-                                times_passed = 0
-                                local cards = context.cards
-                                if cards == nil then
-                                    cards = context.removed
-                                end
-                                if cards == nil then
-                                    cards = {context.other_card}
-                                end
-                                for i2, j2 in ipairs(cards) do
-                                    if j2:is_suit("Clubs") then
+                                    if j2:get_id() == j.rank then
                                         cond_passed = true
                                         times_passed = times_passed + 1
                                     end
@@ -3572,20 +3706,12 @@ local rnjoker = {
                     end
                     if j.stat and context.individual and indiv then
                         local cond_passed = false
-                        if j.cond == "heart" then
-                            if context.other_card:is_suit("Hearts") then
+                        if j.cond == "suit" then
+                            if context.other_card:is_suit(j.suit) then
                                 cond_passed = true
                             end
-                        elseif j.cond == "diamond" then
-                            if context.other_card:is_suit("Diamonds") then
-                                cond_passed = true
-                            end
-                        elseif j.cond == "spade" then
-                            if context.other_card:is_suit("Spades") then
-                                cond_passed = true
-                            end
-                        elseif j.cond == "club" then
-                            if context.other_card:is_suit("Clubs") then
+                        elseif j.cond == "rank" then
+                            if context.other_card:get_id() == j.rank then
                                 cond_passed = true
                             end
                         elseif j.cond == "face" then
@@ -3786,7 +3912,7 @@ local hand_xmult_jd = {
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
             }
         }
     },
@@ -3797,8 +3923,8 @@ local hand_xmult_jd = {
     },
     calc_function = function(card)
         local x_mult = 1
-        local _, poker_hands, _ = JokerDisplay.evaluate_hand()
-        if poker_hands[card.ability.type] and next(poker_hands[card.ability.type]) then
+        local text, poker_hands, _ = JokerDisplay.evaluate_hand()
+        if text ~= "Unknown" and poker_hands[card.ability.type] and next(poker_hands[card.ability.type]) then
             x_mult = card.ability.x_mult
         end
         card.joker_display_values.x_mult = x_mult
@@ -4134,7 +4260,7 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
                 }
             }
         },
@@ -4233,11 +4359,17 @@ if JokerDisplay then
         },
         extra_config = { colour = G.C.GREEN, scale = 0.3 },
         calc_function = function(card)
-            card.ability.name = "Blueprint" --funny workaround
             local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
-            card.ability.name = "cry-oldblueprint"
             card.joker_display_values.blueprint_compat = localize('k_incompatible')
             JokerDisplay.copy_display(card, copied_joker, copied_debuff)
+        end,
+        get_blueprint_joker = function (card)
+            for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then
+					return G.jokers.cards[i + 1]
+				end
+			end
+            return nil
         end
     }
 end
@@ -4309,7 +4441,17 @@ if JokerDisplay then
             {
                 border_nodes = {
                     { text = "^" },
-                    { ref_table = "card.joker_display_values", ref_value = "e_mult" }
+                    { 
+                        ref_table = "card.joker_display_values",
+                        ref_value = "e_mult",
+                        retrigger_type = function (number, triggers)
+                            local num = number
+                            for i=1, triggers-1 do
+                                num = num ^ number
+                            end
+                            return num
+                        end
+                    }
                 },
                 border_colour = G.C.DARK_EDITION
             }
@@ -4428,7 +4570,7 @@ return {name = "Misc. Jokers",
             function Card:set_cost()
                 sc(self)
                 if self.ability.name == "cry-Cube" then
-                    self.cost = -25
+                    self.cost = -27
                 end
                 if self.ability.name == "cry-Big Cube" then
                     self.cost = 27
@@ -4456,4 +4598,4 @@ return {name = "Misc. Jokers",
             end
 
         end,
-        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, waluigi, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, rnjoker, filler, duos, home, nuts, quintet, unity, swarm, coin, wheelhope, night, busdriver, oldblueprint}}
+        items = {jimball_sprite, dropshot, happyhouse, maximized, potofjokes, queensgambit, wee_fib, compound_interest, whip, pickle, triplet_rhythm, booster, chili_pepper, lucky_joker, cursor, cube, big_cube, nice, sus, chad, jimball, luigi, waluigi, mario, wario, eternalflame, seal_the_deal, fspinner, krustytheclown, blurred, gardenfork, lightupthenight, nosound, antennastoheaven, hunger, weegaming, redbloon, apjoker, maze, panopticon, magnet, unjust_dagger, monkey_dagger, pirate_dagger, mondrian, sapling, spaceglobe, happy, meteor, exoplanet, stardust, rnjoker, filler, duos, home, nuts, quintet, unity, swarm, coin, wheelhope, night, busdriver, oldblueprint}}

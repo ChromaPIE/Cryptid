@@ -44,16 +44,16 @@ if JokerDisplay then
 	supercell.joker_display_definition = {
 		text = {
 			{ text = "+",                       colour = G.C.CHIPS },
-			{ ref_table = "card.ability.extra", ref_value = "stat1", colour = G.C.CHIPS },
+			{ ref_table = "card.ability.extra", ref_value = "stat1", colour = G.C.CHIPS, retrigger_type = "mult" },
 			{ text = " +",                      colour = G.C.MULT },
-			{ ref_table = "card.ability.extra", ref_value = "stat1", colour = G.C.MULT },
+			{ ref_table = "card.ability.extra", ref_value = "stat1", colour = G.C.MULT, retrigger_type = "mult" },
 		},
 		extra = {
 			{
 				{
 					border_nodes = {
 						{ text = "X" },
-						{ ref_table = "card.ability.extra", ref_value = "stat2" }
+						{ ref_table = "card.ability.extra", ref_value = "stat2", retrigger_type = "exp" }
 					},
 					border_colour = G.C.CHIPS
 				},
@@ -61,7 +61,7 @@ if JokerDisplay then
 				{
 					border_nodes = {
 						{ text = "X" },
-						{ ref_table = "card.ability.extra", ref_value = "stat2" }
+						{ ref_table = "card.ability.extra", ref_value = "stat2", retrigger_type = "exp" }
 					}
 				}
 			},
@@ -114,7 +114,7 @@ if JokerDisplay then
 			{
 				border_nodes = {
 					{ text = "X" },
-					{ ref_table = "card.ability.extra", ref_value = "Xmult" }
+					{ ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
 				}
 			}
 		},
@@ -152,8 +152,18 @@ local sync_catalyst = {
 	calculate = function(self, card, context)
 		if context.cardarea == G.jokers and not context.before and not context.after then
 			local tot = hand_chips + mult
+			if not tot.array or #tot.array < 2 or tot.array[2] < 2 then --below eXeY notation
 			hand_chips = mod_chips(math.floor(tot/2))
 			mult = mod_mult(math.floor(tot/2))
+			else
+				if hand_chips > mult then
+					tot = hand_chips
+				else
+					tot = mult
+				end
+				hand_chips = mod_chips(tot)
+				mult = mod_chips(tot)
+			end
 			update_hand_text({delay = 0}, {mult = mult, chips = hand_chips})
 			return {
 				message = localize('k_balanced'),
@@ -239,6 +249,9 @@ if JokerDisplay then
 				end
 			end
 			card.joker_display_values.num_retriggers = num_retriggers
+		end,
+		retrigger_joker_function = function (card, retrigger_joker)
+			return card.T.x + card.T.w / 2 < retrigger_joker.T.x + retrigger_joker.T.w / 2 and retrigger_joker.joker_display_values.num_retriggers or 0
 		end
 	}
 end
@@ -381,7 +394,7 @@ if JokerDisplay then
 			{
 				border_nodes = {
 					{ text = "X" },
-					{ ref_table = "card.ability.extra", ref_value = "x_mult" }
+					{ ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
 				}
 			}
 		},
@@ -419,106 +432,6 @@ local M = {
 		end
 	end
 }
-
-local CodeJoker = {
-	object_type = "Joker",
-	name = "cry-CodeJoker",
-	key = "CodeJoker",
-	pos = {x = 2, y = 4},
-	loc_txt = {
-        name = 'Code Joker',
-        text = {
-			"Create a {C:dark_edition}Negative{}",
-			"{C:cry_code}Code Card{} when",
-			"{C:attention}Blind{} is selected"
-		}
-    },
-	rarity = "cry_epic",
-	cost = 11,
-	blueprint_compat = true,
-	atlas = "atlasepic",
-	calculate = function(self, card, context)
-        if context.setting_blind and not (context.blueprint_card or self).getting_sliced then
-			play_sound('timpani')
-			local card = create_card('Code', G.consumables, nil, nil, nil, nil)
-			card:set_edition({
-				negative = true
-			})
-			card:add_to_deck()
-			G.consumeables:emplace(card)
-			card:juice_up(0.3, 0.5)
-			return {completed=true}
-		end
-	end
-}
-
-local copypaste = {
-	object_type = "Joker",
-	name = "cry-copypaste",
-	key = "copypaste",
-	pos = {x = 3, y = 4},
-	config = {extra = {odds = 2, ckt = 0}},
-	loc_txt = {
-        name = 'Copy/Paste',
-        text = {
-			"When a {C:cry_code}Code{} card is used,",
-                "{C:green}#1# in #2#{} chance to add a copy",
-                "to your consumable area",
-                "{C:inactive}(Must have room)"
-		}
-    },
-	rarity = "cry_epic",
-	cost = 14,
-	blueprint_compat = true,
-	loc_vars = function(self, info_queue, center)
-		return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), (center and center.ability.extra.odds or 2)}}
-    end,
-	atlas = "atlasepic",
-	calculate = function(self, card, context)
-		if context.using_consumeable and context.consumeable.ability.set == 'Code' and not context.consumeable.beginning_end then
-			if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-				if pseudorandom("cry_copypaste_joker") < G.GAME.probabilities.normal/card.ability.extra.odds then
-					if G.GAME.probabilities.normal >= card.ability.extra.odds and context.consumeable.from_copypaste then
-						card.ability.extra.ckt = card.ability.extra.ckt + 1
-					else
-						card.ability.extra.ckt = 0
-					end
-					G.E_MANAGER:add_event(Event({
-                        func = function() 
-                            local cards = copy_card(context.consumeable)
-                            if card.ability.extra.ckt >= 10 then 
-                                cards.beginning_end = true
-                                card.ability.extra.ckt = 0
-                            else
-                                cards.from_from_copypaste = true
-                            end
-                            cards:add_to_deck()
-                            G.consumeables:emplace(cards) 
-                            return true
-                        end}))
-                    card_eval_status_text(context.blueprint_cards or card, 'extra', nil, nil, nil, {message = localize('k_copied_ex')})
-                end
-            end
-        end
-	end
-}
-if JokerDisplay then
-	copypaste.joker_display_definition = {
-		extra = {
-			{
-				{ text = "(" },
-				{ ref_table = "card.joker_display_values", ref_value = "odds" },
-				{ text = " in " },
-				{ ref_table = "card.ability.extra",        ref_value = "odds" },
-				{ text = ")" },
-			}
-		},
-		extra_config = { colour = G.C.GREEN, scale = 0.3 },
-		calc_function = function(card)
-			card.joker_display_values.odds = G.GAME and G.GAME.probabilities.normal or 1
-		end
-	}
-end
 
 local boredom = {
 	object_type = "Joker",
@@ -961,7 +874,7 @@ if JokerDisplay then
 			{
 				border_nodes = {
 					{ text = "X" },
-					{ ref_table = "card.joker_display_values", ref_value = "x_mult" }
+					{ ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
 				}
 			}
 		},
@@ -978,7 +891,7 @@ if JokerDisplay then
 						JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
 				end
 			end
-			card.joker_display_values.x_mult = tonumber(string.format("%.2f", (card.ability.extra.x_mult ^ count)))
+			card.joker_display_values.x_mult = card.ability.extra.x_mult ^ count
 	
 			card.joker_display_values.start_round = card.joker_display_values.start_round or
 				card.ability.extra.rounds_remaining
@@ -1274,7 +1187,7 @@ if JokerDisplay then
 					end
 				end
 			end
-            card.joker_display_values.count = count
+            card.joker_display_values.count = math.min(count, 2-card.ability.extra.check)
             card.joker_display_values.odds = G.GAME and G.GAME.probabilities.normal or 1
 		end
 	}
@@ -1327,7 +1240,7 @@ if JokerDisplay then
 	multjoker.joker_display_definition = {
 		text = {
             { text = "+" },
-            { ref_table = "card.joker_display_values", ref_value = "count" },
+            { ref_table = "card.joker_display_values", ref_value = "count", retrigger_type = "mult" },
         },
         text_config = { colour = G.C.SECONDARY_SET.Spectral },
         extra = {
@@ -1609,4 +1522,4 @@ return {name = "Epic Jokers",
                 loc_txt = {}
             },true)
 		end,
-		items = {supercell, googol_play, sync_catalyst, negative, canvas, error_joker, M, m, CodeJoker, copypaste, boredom, double_scale, number_blocks, oldcandy, caramel, curse, bonusjoker, multjoker,goldjoker,altgoogol,soccer}}
+		items = {supercell, googol_play, sync_catalyst, negative, canvas, error_joker, M, m, boredom, double_scale, number_blocks, oldcandy, caramel, curse, bonusjoker, multjoker,goldjoker,altgoogol,soccer}}
